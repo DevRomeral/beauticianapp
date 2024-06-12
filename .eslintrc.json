@@ -3,6 +3,8 @@
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
     "prettier"
   ],
   "plugins": ["@typescript-eslint", "eslint-plugin-import-helpers"],
