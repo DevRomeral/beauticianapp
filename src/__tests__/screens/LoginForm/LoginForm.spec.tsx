@@ -15,6 +15,10 @@ describe('Login Form', () => {
   const inputPlaceholderPassword = '•••••••••';
   const idBtnSubmit = 'btnSubmit';
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders login form', () => {
     render(<LoginForm />);
 
@@ -42,5 +46,29 @@ describe('Login Form', () => {
     await screen.findByTestId(idBtnSubmit);
 
     expect(mockRouterPush).toHaveBeenCalledWith('/profile');
+  });
+
+  it('login form fails', async () => {
+    render(<LoginForm />);
+
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: false,
+    });
+
+    const iEmail = screen.getByPlaceholderText(inputPlaceholderEmail);
+    const iPass = screen.getByPlaceholderText(inputPlaceholderPassword);
+    const btnSubmit = screen.getByTestId(idBtnSubmit);
+
+    fireEvent.change(iEmail, { target: { value: 'test@example.com' } });
+    fireEvent.change(iPass, { target: { value: 'password123' } });
+
+    fireEvent.click(btnSubmit);
+
+    await screen.findByTestId(idBtnSubmit);
+
+    const errorMessage = screen.getByText('No se pudo iniciar sesión correctamente');
+    expect(errorMessage).toBeInTheDocument();
+
+    expect(mockRouterPush).not.toHaveBeenCalled();
   });
 });
