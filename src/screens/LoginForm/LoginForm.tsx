@@ -16,22 +16,24 @@ function LoginForm() {
     const email = formData.get('email');
     const password = formData.get('password');
 
+    const callbackUrl = new URLSearchParams(window.location.search).get('callbackUrl') || '/profile';
+    console.log('Redirección: ' + callbackUrl);
+
     const responseNextAuth = await signIn('credentials', {
       email,
       password,
+      // redirectTo: callbackUrl,
       redirect: false,
     });
 
     console.log(responseNextAuth);
 
-    if (responseNextAuth?.error) {
-      setErrorMessages(responseNextAuth.error.split(','));
+    if (responseNextAuth?.ok) {
+      router.push(callbackUrl);
       return;
     }
 
-    const callbackUrl = new URLSearchParams(window.location.search).get('callbackUrl') || '/profile';
-    console.log('Redirección: ' + callbackUrl);
-    router.push(callbackUrl);
+    setErrorMessages((responseNextAuth?.error || '').split(','));
   }
 
   return (
