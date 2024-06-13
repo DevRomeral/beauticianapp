@@ -15,7 +15,8 @@ export async function POST(req: NextRequest) {
 
   // TODO: Cambiar el id y el rol del usuario
 
-  const token = jwt.sign(
+  // Token recibido del back
+  const backToken = jwt.sign(
     {
       id: 1,
       rol: 'admin',
@@ -24,11 +25,11 @@ export async function POST(req: NextRequest) {
       // Expira en 30 días
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
     },
-    process.env.JWT_TOKEN_SECRET ?? '',
+    process.env.BACKEND_JWT_TOKEN_SECRET ?? '',
   );
 
   // TODO: revisar el sameSite para configurarlo con el back
-  const serialized = serialize('myTokenName', token, {
+  const serialized = serialize(process.env.NEXT_PUBLIC_BACKEND_JWT_TOKEN_NAME ?? '', backToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
@@ -36,8 +37,15 @@ export async function POST(req: NextRequest) {
     path: '/',
   });
 
-  const response = NextResponse.json({ message: 'login success' });
-  response.headers.set('Set-Cookie', serialized);
+  const user = {
+    id: 1,
+    name: email,
+    email: email,
+    rol: 'admin',
+    backToken: backToken,
+  };
 
+  const response = NextResponse.json({ ...user, message: 'login ok' });
+  response.headers.set('Set-Cookie', serialized);
   return response;
 }

@@ -1,3 +1,4 @@
+import SessionAuthProvider from '@/contexts/SessionAuthProvider';
 import type { Metadata } from 'next';
 import '@/styles/globals.scss';
 import { Poppins } from 'next/font/google';
@@ -22,10 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={font.className}>
-        <NavBar />
-        <main>{children}</main>
-      </body>
+      <SessionAuthProvider>
+        <body className={font.className}>
+          <NavBar />
+          <main>{children}</main>
+        </body>
+      </SessionAuthProvider>
     </html>
   );
 }

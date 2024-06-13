@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'No token was found' }, { status: 401 });
     }
 
-    verify(myTokenName, process.env.JWT_TOKEN_SECRET ?? '');
+    verify(myTokenName, process.env.BACKEND_JWT_TOKEN_SECRET ?? '');
 
     // TODO: revisar el sameSite para configurarlo con el back
     const serialized = serialize('myTokenName', '', {
