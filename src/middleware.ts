@@ -75,6 +75,6 @@ export const config = {
     {
       source: '/profile',
     },
-    '/api/auth/profile',
+    // '/api/auth/profile',
   ],
 };

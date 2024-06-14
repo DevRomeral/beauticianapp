@@ -9,14 +9,20 @@ function ProfilePage() {
 
   const whoAmI = async () => {
     // console.log('Token: ' + session?.user?.token);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/profile`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        // authorization: `Bearer ${session?.user?.backToken}`,
-      },
-    });
-    setWhoami(await res.json());
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/profile`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // authorization: `Bearer ${session?.user?.token}`,
+        },
+        credentials: 'include',
+      });
+      setWhoami(await res.json());
+    } catch (err) {
+      console.error(err);
+      setWhoami({});
+    }
   };
 
   // console.log('Bearer', session?.user?.backToken);

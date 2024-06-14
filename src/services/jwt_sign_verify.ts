@@ -2,8 +2,8 @@ import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
 
 export async function create(email: string, secret: string): Promise<string> {
   const iat = Math.floor(Date.now() / 1000);
-  // const exp = iat + 60 * 60 * 24 * 30; // 30 days
-  const exp = iat + 60 + 15; // 15 seconds
+  const exp = iat + 60 * 60 * 24 * 30; // 30 days
+  // const exp = iat + 60 + 15; // 15 seconds
 
   return new SignJWT({
     id: 1,
