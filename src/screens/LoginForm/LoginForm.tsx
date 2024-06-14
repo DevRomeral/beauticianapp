@@ -17,7 +17,6 @@ function LoginForm() {
     const password = formData.get('password');
 
     const callbackUrl = new URLSearchParams(window.location.search).get('callbackUrl') || '/profile';
-    console.log('Redirección: ' + callbackUrl);
 
     const responseNextAuth = await signIn('credentials', {
       email,
@@ -26,14 +25,12 @@ function LoginForm() {
       redirect: false,
     });
 
-    console.log(responseNextAuth);
-
-    if (responseNextAuth?.ok) {
-      router.push(callbackUrl);
+    if (responseNextAuth?.error) {
+      setErrorMessages((responseNextAuth?.error || '').split(','));
       return;
     }
 
-    setErrorMessages((responseNextAuth?.error || '').split(','));
+    router.push(callbackUrl);
   }
 
   return (

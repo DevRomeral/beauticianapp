@@ -2,10 +2,9 @@
 
 import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 export default function NavBar() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   return (
     <nav className="flex flex-wrap justify-between bg-slate-400 p-2">
@@ -13,9 +12,10 @@ export default function NavBar() {
         <Link href="/">Home</Link>
         <Link href="/login">Login</Link>
         <Link href="/register">Register</Link>
-        <Link href="/profile" prefetch={false}>
+        {/* <Link href="/profile" prefetch={false}>
           Profile
-        </Link>
+        </Link> */}
+        <a href="/profile">Profile</a>
       </div>
       <div className="flex flex-wrap gap-3">
         {(session?.user && (
