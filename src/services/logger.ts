@@ -69,6 +69,6 @@ function getLogMessage(level: string, message: string, timestamp: string): strin
   }`;
 }
 
-logger.info(`Starting logger for environment: ${process.env.NODE_ENV}`);
+// logger.info(`Starting logger for environment: ${process.env.NODE_ENV}`);
 
 export default logger;
