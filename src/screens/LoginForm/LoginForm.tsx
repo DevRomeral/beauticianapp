@@ -53,7 +53,7 @@ function LoginForm() {
           </div>
         )}
         <div className="mb-6">
-          <button type="submit" data-testid="btnSubmit">
+          <button type="submit" className="primary" data-testid="btnSubmit">
             Iniciar Sesión
           </button>
         </div>

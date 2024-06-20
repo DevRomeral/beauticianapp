@@ -1,8 +1,10 @@
+/* Background */
+$buttonBackgroundColor: $screenBackgroundColor;
 
-/** Button Styles */
 
 button {
-  @apply text-primary-400 rounded-sm py-1 px-2 text-base gap-2 bg-white;
+  @apply text-primary-400 rounded-sm py-1 px-2 text-base gap-2 font-semibold;
+  background-color: $buttonBackgroundColor;
 }
 
 

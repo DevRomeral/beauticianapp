@@ -7,7 +7,7 @@ export default function NavBar() {
   const { data: session } = useSession();
 
   return (
-    <nav className="bg-secondary-600 flex flex-wrap justify-between p-2 text-white">
+    <nav>
       <div className="flex flex-wrap gap-3">
         <Link href="/">Home</Link>
         <Link href="/login">Login</Link>

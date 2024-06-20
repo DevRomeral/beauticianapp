@@ -2,16 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Common */
+@import 'common/variables.scss';
+@import 'common/screen.scss';
+@import 'common/navbar.scss';
+
 /* Form Controls */
+@import 'form-controls/input.scss';
 @import 'form-controls/buttons.scss';
-@import 'form-controls.scss';
 
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+
 
 @media (prefers-color-scheme: dark) {
   /* :root {
@@ -22,13 +23,7 @@
 }
 
 body {
-  /* color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+  background-color: $screenBackgroundColor;
 }
 
 @layer utilities {

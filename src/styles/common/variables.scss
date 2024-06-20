@@ -1,0 +1,16 @@
+/* Screen */
+$screenBackgroundColor: theme('colors.white');
+
+/* Navbar */
+$navbarHeight: 40px;
+
+/* Heading Text */
+$h1TextSize: theme('fontSize.4xl');
+$h2TextSize: theme('fontSize.3xl');
+$h3TextSize: theme('fontSize.2xl');
+$h4TextSize: theme('fontSize.xl');
+$h5TextSize: theme('fontSize.lg');
+$h6TextSize: theme('fontSize.base');
+
+/* Inputs */
+$inputBackgroundColor: $screenBackgroundColor;
