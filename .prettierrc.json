@@ -6,8 +6,5 @@
   "tabWidth": 2,
   "plugins": ["prettier-plugin-tailwindcss"],
   "tailwindFunctions": ["clsx", "cn", "twMerge"],
-  "endOfLine": "lf",
-  "tailwindConfig": {
-    "classNamesOrder": "off"
-  }
+  "endOfLine": "lf"
 }
