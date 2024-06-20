@@ -1,7 +1,17 @@
+import { Appointment } from '@/types/appointments/appointment.model';
+
+import AppointmentCard from '@/components/appointment/AppointmentCard';
+
 export default function HomePage() {
+  const appointment1: Appointment = {
+    date: new Date(Date.now()),
+    customer: 'Adolfi',
+    service: 'Pedicura',
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center gap-2">
-      <h1 className="text-2xl">Home</h1>
+      <h1>Home</h1>
       <div className="flex flex-col gap-2">
         <div>
           <h1>H1 Heading Text</h1>
@@ -25,11 +35,15 @@ export default function HomePage() {
         <div>
           <h1>Text Fields</h1>
           <div className="flex flex-row gap-2">
-            <div>
+            <div className="w-full">
               <label>Mi input</label>
               <input type="text" placeholder="Placeholder"></input>
             </div>
           </div>
+        </div>
+        <div>
+          <h1>Appointment Cards</h1>
+          <AppointmentCard appointment={appointment1}></AppointmentCard>
         </div>
       </div>
     </div>

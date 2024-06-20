@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import '@/styles/globals.scss';
 import { Manrope } from 'next/font/google';
 
-import NavBar from '@/components/Navbar/Navbar';
+import NavBar from '@/components/navbar/Navbar';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
