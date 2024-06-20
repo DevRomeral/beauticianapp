@@ -12,10 +12,10 @@ export default function NavBar() {
         <Link href="/">Home</Link>
         <Link href="/login">Login</Link>
         <Link href="/register">Register</Link>
-        {/* <Link href="/profile" prefetch={false}>
+        <Link href="/profile" prefetch={false}>
           Profile
-        </Link> */}
-        <a href="/profile">Profile</a>
+        </Link>
+        {/* <a href="/profile">Profile</a> */}
       </div>
       <div className="flex flex-wrap gap-3">
         {(session?.user && (

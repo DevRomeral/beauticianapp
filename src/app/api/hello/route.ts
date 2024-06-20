@@ -1,7 +1,7 @@
 import logger from '@/services/logger';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export function GET(req: NextRequest) {
+export function GET() {
   const msg = { message: 'Hello, World!' };
   logger.info('Requesting a hello', msg);
   return NextResponse.json(msg);
