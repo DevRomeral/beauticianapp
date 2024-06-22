@@ -1,10 +1,10 @@
 nav{
-  @apply bg-secondary-600 flex flex-wrap justify-between content-center p-2 text-white fixed w-full;
+  @apply bg-secondary-900 flex flex-wrap content-center p-2 text-white fixed w-full;
   height: $navbarHeight;
 }
 
 .drawer-menu {
-  @apply bg-secondary-900 fixed md:relative inset-0 z-40 flex h-full w-full flex-col content-center overflow-hidden bg-opacity-95 transition-all  ease-in-out md:flex md:h-min md:w-min md:bg-transparent -left-full md:left-0 duration-300;
+  @apply bg-secondary-900 fixed md:relative inset-0 z-40 flex h-full w-full flex-col content-center overflow-hidden bg-opacity-95 transition-all  ease-in-out md:flex md:h-min md:w-min flex-1 md:items-start md:bg-transparent -left-full md:left-0 duration-300;
 }
 
 .drawer-menu .welcome {
@@ -13,9 +13,14 @@ nav{
 }
 
 .drawer-menu .links {
-  @apply flex flex-col h-full items-center justify-center gap-5 text-2xl md:text-lg text-white  md:flex-row;
+  @apply flex flex-col h-full items-center justify-center gap-5 text-2xl md:text-lg text-white  md:flex-row font-extralight;
 }
 
 .drawer-menu.open {
   @apply -left-0;
+}
+
+
+.logo-container img {
+  filter: brightness(0) invert(1);
 }
