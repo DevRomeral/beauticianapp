@@ -39,16 +39,6 @@ export default function NavBar() {
             </Link>
           </li>
           <li>
-            <Link href="/login" onClick={closeDrawer} className={setActiveLink('/login')}>
-              Login
-            </Link>
-          </li>
-          <li>
-            <Link href="/register" onClick={closeDrawer} className={setActiveLink('/register')}>
-              Register
-            </Link>
-          </li>
-          <li>
             <Link href="/profile" prefetch={false} onClick={closeDrawer} className={setActiveLink('/profile')}>
               Profile
             </Link>
@@ -72,10 +62,12 @@ export default function NavBar() {
         </div>
       </div>
       <div className="logo-container flex h-full max-w-10 flex-auto justify-center">
-        <Image src={logo} className="h-full w-auto" alt="Logo"></Image>
+        <Link href="/">
+          <Image src={logo} className="h-full w-auto" alt="Logo"></Image>
+        </Link>
       </div>
       <div className="flex flex-1 flex-wrap justify-end gap-3">
-        {session?.user && (
+        {(session?.user && (
           <>
             <span
               className="cursor-pointer"
@@ -86,6 +78,10 @@ export default function NavBar() {
               Sign out
             </span>
           </>
+        )) || (
+          <Link href="/welcome" onClick={closeDrawer} className={setActiveLink('/welcome')}>
+            Identifícate
+          </Link>
         )}
       </div>
     </nav>

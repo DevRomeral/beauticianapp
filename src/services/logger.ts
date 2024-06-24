@@ -1,6 +1,5 @@
 import chalk from 'chalk';
 import { createLogger, format, transports } from 'winston';
-import 'winston-daily-rotate-file';
 
 // const logFileName = 'app';
 // const dirname = '.logs';

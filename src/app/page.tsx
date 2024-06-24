@@ -1,4 +1,4 @@
-import { Appointment } from '@/types/appointments/appointment.model';
+import { Appointment } from '@/types/props/components/cards/appointments/appointment.model';
 
 import AppointmentCard from '@/components/appointment/AppointmentCard';
 

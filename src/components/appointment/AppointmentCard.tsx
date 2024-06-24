@@ -1,5 +1,5 @@
 import { getDateTime } from '@/services/customize/date-service';
-import { Appointment } from '@/types/appointments/appointment.model';
+import { Appointment } from '@/types/props/components/cards/appointments/appointment.model';
 
 export default function AppointmentCard({ appointment }: { appointment: Appointment }) {
   return (

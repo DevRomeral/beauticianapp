@@ -1,5 +1,5 @@
 import { getDateTime } from '@/services/customize/date-service';
-import { Appointment } from '@/types/appointments/appointment.model';
+import { Appointment } from '@/types/props/components/cards/appointments/appointment.model';
 import { render, screen } from '@testing-library/react';
 
 import AppointmentCard from '@/components/appointment/AppointmentCard';
