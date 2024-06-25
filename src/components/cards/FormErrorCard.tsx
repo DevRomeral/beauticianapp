@@ -1,6 +1,8 @@
 'use client';
 
-import { FormErrorCardProps } from '@/types/props/components/cards/form-error-card.props';
+export interface FormErrorCardProps {
+  errors: string[];
+}
 
 const FormErrorCard: React.FC<FormErrorCardProps> = ({ errors }) => {
   if (errors.length == 0) {

@@ -5,6 +5,7 @@ export type ButtonType = 'button' | 'submit';
 export type ButtonStyle = '' | 'primary' | 'danger';
 
 export interface ButtonProps {
+  id?: string;
   type?: ButtonType;
   style?: ButtonStyle;
   text: string;
@@ -24,12 +25,14 @@ function buttonStyles(style: ButtonStyle): string {
   }
 }
 
-const Button: React.FC<ButtonProps> = ({ type = 'button', style = '', text = '', onClick }) => {
+const Button: React.FC<ButtonProps> = ({ id, type = 'button', style = '', text = '', onClick }) => {
   return (
     <button
       type={type}
       className={`gap-2 rounded-sm px-2 py-1 text-base font-semibold uppercase duration-300 ${buttonStyles(style)}`}
       onClick={onClick}
+      id={id}
+      data-testid={id}
     >
       {text}
     </button>

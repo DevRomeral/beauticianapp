@@ -1,7 +1,8 @@
 'use client';
 
+import { backendJWTConfig } from '@/configs/BackendJWTConfig';
 import { User } from '@/types/user';
-import { backendJWTConfig, fromJWTtoUser } from '@/utils/JWT';
+import { fromJWTtoUser } from '@/utils/JWT';
 import { parseCookies } from 'nookies';
 import { createContext, useContext, useEffect, useState, FC } from 'react';
 

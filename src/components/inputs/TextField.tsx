@@ -29,6 +29,7 @@ const Button: React.FC<TextFieldProps> = ({
       <input
         type={type}
         id={id}
+        data-testid={id}
         name={name}
         placeholder={placeholder}
         required={required}

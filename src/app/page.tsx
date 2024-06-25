@@ -1,19 +1,12 @@
 'use client';
 
 import { Dashboard } from '@/services/api/ApiUserService';
-import { Appointment } from '@/types/props/components/cards/appointments/appointment.model';
 
 import AppointmentCard from '@/components/appointment/AppointmentCard';
 import Button from '@/components/inputs/Button';
 import TextField from '@/components/inputs/TextField';
 
 export default function HomePage() {
-  const appointment1: Appointment = {
-    date: new Date(Date.now()),
-    customer: 'Adolfi',
-    service: 'Pedicura',
-  };
-
   async function tmp() {
     try {
       const response = await Dashboard();
@@ -57,7 +50,7 @@ export default function HomePage() {
         </div>
         <div>
           <h1>Appointment Cards</h1>
-          <AppointmentCard appointment={appointment1}></AppointmentCard>
+          <AppointmentCard date={new Date(Date.now())} customer="Adolfi" service="Pedicura"></AppointmentCard>
         </div>
       </div>
     </div>

@@ -2,7 +2,6 @@
 
 import { useSession } from '@/contexts/SessionContext';
 import { SignIn } from '@/services/api/ApiUserService';
-import { LoginFormProps } from '@/types/props/screens/user/welcome/login-form.props';
 import { redirectAfterLoginSuccess } from '@/utils/RouterNavigation';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -12,9 +11,16 @@ import DebugInfo from '@/components/DebugInfo';
 import Button from '@/components/inputs/Button';
 import TextField from '@/components/inputs/TextField';
 
+export interface LoginFormProps {
+  formId: string;
+  emailId: string;
+}
+
 const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
   const router = useRouter();
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const idInputPassword = 'password';
+  const idBtnLogin = 'btnLogin';
 
   const { updateToken } = useSession();
 
@@ -61,8 +67,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
         </p>
       </DebugInfo>
       <TextField
-        id="password"
-        name="password"
+        id={idInputPassword}
+        name={idInputPassword}
         label="Contraseña"
         placeholder="**********"
         required={true}
@@ -71,7 +77,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
 
       <FormErrorCard errors={errorMessages} />
 
-      <Button style="primary" text="Iniciar Sesión" type="button" onClick={handleSubmit} />
+      <Button id={idBtnLogin} style="primary" text="Iniciar Sesión" type="button" onClick={handleSubmit} />
     </>
   );
 };

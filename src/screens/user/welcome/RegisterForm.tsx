@@ -2,7 +2,6 @@
 
 import { useSession } from '@/contexts/SessionContext';
 import { SignUp } from '@/services/api/ApiUserService';
-import { RegisterFormProps } from '@/types/props/screens/user/welcome/register-form.props';
 import { redirectAfterLoginSuccess } from '@/utils/RouterNavigation';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -11,6 +10,10 @@ import FormErrorCard from '@/components/cards/FormErrorCard';
 import DebugInfo from '@/components/DebugInfo';
 import Button from '@/components/inputs/Button';
 import TextField from '@/components/inputs/TextField';
+export interface RegisterFormProps {
+  formId: string;
+  emailId: string;
+}
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
   const router = useRouter();
@@ -19,6 +22,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
 
   const idPassword1 = 'password1';
   const idPassword2 = 'password2';
+  const idBtnRegister = 'btnRegister';
 
   async function handleSubmit() {
     setErrorMessages([]);
@@ -52,8 +56,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
       return;
     }
 
-    // TODO: quitar esta aberración de alert
-    alert('Registrado con éxito: ' + response.access_token);
     updateToken(response.access_token);
 
     redirectAfterLoginSuccess(router);
@@ -86,7 +88,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
 
       <FormErrorCard errors={errorMessages} />
 
-      <Button style="primary" text="Registrarse" type="button" onClick={handleSubmit} />
+      <Button id={idBtnRegister} style="primary" text="Registrarse" type="button" onClick={handleSubmit} />
     </>
   );
 };

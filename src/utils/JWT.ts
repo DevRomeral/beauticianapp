@@ -1,12 +1,8 @@
+import { backendJWTConfig } from '@/configs/BackendJWTConfig';
 import { User } from '@/types/user';
 import { jwtVerify } from 'jose';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { NextRequest } from 'next/server';
-
-export const backendJWTConfig = {
-  tokenName: process.env.NEXT_PUBLIC_BACKEND_JWT_TOKEN_NAME || '',
-  secret: process.env.BACKEND_JWT_TOKEN_SECRET || '',
-};
 
 /**
  * Decodifica el token JWT y obtiene un usuario
@@ -15,13 +11,14 @@ export const backendJWTConfig = {
  */
 export function fromJWTtoUser(jwt: string): User {
   if (jwt.length === 0) {
-    return {
+    const empty: User = {
       email: '',
       id: '',
       name: '',
       rol: '',
       username: '',
     };
+    return empty;
   }
   const payload = JSON.parse(atob(jwt.split('.')[1]));
   const userFromPayload: User = {

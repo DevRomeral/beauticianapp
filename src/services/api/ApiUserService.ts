@@ -1,20 +1,13 @@
 'use server';
 
+import { ApiConfig } from '@/configs/ApiConfig';
+import { backendJWTConfig } from '@/configs/BackendJWTConfig';
 import { DashboardModel } from '@/types/api/user/dashboard.model';
 import { SignedInUser } from '@/types/api/user/signed-in-user.model';
 import { SignedUpUser } from '@/types/api/user/signed-up-user.model';
 import { VerifiedUser } from '@/types/api/user/verified-user.model';
-import { backendJWTConfig } from '@/utils/JWT';
 import axios from 'axios';
 import { cookies } from 'next/headers';
-
-const ApiConfig = {
-  url: process.env.NEXT_PUBLIC_BACKEND_URL || '',
-  headers: {
-    'Content-Type': 'application/json',
-    accept: 'application/json',
-  },
-};
 
 export async function VerifyUser(email: string): Promise<boolean> {
   // console.log('Verificando...');
@@ -73,7 +66,7 @@ export async function Logout() {
 /**
  * @returns Obtiene el valor de la cabecera en HEADERS para la Cookie autorizada
  */
-function setAuthCookieToken(): string {
+export function setAuthCookieToken(): string {
   const token = cookies().get(backendJWTConfig.tokenName);
   return `${token?.name}=${token?.value}`;
 }
@@ -86,10 +79,10 @@ export async function saveTokenToCookies(token: string) {
   cookies().set(backendJWTConfig.tokenName, token, {
     // TODO: ponerlo a true y ver cómo lo recuperamos en la sesión
     // httpOnly: true,
-    httpOnly: false,
-    secure: process.env.NODE_ENV === 'production',
+    httpOnly: backendJWTConfig.browserConfig.httpOnly,
+    secure: backendJWTConfig.browserConfig.secure,
     sameSite: 'lax',
-    maxAge: 1000 * 60 * 60 * 24 * 30,
-    path: '/',
+    maxAge: backendJWTConfig.browserConfig.maxAge,
+    path: backendJWTConfig.browserConfig.path,
   });
 }
