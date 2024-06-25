@@ -1,4 +1,5 @@
-import SessionAuthProvider from '@/contexts/SessionAuthProvider';
+// import SessionAuthProvider from '@/contexts/SessionAuthProvider';
+import { SessionProvider } from '@/contexts/SessionContext';
 import type { Metadata } from 'next';
 import '@/styles/globals.scss';
 import { Manrope } from 'next/font/google';
@@ -23,12 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <SessionAuthProvider>
+      <SessionProvider>
         <body className={font.className}>
           <NavBar />
           <main>{children}</main>
         </body>
-      </SessionAuthProvider>
+      </SessionProvider>
     </html>
   );
 }

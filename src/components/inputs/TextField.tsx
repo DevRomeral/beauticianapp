@@ -1,19 +1,30 @@
 'use client';
 
-import { TextFieldProps } from '@/types/props/components/inputs/textfield.props';
+export type TextFieldType = 'text' | 'email' | 'password';
+
+export interface TextFieldProps {
+  id: string;
+  name?: string;
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+  type?: TextFieldType;
+  onBlurHandler?: (event: React.FocusEvent<HTMLInputElement>) => void | Promise<void>;
+  onChangeHandler?: (event: React.ChangeEvent<HTMLInputElement>) => void | Promise<void>;
+}
 
 const Button: React.FC<TextFieldProps> = ({
-  type,
+  type = 'text',
   label,
-  placeholder,
+  placeholder = '',
   id,
-  name,
-  required,
+  name = id,
+  required = false,
   onBlurHandler,
   onChangeHandler,
 }) => {
   return (
-    <div className="mb-6">
+    <div className="mb-6 w-full">
       <label htmlFor={id}>{label}</label>
       <input
         type={type}

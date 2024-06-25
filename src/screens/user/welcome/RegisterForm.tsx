@@ -1,21 +1,26 @@
 'use client';
 
+import { useSession } from '@/contexts/SessionContext';
 import { SignUp } from '@/services/api/ApiUserService';
 import { RegisterFormProps } from '@/types/props/screens/user/welcome/register-form.props';
+import { redirectAfterLoginSuccess } from '@/utils/RouterNavigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import FormErrorCard from '@/components/cards/FormErrorCard';
+import DebugInfo from '@/components/DebugInfo';
 import Button from '@/components/inputs/Button';
 import TextField from '@/components/inputs/TextField';
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
+  const router = useRouter();
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const { updateToken } = useSession();
 
   const idPassword1 = 'password1';
   const idPassword2 = 'password2';
 
   async function handleSubmit() {
-    // event.preventDefault();
     setErrorMessages([]);
     const errors = [];
 
@@ -25,6 +30,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
     const password1 = formData.get(idPassword1)?.toString() || '';
     const password2 = formData.get(idPassword2)?.toString() || '';
 
+    // TODO: comprobaciones lado cliente de los inputs
     if (password1.length == 0) {
       errors.push('Debe introducir una contraseña válida');
     }
@@ -38,33 +44,29 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
     }
 
     const response = await SignUp(email, password1);
-    console.log(response);
+
+    // TODO: manejar errores
+    // console.log(response);
     if (!response.ok) {
       setErrorMessages(['Error al registrar al usuario']);
       return;
     }
 
+    // TODO: quitar esta aberración de alert
     alert('Registrado con éxito: ' + response.access_token);
+    updateToken(response.access_token);
 
-    // const callbackUrl = new URLSearchParams(window.location.search).get('callbackUrl') || '/profile';
-
-    // const responseNextAuth = await signIn('credentials', {
-    //   email,
-    //   password,
-    //   // redirectTo: callbackUrl,
-    //   redirect: false,
-    // });
-
-    // if (responseNextAuth?.error) {
-    //   setErrorMessages((responseNextAuth?.error || '').split(','));
-    //   return;
-    // }
-
-    // router.push(callbackUrl);
+    redirectAfterLoginSuccess(router);
   }
 
   return (
     <>
+      <DebugInfo>
+        <p>
+          Si las contraseñas incluyen la palabra <strong>error</strong>, te dará un error y no permitirá registrarte
+        </p>
+      </DebugInfo>
+
       <TextField
         id={idPassword1}
         name={idPassword1}

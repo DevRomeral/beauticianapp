@@ -1,12 +1,14 @@
 'use client';
 
+import { useSession } from '@/contexts/SessionContext';
 import { SignIn } from '@/services/api/ApiUserService';
 import { LoginFormProps } from '@/types/props/screens/user/welcome/login-form.props';
-import { signIn } from 'next-auth/react';
+import { redirectAfterLoginSuccess } from '@/utils/RouterNavigation';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 
 import FormErrorCard from '@/components/cards/FormErrorCard';
+import DebugInfo from '@/components/DebugInfo';
 import Button from '@/components/inputs/Button';
 import TextField from '@/components/inputs/TextField';
 
@@ -14,8 +16,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
   const router = useRouter();
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
+  const { updateToken } = useSession();
+
   async function handleSubmit() {
-    // event.preventDefault();
     setErrorMessages([]);
     const errors = [];
 
@@ -23,11 +26,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
     const formData = new FormData(form);
     const email = formData.get(emailId)?.toString() || '';
     const password = formData.get('password')?.toString() || '';
-    // console.log({
-    //   email,
-    //   password,
-    // });
 
+    // TODO: Comprobaciones lado cliente de inputs
     if (password.length == 0) {
       errors.push('Debe introducir una contraseña');
     }
@@ -38,33 +38,28 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
     }
 
     const response = await SignIn(email, password);
-    console.log(response);
+    // TODO: hacer el token secure = true y pasarle aquí al session context únicamente el usuario al que se parsea
+    updateToken(response.access_token);
+
+    // TODO: manejar errores en login
+    // console.log(response);
     if (!response.ok) {
       setErrorMessages(['Usuario o contraseña no válidos']);
       return;
     }
 
-    alert('Logado con éxito: ' + response.access_token);
-
-    // const callbackUrl = new URLSearchParams(window.location.search).get('callbackUrl') || '/profile';
-
-    // const responseNextAuth = await signIn('credentials', {
-    //   email,
-    //   password,
-    //   // redirectTo: callbackUrl,
-    //   redirect: false,
-    // });
-
-    // if (responseNextAuth?.error) {
-    //   setErrorMessages((responseNextAuth?.error || '').split(','));
-    //   return;
-    // }
-
-    // router.push(callbackUrl);
+    // TODO: si viene del redirectTo, hay que pulsarle dos veces.
+    redirectAfterLoginSuccess(router);
   }
 
   return (
     <>
+      <DebugInfo>
+        <p>
+          Si en la contraseña se incluye la palabra <strong>error</strong> te dará un error y no permitirá iniciar
+          sesión
+        </p>
+      </DebugInfo>
       <TextField
         id="password"
         name="password"

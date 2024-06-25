@@ -5,6 +5,7 @@ import RegisterForm from '@/screens/user/welcome/RegisterForm';
 import { VerifyUser } from '@/services/api/ApiUserService';
 import { useState } from 'react';
 
+import DebugInfo from '@/components/DebugInfo';
 import TextField from '@/components/inputs/TextField';
 
 export default function WelcomeForm() {
@@ -35,6 +36,11 @@ export default function WelcomeForm() {
         Identifícate
       </h1>
       <form id={formId}>
+        <DebugInfo>
+          <p>
+            Si el correo incluye la palabra <strong>error</strong>, te indicará que no estás registrado
+          </p>
+        </DebugInfo>
         <TextField
           id={emailId}
           name={emailId}

@@ -1,17 +1,19 @@
 'use client';
 
+import { useSession } from '@/contexts/SessionContext';
 import logo from '@/public/logo/logo-bw-full.svg';
+import { Logout } from '@/services/api/ApiUserService';
 import { ArrowLeftIcon, Bars3Icon } from '@heroicons/react/20/solid';
-import { useSession, signOut } from 'next-auth/react';
+// import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function NavBar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { data: session } = useSession();
-
+  const { user, updateToken } = useSession();
+  const router = useRouter();
   const path = usePathname();
 
   const setActiveLink = (route: string) => {
@@ -26,11 +28,17 @@ export default function NavBar() {
     setIsDrawerOpen(false);
   };
 
+  const signOut = async () => {
+    await Logout();
+    updateToken('');
+    router.push('/');
+  };
+
   return (
     <nav>
       <div className={`drawer-menu ${isDrawerOpen ? 'open' : 'close'}`}>
         <div className="welcome">
-          <h2>{session?.user?.email ? `¡Hola, ${session?.user.email}!` : '¡Hola!'}</h2>
+          <h2>{user?.username ? `¡Hola, ${user?.username}!` : '¡Hola!'}</h2>
         </div>
         <ul className="links">
           <li>
@@ -67,17 +75,10 @@ export default function NavBar() {
         </Link>
       </div>
       <div className="flex flex-1 flex-wrap justify-end gap-3">
-        {(session?.user && (
-          <>
-            <span
-              className="cursor-pointer"
-              onClick={() => {
-                signOut();
-              }}
-            >
-              Sign out
-            </span>
-          </>
+        {(user?.id && (
+          <span className="cursor-pointer" onClick={signOut}>
+            Cerrar Sesión
+          </span>
         )) || (
           <Link href="/welcome" onClick={closeDrawer} className={setActiveLink('/welcome')}>
             Identifícate

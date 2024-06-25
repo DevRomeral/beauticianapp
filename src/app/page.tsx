@@ -1,6 +1,11 @@
+'use client';
+
+import { Dashboard } from '@/services/api/ApiUserService';
 import { Appointment } from '@/types/props/components/cards/appointments/appointment.model';
 
 import AppointmentCard from '@/components/appointment/AppointmentCard';
+import Button from '@/components/inputs/Button';
+import TextField from '@/components/inputs/TextField';
 
 export default function HomePage() {
   const appointment1: Appointment = {
@@ -9,8 +14,19 @@ export default function HomePage() {
     service: 'Pedicura',
   };
 
+  async function tmp() {
+    try {
+      const response = await Dashboard();
+      console.log('Dashboard', response);
+    } catch (err) {
+      console.error('Error al pedir el dashboard');
+      alert('Inicia sesión primero');
+    }
+  }
+
   return (
     <div className="flex min-h-screen flex-col items-center gap-2">
+      <Button onClick={tmp} style="primary" text="Dashboard" type="button" />
       <h1>Home</h1>
       <div className="flex flex-col gap-2">
         <div>
@@ -28,17 +44,15 @@ export default function HomePage() {
         <div>
           <h1>Buttons</h1>
           <div className="flex flex-row gap-2">
-            <button>Button</button>
-            <button className="primary">Button Primary</button>
+            <Button text="Normal" />
+            <Button style="primary" text="Primary" />
+            <Button style="danger" text="Danger" />
           </div>
         </div>
         <div>
           <h1>Text Fields</h1>
           <div className="flex flex-row gap-2">
-            <div className="w-full">
-              <label>Mi input</label>
-              <input type="text" placeholder="Placeholder"></input>
-            </div>
+            <TextField id="tfPrueba" label="Mi Input" placeholder="Placeholder" />
           </div>
         </div>
         <div>
