@@ -6,25 +6,26 @@ import { fromJWTtoUser } from '@/utils/JWT';
 import { parseCookies } from 'nookies';
 import { createContext, useContext, useEffect, useState, FC } from 'react';
 
-interface SessionContextType {
-  token: string | null;
+export interface SessionContextType {
+  token: string;
   user: User | null;
   updateToken: (newToken: string) => void;
 }
 
 const SessionContext = createContext<SessionContextType>({
-  token: null,
+  token: '',
   user: null,
   updateToken: () => {},
 });
 
 interface Props {
   children: React.ReactNode;
+  initialState?: SessionContextType;
 }
 
-export const SessionProvider: FC<Props> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null);
-  const [user, setUser] = useState<User | null>(null);
+export const SessionProvider: FC<Props> = ({ children, initialState }) => {
+  const [token, setToken] = useState<string>(initialState?.token ?? '');
+  const [user, setUser] = useState<User | null>(initialState?.user ?? null);
 
   useEffect(() => {
     // TODO: si el token es creado como "httpOnly", no podremos acceder a él aquí y el login no será automático
@@ -40,7 +41,8 @@ export const SessionProvider: FC<Props> = ({ children }) => {
 
   const updateToken = (newToken: string) => {
     setToken(newToken);
-    setUser(fromJWTtoUser(newToken));
+    const newUser = fromJWTtoUser(newToken);
+    setUser(newUser);
   };
 
   return <SessionContext.Provider value={{ token, user, updateToken }}>{children}</SessionContext.Provider>;

@@ -51,7 +51,7 @@ export async function SignUp(email: string, password: string): Promise<SignedUpU
 export async function Dashboard(): Promise<DashboardModel> {
   const response = await axios.get<DashboardModel>(`${ApiConfig.url}/user/dashboard`, {
     withCredentials: true,
-    headers: { Cookie: setAuthCookieToken() },
+    headers: { Cookie: await setAuthCookieToken() },
   });
 
   // console.log(response.data);
@@ -66,7 +66,7 @@ export async function Logout() {
 /**
  * @returns Obtiene el valor de la cabecera en HEADERS para la Cookie autorizada
  */
-export function setAuthCookieToken(): string {
+export async function setAuthCookieToken(): Promise<string> {
   const token = cookies().get(backendJWTConfig.tokenName);
   return `${token?.name}=${token?.value}`;
 }
