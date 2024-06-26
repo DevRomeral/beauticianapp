@@ -1,15 +1,10 @@
 import { mockBackendJWTConfig } from '@/__mocks__/configs/BackendJWTConfig';
-import { mockFromJWTtoUser, mockParseCookies } from '@/__mocks__/JWT';
+import { mockParseCookies } from '@/__mocks__/JWT';
 import WelcomeForm from '@/screens/user/welcome/WelcomeForm';
 import * as ApiUserService from '@/services/api/ApiUserService';
 import { SignedInUser } from '@/types/api/user/signed-in-user.model';
 import { SignedUpUser } from '@/types/api/user/signed-up-user.model';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-
-// Mockeamos la parte de la sesión
-jest.mock('@/utils/JWT', () => ({
-  fromJWTtoUser: mockFromJWTtoUser,
-}));
 
 jest.mock('@/configs/BackendJWTConfig', () => ({
   backendJWTConfig: mockBackendJWTConfig,

@@ -42,6 +42,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/text-encoding": "^0.0.39",
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^6.21.0",
@@ -59,6 +60,7 @@
     "prettier-plugin-tailwindcss": "^0.6.2",
     "sass": "^1.77.5",
     "tailwindcss": "^3.4.4",
+    "text-encoding": "^0.7.0",
     "ts-node": "^10.9.2",
     "typescript": "^5"
   }

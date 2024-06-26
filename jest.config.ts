@@ -15,8 +15,10 @@ const config: Config = {
   transform: {
     '^.+\\.ts(x)?$': 'ts-jest',
   },
+  transformIgnorePatterns: ['node_modules/(?!jose)'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^jose$': '<rootDir>/__mocks__/jose.ts', // Ruta al mock de jose
   },
 };
 

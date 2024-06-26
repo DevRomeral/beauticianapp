@@ -1,6 +1,5 @@
 import { mockApiConfig } from '@/__mocks__/configs/ApiConfig';
 import { mockBackendJWTConfig } from '@/__mocks__/configs/BackendJWTConfig';
-import { mockFromJWTtoUser } from '@/__mocks__/JWT';
 import { backendJWTConfig } from '@/configs/BackendJWTConfig';
 import {
   Logout,
@@ -14,11 +13,6 @@ import { SignedInUser } from '@/types/api/user/signed-in-user.model';
 import { SignedUpUser } from '@/types/api/user/signed-up-user.model';
 import axios from 'axios';
 import axiosMockAdapter from 'axios-mock-adapter';
-
-// Mockeamos la parte de la sesión
-jest.mock('@/utils/JWT', () => ({
-  fromJWTtoUser: mockFromJWTtoUser,
-}));
 
 jest.mock('@/configs/BackendJWTConfig', () => ({
   backendJWTConfig: mockBackendJWTConfig,

@@ -3,6 +3,7 @@ import { User } from '@/types/user';
 import { jwtVerify } from 'jose';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { NextRequest } from 'next/server';
+import { TextEncoder } from 'text-encoding';
 
 /**
  * Decodifica el token JWT y obtiene un usuario
@@ -47,5 +48,6 @@ export function getTokenFromCookies(request: NextRequest): RequestCookie | undef
  * @param jwt Token traído desde el back
  */
 export async function verifyToken(jwt: string) {
-  await jwtVerify(jwt, new TextEncoder().encode(backendJWTConfig.secret));
+  // console.log('Verificando TOKEN');
+  return await jwtVerify(jwt, new TextEncoder().encode(backendJWTConfig.secret));
 }
