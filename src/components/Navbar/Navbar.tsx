@@ -4,6 +4,7 @@ import { useSession } from '@/contexts/SessionContext';
 import logo from '@/public/logo/logo-bw-full.svg';
 import { Logout } from '@/services/api/ApiUserService';
 import { ArrowLeftIcon, Bars3Icon } from '@heroicons/react/20/solid';
+import { useTranslations } from 'next-intl';
 // import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,6 +12,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function NavBar() {
+  const t = useTranslations('Navbar');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { user, updateToken } = useSession();
   const router = useRouter();
@@ -38,17 +40,26 @@ export default function NavBar() {
     <nav>
       <div className={`drawer-menu ${isDrawerOpen ? 'open' : 'close'}`}>
         <div className="welcome">
-          <h2>{user?.username ? `¡Hola, ${user?.username}!` : '¡Hola!'}</h2>
+          <h2>
+            {t(user?.username ? 'drawer-menu.welcome-user' : 'drawer-menu.welcome', {
+              name: user?.username,
+            })}
+          </h2>
         </div>
         <ul className="links">
           <li>
             <Link href="/" onClick={closeDrawer} className={setActiveLink('/')}>
-              Home
+              {t('links.home')}
             </Link>
           </li>
           <li>
             <Link href="/profile" prefetch={false} onClick={closeDrawer} className={setActiveLink('/profile')}>
-              Profile
+              {t('links.profile')}
+            </Link>
+          </li>
+          <li>
+            <Link href="/settings" prefetch={false} onClick={closeDrawer} className={setActiveLink('/settings')}>
+              {t('links.settings')}
             </Link>
           </li>
         </ul>
@@ -77,11 +88,11 @@ export default function NavBar() {
       <div className="flex flex-1 flex-wrap justify-end gap-3">
         {(user?.id && (
           <span className="cursor-pointer" onClick={signOut}>
-            Cerrar Sesión
+            {t('linkSignOut')}
           </span>
         )) || (
           <Link href="/welcome" onClick={closeDrawer} className={setActiveLink('/welcome')}>
-            Identifícate
+            {t('linkSignIn')}
           </Link>
         )}
       </div>

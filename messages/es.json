@@ -1,0 +1,25 @@
+{
+  "Index": {
+    "title": "¡Hola, Mundo!"
+  },
+  "Navbar": {
+    "linkSignIn": "Iniciar Sesión",
+    "linkSignOut": "Cerrar Sesión",
+    "links":{
+      "settings": "Ajustes",
+      "profile": "Perfil",
+      "home": "Inicio"
+    },
+    "drawer-menu":{
+      "welcome": "¡Hola!",
+      "welcome-user": "¡Hola, {name}!"
+    }
+  },
+  "Settings":{
+    "title": "Ajustes",
+    "languages":{
+      "es": "Español",
+      "en": "Inglés"
+    }
+  }
+}

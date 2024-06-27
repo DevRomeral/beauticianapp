@@ -2,6 +2,8 @@
 import { SessionProvider } from '@/contexts/SessionContext';
 import type { Metadata } from 'next';
 import '@/styles/globals.scss';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import { Manrope } from 'next/font/google';
 
 import NavBar from '@/components/navbar/Navbar';
@@ -17,19 +19,25 @@ const font = Manrope({
   subsets: ['latin'],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params: { locale },
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  const messages = await getMessages();
+
   return (
-    <html lang="es">
-      <SessionProvider>
-        <body className={font.className}>
-          <NavBar />
-          <main>{children}</main>
-        </body>
-      </SessionProvider>
+    <html lang={locale}>
+      <body className={font.className}>
+        <SessionProvider>
+          <NextIntlClientProvider messages={messages}>
+            <NavBar />
+            <main>{children}</main>
+          </NextIntlClientProvider>
+        </SessionProvider>
+      </body>
     </html>
   );
 }

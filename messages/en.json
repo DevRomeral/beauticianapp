@@ -1,0 +1,25 @@
+{
+  "Index": {
+    "title": "Hello world!"
+  },
+  "Navbar": {
+    "linkSignIn": "Sign In",
+    "linkSignOut": "Sign Out",
+    "links":{
+      "settings": "Settings",
+      "profile": "Profile",
+      "home": "Home"
+    },
+    "drawer-menu":{
+      "welcome": "Hi!",
+      "welcome-user": "Hi, {name}!"
+    }
+  },
+  "Settings":{
+    "title": "Settings",
+    "languages":{
+      "es": "Spanish",
+      "en": "English"
+    }
+  }
+}

@@ -1,8 +1,6 @@
 import { backendJWTConfig } from '@/configs/BackendJWTConfig';
 import { User } from '@/types/user';
 import { jwtVerify } from 'jose';
-import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
-import { NextRequest } from 'next/server';
 import { TextEncoder } from 'text-encoding';
 
 /**
@@ -30,17 +28,6 @@ export function fromJWTtoUser(jwt: string): User {
     rol: payload.rol,
   };
   return userFromPayload;
-}
-
-/**
- * Obtiene el JWT de back desde las cookies de la request
- * @param request
- * @returns
- */
-export function getTokenFromCookies(request: NextRequest): RequestCookie | undefined {
-  const jwt = request.cookies.get(backendJWTConfig.tokenName);
-  // console.log('JWT: ', jwt);
-  return jwt;
 }
 
 /**

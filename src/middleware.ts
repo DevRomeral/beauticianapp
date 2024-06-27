@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { getTokenFromCookies, verifyToken } from './utils/JWT';
+import { getTokenFromCookies } from './utils/Cookies';
+import { verifyToken } from './utils/JWT';
 
+// Middleware combinado
 export async function middleware(request: NextRequest) {
-  const jwt = getTokenFromCookies(request);
+  const jwt = await getTokenFromCookies(request);
 
   if (jwt === undefined) return redirectToLogin(request);
 

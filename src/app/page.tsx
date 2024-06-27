@@ -1,12 +1,14 @@
 'use client';
 
 import { Dashboard } from '@/services/api/ApiUserService';
+import { useTranslations } from 'next-intl';
 
 import AppointmentCard from '@/components/appointment/AppointmentCard';
 import Button from '@/components/inputs/Button';
 import TextField from '@/components/inputs/TextField';
 
 export default function HomePage() {
+  const t = useTranslations('Index');
   async function tmp() {
     try {
       const response = await Dashboard();
@@ -20,7 +22,7 @@ export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col items-center gap-2">
       <Button onClick={tmp} style="primary" text="Dashboard" type="button" />
-      <h1>Home</h1>
+      <h1>{t('title')}</h1>
       <div className="flex flex-col gap-2">
         <div>
           <h1>H1 Heading Text</h1>
