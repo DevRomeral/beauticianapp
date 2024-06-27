@@ -58,6 +58,11 @@ export default function NavBar() {
             </Link>
           </li>
           <li>
+            <Link href="/clientes" prefetch={false} onClick={closeDrawer} className={setActiveLink('/clientes')}>
+              {t('links.clientes')}
+            </Link>
+          </li>
+          <li>
             <Link href="/settings" prefetch={false} onClick={closeDrawer} className={setActiveLink('/settings')}>
               {t('links.settings')}
             </Link>

@@ -7,25 +7,27 @@ import { verifyToken } from './utils/JWT';
 // Middleware combinado
 export async function middleware(request: NextRequest) {
   try {
+    // const nextUrl = request.nextUrl;
+
+    // console.log('-----> Middleware! ' + nextUrl);
     const jwt = request.cookies.get(backendJWTConfig.tokenName);
+    // console.log('Token: ' + jwt?.value);
 
     if (jwt === undefined) return redirectToLogin(request);
 
-    console.log('Verificando token');
+    // console.log('Verificando token');
     await verifyToken(jwt.value);
+    // console.log('TOKEN VERIFICADO!');
   } catch (err) {
     console.error('Error en el middleware, redireccionando a login');
     return redirectToLogin(request);
   }
 
+  console.log('Next...');
   return NextResponse.next();
 }
 export const config = {
-  matcher: [
-    {
-      source: '/profile',
-    },
-  ],
+  matcher: ['/profile:path*', '/clientes:path*'],
 };
 
 /**
@@ -37,10 +39,31 @@ function redirectToLogin(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const originalUrl = `${pathname}${search}`;
 
-  const loginUrl = new URL('/welcome', request.url);
-  loginUrl.searchParams.set('redirectTo', originalUrl);
+  // Funciona a la primera, pero cambia la URL
+  request.nextUrl.pathname = `/welcome`;
+  request.nextUrl.searchParams.set('redirectTo', originalUrl);
+  console.log('Original: ' + originalUrl);
+  console.log('Rewritten: ' + request.nextUrl);
+  return NextResponse.rewrite(request.nextUrl);
 
-  // console.log('URL', loginUrl);
+  // const loginUrl = new URL('/welcome', request.url);
+  // loginUrl.searchParams.set('redirectTo', originalUrl);
+  // console.log('Original URL: ' + originalUrl);
+  // console.log('Login URL:', loginUrl.toString());
+  // return NextResponse.redirect(loginUrl);
 
-  return NextResponse.redirect(loginUrl);
+  // const headers = new Headers();
+  // headers.set('redirect', '/welcome');
+
+  // return NextResponse.next({
+  //   headers,
+  // });
+
+  // request.nextUrl.pathname = `/welcome`;
+  // request.nextUrl.searchParams.set('redirectTo', originalUrl);
+
+  // console.log('Original URL: ' + originalUrl);
+  // console.log('Rewritten URL: ' + request.nextUrl.toString());
+
+  // return NextResponse.rewrite(request.nextUrl);
 }
