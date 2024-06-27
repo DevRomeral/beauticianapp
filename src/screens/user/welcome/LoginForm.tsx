@@ -3,6 +3,7 @@
 import { useSession } from '@/contexts/SessionContext';
 import { SignIn } from '@/services/api/ApiUserService';
 import { redirectAfterLoginSuccess } from '@/utils/RouterNavigation';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -18,6 +19,7 @@ export interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
   const router = useRouter();
+  const t = useTranslations('Welcome.Login');
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const idInputPassword = 'password';
   const idBtnLogin = 'btnLogin';
@@ -35,7 +37,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
 
     // TODO: Comprobaciones lado cliente de inputs
     if (password.length == 0) {
-      errors.push('Debe introducir una contraseña');
+      errors.push(t('errors.empty-password'));
     }
 
     if (errors.length > 0) {
@@ -50,7 +52,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
     // TODO: manejar errores en login
     // console.log(response);
     if (!response.ok) {
-      setErrorMessages(['Usuario o contraseña no válidos']);
+      setErrorMessages([t('errors.unknown')]);
       return;
     }
 
@@ -69,15 +71,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
       <TextField
         id={idInputPassword}
         name={idInputPassword}
-        label="Contraseña"
-        placeholder="**********"
+        label={t('form.password.label')}
+        placeholder={t('form.password.placeholder')}
         required={true}
         type="password"
       />
 
       <FormErrorCard errors={errorMessages} />
 
-      <Button id={idBtnLogin} style="primary" text="Iniciar Sesión" type="button" onClick={handleSubmit} />
+      <Button id={idBtnLogin} style="primary" text={t('form.submit.title')} type="button" onClick={handleSubmit} />
     </>
   );
 };

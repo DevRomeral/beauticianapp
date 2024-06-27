@@ -3,6 +3,7 @@
 import { useSession } from '@/contexts/SessionContext';
 import { SignUp } from '@/services/api/ApiUserService';
 import { redirectAfterLoginSuccess } from '@/utils/RouterNavigation';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -18,6 +19,7 @@ export interface RegisterFormProps {
 const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
   const router = useRouter();
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const t = useTranslations('Welcome.Register');
   const { updateToken } = useSession();
 
   const idPassword1 = 'password1';
@@ -36,10 +38,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
 
     // TODO: comprobaciones lado cliente de los inputs
     if (password1.length == 0) {
-      errors.push('Debe introducir una contraseña válida');
+      errors.push(t('errors.not-valid-password'));
     }
     if (password1 !== password2) {
-      errors.push('Las contraseñas no coinciden');
+      errors.push(t('errors.missmatch-password'));
     }
 
     if (errors.length > 0) {
@@ -52,7 +54,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
     // TODO: manejar errores
     // console.log(response);
     if (!response.ok) {
-      setErrorMessages(['Error al registrar al usuario']);
+      setErrorMessages([t('errors.unknown')]);
       return;
     }
 
@@ -72,23 +74,23 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
       <TextField
         id={idPassword1}
         name={idPassword1}
-        label="Contraseña"
-        placeholder="**********"
+        label={t('form.password1.label')}
+        placeholder={t('form.password1.placeholder')}
         required={true}
         type="password"
       />
       <TextField
         id={idPassword2}
         name={idPassword2}
-        label="Confirme su Constraseña"
-        placeholder="**********"
+        label={t('form.password2.label')}
+        placeholder={t('form.password2.placeholder')}
         required={true}
         type="password"
       />
 
       <FormErrorCard errors={errorMessages} />
 
-      <Button id={idBtnRegister} style="primary" text="Registrarse" type="button" onClick={handleSubmit} />
+      <Button id={idBtnRegister} style="primary" text={t('form.submit.title')} type="button" onClick={handleSubmit} />
     </>
   );
 };

@@ -1,0 +1,72 @@
+{
+  "Home": {
+    "title": "¡Hola, Mundo!"
+  },
+  "404": {
+    "title": "Página no encontrada"
+  },
+  "Navbar": {
+    "linkSignIn": "Iniciar Sesión",
+    "linkSignOut": "Cerrar Sesión",
+    "links":{
+      "settings": "Ajustes",
+      "profile": "Perfil",
+      "home": "Inicio"
+    },
+    "drawer-menu":{
+      "welcome": "¡Hola!",
+      "welcome-user": "¡Hola, {name}!"
+    }
+  },
+  "Settings":{
+    "title": "Ajustes",
+    "languages":{
+      "es": "Español",
+      "en": "Inglés"
+    }
+  },
+  "Welcome": {
+    "title": "Identifícate",
+    "form":{
+      "email":{
+        "label": "Nombre de Usuario",
+        "placeholder": "micorreo@mail.es"
+      }
+    },
+    "Login": {
+      "form": {
+        "password": {
+          "label": "Contraseña",
+          "placeholder": "***************"
+        },
+        "submit": {
+          "title": "Iniciar Sesión"
+        }
+      },
+      "errors": {
+        "empty-password": "Debe introducir una contraseña",
+        "unknown": "Usuario o contraseña no válidos"
+      }
+    },
+    "Register": {
+      "form":{
+        "password1": {
+          "label": "Contraseña 1",
+          "placeholder": "***************"
+        },
+        "password2": {
+          "label": "Repita su Contraseña",
+          "placeholder": "***************"
+        },
+        "submit": {
+          "title": "Registrarse"
+        }
+      },
+      "errors": {
+        "not-valid-password": "Debe introducir una contraseña válida",
+        "missmatch-password": "Las contraseñas no coinciden",
+        "unknown": "Error al registrar al usuario"
+      }
+    }
+  }
+}

@@ -8,7 +8,7 @@ import Button from '@/components/inputs/Button';
 import TextField from '@/components/inputs/TextField';
 
 export default function HomePage() {
-  const t = useTranslations('Index');
+  const t = useTranslations('Home');
   async function tmp() {
     try {
       const response = await Dashboard();

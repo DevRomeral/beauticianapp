@@ -1,6 +1,7 @@
 'use server';
 
 import { backendJWTConfig } from '@/configs/BackendJWTConfig';
+import { LanguageConfig } from '@/configs/LanguageConfig';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
@@ -17,5 +18,5 @@ export async function getTokenFromCookies(request: NextRequest): Promise<Request
 }
 
 export async function changeLanguage(lang: string) {
-  cookies().set('NEXT_LOCALE', lang);
+  cookies().set(LanguageConfig.languageCookieName, lang);
 }

@@ -1,3 +1,4 @@
+import LanguageWrapper from '@/__mocks__/components/LanguageWrapper';
 import { mockBackendJWTConfig } from '@/__mocks__/configs/BackendJWTConfig';
 import { mockParseCookies } from '@/__mocks__/JWT';
 import WelcomeForm from '@/screens/user/welcome/WelcomeForm';
@@ -38,7 +39,11 @@ describe('WelcomeForm', () => {
   });
 
   it('renders welcome form', () => {
-    render(<WelcomeForm />);
+    render(
+      <LanguageWrapper>
+        <WelcomeForm />
+      </LanguageWrapper>,
+    );
 
     // está el input de email pero no el de los otros fragmentos
     expect(screen.getByTestId(idEmailInput)).toBeInTheDocument();
@@ -48,7 +53,11 @@ describe('WelcomeForm', () => {
   });
 
   it('user verified; login ok', async () => {
-    render(<WelcomeForm />);
+    render(
+      <LanguageWrapper>
+        <WelcomeForm />
+      </LanguageWrapper>,
+    );
 
     const emailInput = screen.getByTestId(idEmailInput);
 
@@ -89,8 +98,11 @@ describe('WelcomeForm', () => {
   });
 
   it('user verified; login fails, error displayed', async () => {
-    render(<WelcomeForm />);
-    const errorMessage = 'Usuario o contraseña no válidos';
+    render(
+      <LanguageWrapper>
+        <WelcomeForm />
+      </LanguageWrapper>,
+    );
 
     const emailInput = screen.getByTestId(idEmailInput);
 
@@ -127,11 +139,15 @@ describe('WelcomeForm', () => {
       expect(ApiUserService.SignIn).toHaveBeenCalledTimes(1);
     });
 
-    expect(screen.getByText(errorMessage)).toBeInTheDocument();
+    expect(screen.getByText('Welcome.Login.errors.unknown')).toBeInTheDocument();
   });
 
   it('user not verified; register ok', async () => {
-    render(<WelcomeForm />);
+    render(
+      <LanguageWrapper>
+        <WelcomeForm />
+      </LanguageWrapper>,
+    );
     const mockEmail = 'itsamemario@mail.com';
     const mockPassword = 'okidoki';
 
@@ -174,10 +190,13 @@ describe('WelcomeForm', () => {
   });
 
   it('user not verified; register fails, error displayed', async () => {
-    render(<WelcomeForm />);
+    render(
+      <LanguageWrapper>
+        <WelcomeForm />
+      </LanguageWrapper>,
+    );
     const mockEmail = 'itsamemario@mail.com';
     const mockPassword = 'okidoki';
-    const errorMessage = 'Error al registrar al usuario';
 
     const emailInput = screen.getByTestId(idEmailInput);
 
@@ -214,6 +233,6 @@ describe('WelcomeForm', () => {
       expect(ApiUserService.SignUp).toHaveBeenCalledTimes(1);
     });
 
-    expect(screen.getByText(errorMessage)).toBeInTheDocument();
+    expect(screen.getByText('Welcome.Register.errors.unknown')).toBeInTheDocument();
   });
 });

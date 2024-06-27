@@ -3,12 +3,14 @@
 import LoginForm from '@/screens/user/welcome/LoginForm';
 import RegisterForm from '@/screens/user/welcome/RegisterForm';
 import { VerifyUser } from '@/services/api/ApiUserService';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import DebugInfo from '@/components/DebugInfo';
 import TextField from '@/components/inputs/TextField';
 
 export default function WelcomeForm() {
+  const t = useTranslations('Welcome');
   const [showLoginForm, setShowLoginForm] = useState<boolean>(false);
   const [showRegisterForm, setShowRegisterForm] = useState<boolean>(false);
 
@@ -33,7 +35,7 @@ export default function WelcomeForm() {
   return (
     <div className="container mx-auto">
       <h1 id="screen-title" className="text-2xl">
-        Identifícate
+        {t('title')}
       </h1>
       <form id={formId}>
         <DebugInfo>
@@ -44,8 +46,8 @@ export default function WelcomeForm() {
         <TextField
           id={emailId}
           name={emailId}
-          label="Nombre de Usuario"
-          placeholder="micorreo@mail.com"
+          label={t('form.email.label')}
+          placeholder={t('form.email.placeholder')}
           required={true}
           type="email"
           onBlurHandler={onChangeEmailHandler}

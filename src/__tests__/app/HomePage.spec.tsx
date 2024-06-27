@@ -10,6 +10,6 @@ describe('Home Page', () => {
       </LanguageWrapper>,
     );
 
-    expect(screen.getByText('Index.title')).toBeInTheDocument();
+    expect(screen.getByText('Home.title')).toBeInTheDocument();
   });
 });

@@ -27,8 +27,6 @@ export default function SettingsForm() {
               {t(lang.text)}
             </option>
           ))}
-          {/* <option value="en">English</option>
-          <option value="es">Español</option> */}
         </select>
       </div>
     </div>

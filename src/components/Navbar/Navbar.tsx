@@ -65,13 +65,6 @@ export default function NavBar() {
         </ul>
       </div>
       <div className="flex-no-wrap flex flex-1 gap-3 md:flex-none">
-        {/* <Link href="/">Home</Link>
-        <Link href="/login">Login</Link>
-        <Link href="/register">Register</Link>
-        <Link href="/profile" prefetch={false}>
-          Profile
-        </Link> */}
-        {/* <a href="/profile">Profile</a> */}
         <div className="visible z-50 h-full w-auto cursor-pointer transition-all md:hidden" onClick={toggleDrawer}>
           {isDrawerOpen ? (
             <ArrowLeftIcon className="h-full w-auto"></ArrowLeftIcon>
