@@ -13,7 +13,6 @@ import { NextRequest } from 'next/server';
  */
 export async function getTokenFromCookies(request: NextRequest): Promise<RequestCookie | undefined> {
   const jwt = request.cookies.get(backendJWTConfig.tokenName);
-  // console.log('JWT: ', jwt);
   return jwt;
 }
 

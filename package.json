@@ -17,7 +17,6 @@
     "@heroicons/react": "^2.1.4",
     "autoprefixer": "^10.4.19",
     "axios": "^1.7.2",
-    "chalk": "^5.3.0",
     "cookie": "^0.6.0",
     "cookies-next": "^4.2.1",
     "jose": "^5.4.0",
@@ -30,7 +29,6 @@
     "react-dom": "^18",
     "ts-jest": "^29.1.4",
     "universal-cookie": "^7.1.4",
-    "winston": "^3.13.0",
     "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {

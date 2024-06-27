@@ -1,18 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { getTokenFromCookies } from './utils/Cookies';
+import { backendJWTConfig } from './configs/BackendJWTConfig';
+// import { getTokenFromCookies } from './utils/Cookies';
 import { verifyToken } from './utils/JWT';
 
 // Middleware combinado
 export async function middleware(request: NextRequest) {
-  const jwt = await getTokenFromCookies(request);
-
-  if (jwt === undefined) return redirectToLogin(request);
-
   try {
+    const jwt = request.cookies.get(backendJWTConfig.tokenName);
+
+    if (jwt === undefined) return redirectToLogin(request);
+
+    console.log('Verificando token');
     await verifyToken(jwt.value);
   } catch (err) {
-    console.error(err);
+    console.error('Error en el middleware, redireccionando a login');
     return redirectToLogin(request);
   }
 
@@ -38,7 +40,7 @@ function redirectToLogin(request: NextRequest) {
   const loginUrl = new URL('/welcome', request.url);
   loginUrl.searchParams.set('redirectTo', originalUrl);
 
-  console.log('URL', loginUrl);
+  // console.log('URL', loginUrl);
 
   return NextResponse.redirect(loginUrl);
 }

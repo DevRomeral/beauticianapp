@@ -35,6 +35,5 @@ export function fromJWTtoUser(jwt: string): User {
  * @param jwt Token traído desde el back
  */
 export async function verifyToken(jwt: string) {
-  // console.log('Verificando TOKEN');
   return await jwtVerify(jwt, new TextEncoder().encode(backendJWTConfig.secret));
 }
