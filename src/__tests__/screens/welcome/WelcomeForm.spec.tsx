@@ -1,5 +1,6 @@
 import LanguageWrapper from '@/__mocks__/components/LanguageWrapper';
 import { mockBackendJWTConfig } from '@/__mocks__/configs/BackendJWTConfig';
+import { LanguageConfig } from '@/__mocks__/configs/LanguageConfig';
 import { mockParseCookies } from '@/__mocks__/JWT';
 import WelcomeForm from '@/screens/user/welcome/WelcomeForm';
 import * as ApiUserService from '@/services/api/ApiUserService';
@@ -128,6 +129,12 @@ describe('WelcomeForm', () => {
     expect(passwordInput).toBeInTheDocument();
     expect(btnLogin).toBeInTheDocument();
 
+    // Caso de contraseña vacía
+    fireEvent.change(passwordInput, { target: { value: '' } });
+    fireEvent.click(btnLogin);
+
+    expect(screen.getByText(LanguageConfig.messages.Welcome.Login.errors['empty-password'])).toBeInTheDocument();
+
     (ApiUserService.SignIn as jest.Mock).mockImplementationOnce(
       (): Promise<SignedInUser> => Promise.resolve({ access_token: '', ok: false }),
     );
@@ -139,7 +146,7 @@ describe('WelcomeForm', () => {
       expect(ApiUserService.SignIn).toHaveBeenCalledTimes(1);
     });
 
-    expect(screen.getByText('Welcome.Login.errors.unknown')).toBeInTheDocument();
+    expect(screen.getByText(LanguageConfig.messages.Welcome.Login.errors.unknown)).toBeInTheDocument();
   });
 
   it('user not verified; register ok', async () => {
@@ -233,6 +240,6 @@ describe('WelcomeForm', () => {
       expect(ApiUserService.SignUp).toHaveBeenCalledTimes(1);
     });
 
-    expect(screen.getByText('Welcome.Register.errors.unknown')).toBeInTheDocument();
+    expect(screen.getByText(LanguageConfig.messages.Welcome.Register.errors.unknown)).toBeInTheDocument();
   });
 });

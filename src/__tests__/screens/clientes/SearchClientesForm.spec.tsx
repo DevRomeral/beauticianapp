@@ -1,4 +1,5 @@
 import LanguageWrapper from '@/__mocks__/components/LanguageWrapper';
+import { LanguageConfig } from '@/__mocks__/configs/LanguageConfig';
 import SearchClientesForm, {
   SearchClientsFormConfig as SearchClientesFormConfig,
 } from '@/screens/clientes/SearchClientesForm';
@@ -20,7 +21,7 @@ describe('SearchClientesForm', () => {
       </LanguageWrapper>,
     );
 
-    expect(screen.getByText('Clientes.title')).toBeInTheDocument();
+    expect(screen.getByText(LanguageConfig.messages.Clientes.title)).toBeInTheDocument();
     expect(screen.getByTestId(SearchClientesFormConfig.formId)).toBeInTheDocument();
     expect(screen.getByTestId(SearchClientesFormConfig.queryTextId)).toBeInTheDocument();
     expect(screen.queryByTestId(SearchClientesFormConfig.panelNotFoundId)).not.toBeInTheDocument();

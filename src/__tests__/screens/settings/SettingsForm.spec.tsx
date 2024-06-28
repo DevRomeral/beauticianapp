@@ -1,5 +1,5 @@
 import LanguageWrapper from '@/__mocks__/components/LanguageWrapper';
-import { LanguageConfig as MockLanguageConfig } from '@/__mocks__/configs/LanguageConfig';
+import { LanguageConfig, LanguageConfig as MockLanguageConfig } from '@/__mocks__/configs/LanguageConfig';
 import SettingsForm from '@/screens/settings/SettingsForm';
 import { render, screen } from '@testing-library/react';
 
@@ -16,7 +16,7 @@ describe('SettingsForm', () => {
     );
 
     // TODO: implementar tests
-    expect(screen.getByText('Settings.title')).toBeInTheDocument();
+    expect(screen.getByText(LanguageConfig.messages.Settings.title)).toBeInTheDocument();
   });
 
   // // TODO: crear test para cambiar idioma
