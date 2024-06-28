@@ -1,7 +1,7 @@
 'use client';
 
+import { FetchCustomers } from '@/services/api/ApiCustomerService';
 import { Customer } from '@/types/customer.model';
-import { filterCustomers } from '@/utils/filters/CustomerFilters';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -11,25 +11,22 @@ import PageTitle from '@/components/display/PageTitle';
 import { ButtonProps } from '@/components/inputs/Button';
 import TextField from '@/components/inputs/TextField';
 
-export const dummyCustomers: Customer[] = [
-  { id: '1', name: 'Gustavo', age: 22, lastAppointment: new Date(2024, 0, 1, 12, 34), diseases: [] },
-  {
-    id: '2',
-    name: 'Miguel',
-    age: 28,
-    lastAppointment: new Date(2024, 5, 27, 12, 34),
-    diseases: ['hipocondría', 'pereza'],
-  },
-];
+export interface ISearchClientesFormConfig {
+  formId: string;
+  queryTextId: string;
+  panelNotFoundId: string;
+}
+
+export const SearchClientsFormConfig: ISearchClientesFormConfig = {
+  formId: 'searchCustomersForm',
+  queryTextId: 'queryTextInput',
+  panelNotFoundId: 'customersNotFound',
+};
 
 export default function SearchClientesForm() {
   const t = useTranslations('Clientes');
-  // Evita que el panel de no resultados sea visible nada más entrar
   const [noResultsPanelVisible, setNoResultsPanelVisible] = useState(false);
   const [filteredCustomers, setFilteredCustomers] = useState<Customer[]>([]);
-
-  const formId = 'welcome-form';
-  const mainId = 'main';
 
   const darAltaCliente = () => {
     alert('TODO');
@@ -44,43 +41,48 @@ export default function SearchClientesForm() {
 
   const onChangeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
-      // TODO: Buscar clientes desde back
-      const customers = dummyCustomers;
-      const main = event.target.value.toLocaleLowerCase();
-      console.log(main);
+      const queryText = event.target.value.toLocaleLowerCase();
 
-      if (main.length > 0) {
-        setFilteredCustomers(filterCustomers(customers, main));
-      } else {
+      if (queryText.length == 0) {
         setFilteredCustomers([]);
+        setNoResultsPanelVisible(true);
+        return;
       }
+
+      // TODO: en este momento no tiene sentido filtrar, porque el back ya te lo debe dar filtrado, no? De ser así, quitar el filtro de clientes
+      const customers = await FetchCustomers(queryText);
+
+      setFilteredCustomers(customers);
+      setNoResultsPanelVisible(customers.length == 0);
     } catch (err) {
+      console.error(err);
       console.error('Error when fetching clients');
     }
-    // La primera vez que hagamos una búsqueda lo ponemos
-    if (!noResultsPanelVisible) setNoResultsPanelVisible(true);
   };
   return (
     <div className="container mx-auto">
       <PageTitle title={t('title')} btnProps={buttonProps} />
       <DebugInfo>
-        <p>Prueba a buscar nuestros nombres o solo la legra "G"</p>
+        <p>Prueba a buscar nuestros nombres o solo la legra G</p>
       </DebugInfo>
-      <form id={formId}>
+      <form id={SearchClientsFormConfig.formId} data-testid={SearchClientsFormConfig.formId}>
         <TextField
-          id={mainId}
+          id={SearchClientsFormConfig.queryTextId}
           label={t('form.main.label')}
           placeholder={t('form.main.placeholder')}
           type="text"
           onChangeHandler={onChangeHandler}
         />
       </form>
-      {noResultsPanelVisible && (
+      {(noResultsPanelVisible && (
+        <div id={SearchClientsFormConfig.panelNotFoundId} data-testid={SearchClientsFormConfig.panelNotFoundId}>
+          {t('no-results')}
+        </div>
+      )) || (
         <div className="flex flex-col gap-1">
-          {(filteredCustomers.length > 0 &&
-            filteredCustomers.map((customer) => <CustomerCard key={customer.id} customer={customer} />)) || (
-            <div>{t('no-results')}</div>
-          )}
+          {filteredCustomers.map((customer) => (
+            <CustomerCard key={customer.id} customer={customer} />
+          ))}
         </div>
       )}
     </div>

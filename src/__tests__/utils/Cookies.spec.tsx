@@ -3,11 +3,13 @@ import { NextRequest } from 'next/server';
 
 // Mockear la función request.cookies.get
 const mockRequestCookiesGet = jest.fn();
+const mockRequestCookiesSet = jest.fn();
 
 // Mockear el objeto request
 const mockRequest: NextRequest = {
   cookies: {
     get: mockRequestCookiesGet,
+    set: mockRequestCookiesSet,
   },
 };
 

@@ -1,4 +1,4 @@
-import { getDateTime } from '@/services/customize/date-service';
+import { getDateTime } from '@/utils/format/DateFormat';
 import { render, screen } from '@testing-library/react';
 
 import AppointmentCard from '@/components/appointment/AppointmentCard';

@@ -24,7 +24,12 @@ export default function SettingsForm() {
       <h1>{t('title')}</h1>
       <div>
         <SettingsSection title={t('language.title')} description={t('language.description')}>
-          <select onChange={onSelectchange} defaultValue={localeActive} disabled={isPending}>
+          <select
+            data-testid="selectChangeLanguage"
+            onChange={onSelectchange}
+            defaultValue={localeActive}
+            disabled={isPending}
+          >
             {LanguageConfig.availableLanguages.map((lang) => (
               <option key={lang.code} value={lang.code}>
                 {t(lang.text)}

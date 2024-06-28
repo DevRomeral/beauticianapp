@@ -36,7 +36,7 @@ jest.mock('next/headers', () => ({
   }),
 }));
 
-describe('VerifyUser', () => {
+describe('ApiUserService', () => {
   const email = 'test@example.com';
   const password = 'password';
   let mock: axiosMockAdapter;

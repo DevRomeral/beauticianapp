@@ -1,4 +1,4 @@
-import { getDateTime } from '@/services/customize/date-service';
+import { getDateTime } from '@/utils/format/DateFormat';
 
 export interface Appointment {
   date: Date;

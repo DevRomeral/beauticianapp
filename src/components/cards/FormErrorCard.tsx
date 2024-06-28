@@ -1,5 +1,7 @@
 'use client';
 
+export const idDivErrors = 'divErrorMessage';
+
 export interface FormErrorCardProps {
   errors: string[];
 }
@@ -10,7 +12,7 @@ const FormErrorCard: React.FC<FormErrorCardProps> = ({ errors }) => {
   }
 
   return (
-    <div data-testid="divErrorMessage" className="my-6 border border-red-400 bg-red-200 p-3 text-red-700">
+    <div data-testid={idDivErrors} className="my-6 border border-red-400 bg-red-200 p-3 text-red-700">
       {errors.map((e) => (
         <p key={e}>{e}</p>
       ))}

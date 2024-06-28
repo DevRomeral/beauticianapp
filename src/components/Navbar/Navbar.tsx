@@ -73,7 +73,7 @@ export default function NavBar() {
           )}
         </div>
       </div>
-      <div className="logo-container flex h-full max-w-10 flex-auto justify-center">
+      <div data-testid="navbarLogoContainer" className="logo-container flex h-full max-w-10 flex-auto justify-center">
         <Link href="/">
           <Image src={logo} className="h-full w-auto" alt="Logo"></Image>
         </Link>

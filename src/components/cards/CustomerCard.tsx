@@ -1,7 +1,7 @@
 'use client';
 
-import { getDateDay } from '@/services/customize/date-service';
 import { Customer } from '@/types/customer.model';
+import { getDateDay } from '@/utils/format/DateFormat';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 
@@ -11,6 +11,7 @@ export interface CustomerCardProps {
   customer: Customer;
 }
 
+// TODO: Crear tests de CustomerCard
 const CustomerCard: React.FC<CustomerCardProps> = ({ customer }) => {
   const t = useTranslations('Components.CustomerCard');
 
@@ -19,7 +20,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({ customer }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 p-2 shadow-md">
+    <div className="flex flex-col gap-2 p-2 shadow-md" id={customer.id} data-testid={customer.id}>
       <div className="flex justify-between">
         <span className="text-xl font-bold uppercase">{customer.name}</span>
         <span className="text-lg font-semibold">{customer.age?.toString()}</span>

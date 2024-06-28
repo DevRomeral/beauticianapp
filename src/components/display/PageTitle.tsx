@@ -8,6 +8,7 @@ export interface PageTitleProps {
   btnProps?: ButtonProps;
 }
 
+// TODO: Crear tests de PageTitle
 const PageTitle: React.FC<PageTitleProps> = ({ title, subtitle, btnProps }) => {
   return (
     <div className="mb-5">
@@ -17,7 +18,7 @@ const PageTitle: React.FC<PageTitleProps> = ({ title, subtitle, btnProps }) => {
           <Button
             id={btnProps?.id}
             style={btnProps?.style}
-            text={btnProps?.text || ''}
+            text={btnProps?.text}
             type={btnProps?.type}
             disabled={btnProps?.disabled}
             onClick={btnProps?.onClick}

@@ -8,6 +8,7 @@ export interface ButtonIconProps {
 
 const style = 'h-4 w-4';
 
+// TODO: Crear tests de ButtonIcon
 const ButtonIcon: React.FC<ButtonIconProps> = ({ id }) => {
   switch (id) {
     case 'user-plus':
