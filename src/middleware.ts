@@ -23,7 +23,6 @@ export async function middleware(request: NextRequest) {
     return redirectToLogin(request);
   }
 
-  console.log('Next...');
   return NextResponse.next();
 }
 export const config = {

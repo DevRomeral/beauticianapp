@@ -48,11 +48,6 @@ export default function NavBar() {
         </div>
         <ul className="links">
           <li>
-            <Link href="/" onClick={closeDrawer} className={setActiveLink('/')}>
-              {t('links.home')}
-            </Link>
-          </li>
-          <li>
             <Link href="/profile" prefetch={false} onClick={closeDrawer} className={setActiveLink('/profile')}>
               {t('links.profile')}
             </Link>

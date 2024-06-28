@@ -1,14 +1,18 @@
 'use client';
 
+import ButtonIcon, { ButtonIconsId } from '../icons/ButtonIcon';
+
 export type ButtonType = 'button' | 'submit';
 
 export type ButtonStyle = '' | 'primary' | 'danger';
 
 export interface ButtonProps {
   id?: string;
+  icon?: ButtonIconsId;
   type?: ButtonType;
   style?: ButtonStyle;
   text: string;
+  disabled?: boolean;
   onClick?: () => void | Promise<void>;
 }
 
@@ -25,15 +29,25 @@ function buttonStyles(style: ButtonStyle): string {
   }
 }
 
-const Button: React.FC<ButtonProps> = ({ id, type = 'button', style = '', text = '', onClick }) => {
+const Button: React.FC<ButtonProps> = ({
+  id,
+  icon = '',
+  type = 'button',
+  style = '',
+  text = '',
+  disabled = false,
+  onClick,
+}) => {
   return (
     <button
       type={type}
-      className={`gap-2 rounded-sm px-2 py-1 text-base font-semibold uppercase duration-300 ${buttonStyles(style)}`}
+      className={`flex flex-row items-center gap-1 rounded-sm px-2 py-1 text-base font-semibold uppercase duration-300 disabled:bg-gray-200 disabled:text-gray-600 ${buttonStyles(style)}`}
       onClick={onClick}
       id={id}
       data-testid={id}
+      disabled={disabled}
     >
+      {icon && <ButtonIcon id={icon} />}
       {text}
     </button>
   );

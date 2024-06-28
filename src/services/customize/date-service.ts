@@ -9,3 +9,14 @@ export function getDateTime(date: Date | null | undefined): string {
   const minutes = date.getMinutes().toString().padStart(2, '0');
   return `${hours}:${minutes}`;
 }
+
+/**
+ * Obtiene el día dado una fecha
+ * @returns Fecha en formato día y mes: (ejemplo: 12 enero)
+ */
+export function getDateDay(date: Date | null | undefined): string {
+  if (date === undefined || date === null) return '';
+
+  const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long' };
+  return new Intl.DateTimeFormat('es-ES', options).format(date).replace(' de ', ' ');
+}

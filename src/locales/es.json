@@ -5,8 +5,23 @@
   "404": {
     "title": "Página no encontrada"
   },
+  "Components":{
+    "CustomerCard": {
+      "last-appointment": "Últ. Cita"
+    }
+  },
   "Clientes": {
-    "title": "Clientes"
+    "title": "Clientes",
+    "form": {
+      "buttonNew": {
+        "title": "Dar de alta"
+      },
+      "main": {
+        "label": "Buscar Cliente",
+        "placeholder": "Nombre | Apellidos | Edad | C.P."
+      }
+    },
+    "no-results": "No se ha encontrado a ningún usuario"
   },
   "Navbar": {
     "linkSignIn": "Iniciar Sesión",
@@ -24,9 +39,13 @@
   },
   "Settings":{
     "title": "Ajustes",
-    "languages":{
-      "es": "Español",
-      "en": "Inglés"
+    "language":{
+      "title": "Idioma",
+      "description": "Cambia el idioma de la aplicación",
+      "options": {
+        "es": "Español",
+        "en": "Inglés"
+      }
     }
   },
   "Welcome": {

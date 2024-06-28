@@ -4,11 +4,11 @@ export const LanguageConfig = {
   availableLanguages: [
     {
       code: 'es',
-      text: 'languages.es',
+      text: 'language.options.es',
     },
     // {
     //   code: 'en',
-    //   text: 'languages.en',
+    //   text: 'language.options.en',
     // },
   ],
 };

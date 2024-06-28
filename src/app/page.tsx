@@ -1,9 +1,11 @@
 'use client';
 
 import { Dashboard } from '@/services/api/ApiUserService';
+import { Customer } from '@/types/customer.model';
 import { useTranslations } from 'next-intl';
 
 import AppointmentCard from '@/components/appointment/AppointmentCard';
+import CustomerCard from '@/components/cards/CustomerCard';
 import Button from '@/components/inputs/Button';
 import TextField from '@/components/inputs/TextField';
 
@@ -18,6 +20,14 @@ export default function HomePage() {
       alert('Inicia sesión primero');
     }
   }
+
+  const customerDemo: Customer = {
+    id: '1',
+    name: 'Gustavo',
+    age: 22,
+    lastAppointment: new Date(2024, 0, 1, 12, 34),
+    diseases: ['disease1', 'disease2'],
+  };
 
   return (
     <div className="flex min-h-screen flex-col items-center gap-2">
@@ -53,6 +63,10 @@ export default function HomePage() {
         <div>
           <h1>Appointment Cards</h1>
           <AppointmentCard date={new Date(Date.now())} customer="Adolfi" service="Pedicura"></AppointmentCard>
+        </div>
+        <div>
+          <h1>Customer Cards</h1>
+          <CustomerCard customer={customerDemo} />
         </div>
       </div>
     </div>
