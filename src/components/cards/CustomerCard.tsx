@@ -4,19 +4,21 @@ import { Customer } from '@/types/customer.model';
 import { getDateDay } from '@/utils/format/DateFormat';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 
 import Button from '../inputs/Button';
+import DiseaseCard from './DiseaseCard';
 
 export interface CustomerCardProps {
   customer: Customer;
 }
 
-// TODO: Crear tests de CustomerCard
 const CustomerCard: React.FC<CustomerCardProps> = ({ customer }) => {
   const t = useTranslations('Components.CustomerCard');
+  const router = useRouter();
 
   const viewDetails = () => {
-    alert('TODO');
+    router.push(`/clientes/${customer.id}`);
   };
 
   return (
@@ -35,12 +37,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({ customer }) => {
       {customer.diseases.length > 0 && (
         <div className="flex gap-2">
           {customer.diseases.map((disease) => (
-            <span
-              className="rounded-sm bg-secondary-100 px-2 py-0 text-sm text-secondary-500"
-              key={`${customer.id}_${disease}`}
-            >
-              {disease}
-            </span>
+            <DiseaseCard disease={disease} key={disease} customerId={customer.id} />
           ))}
         </div>
       )}

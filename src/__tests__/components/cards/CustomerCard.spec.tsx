@@ -5,6 +5,15 @@ import { render, screen } from '@testing-library/react';
 
 import CustomerCard from '@/components/cards/CustomerCard';
 
+const mockRouterPush = jest.fn();
+
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    prefetch: () => null,
+    push: mockRouterPush,
+  }),
+}));
+
 const dummyCustomer: Customer = {
   id: '1',
   name: 'Gustavo',

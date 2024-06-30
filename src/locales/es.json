@@ -21,7 +21,22 @@
         "placeholder": "Nombre | Apellidos | Edad | C.P."
       }
     },
-    "no-results": "No se ha encontrado a ningún usuario"
+    "no-results": "No se ha encontrado a ningún usuario",
+    "Detalles":{
+      "form": {
+        "buttonEdit": {
+          "title": "Editar"
+        }
+      },
+      "sections": {
+        "age": {
+          "title": "años"
+        },
+        "diseases":{
+          "title": "Enfermedades"
+        }
+      }
+    }
   },
   "Navbar": {
     "linkSignIn": "Iniciar Sesión",

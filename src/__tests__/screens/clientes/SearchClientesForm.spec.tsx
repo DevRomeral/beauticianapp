@@ -9,6 +9,15 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 jest.mock('@/services/api/ApiCustomerService');
 
+const mockRouterPush = jest.fn();
+
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    prefetch: () => null,
+    push: mockRouterPush,
+  }),
+}));
+
 describe('SearchClientesForm', () => {
   afterEach(() => {
     jest.clearAllMocks();

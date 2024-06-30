@@ -1,6 +1,6 @@
-import { UserPlusIcon } from '@heroicons/react/24/outline';
+import { PencilIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 
-export type ButtonIconsId = '' | 'user-plus' | 'other';
+export type ButtonIconsId = '' | 'user-plus' | 'edit';
 
 export interface ButtonIconProps {
   id: ButtonIconsId;
@@ -13,6 +13,8 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ id }) => {
   switch (id) {
     case 'user-plus':
       return <UserPlusIcon className={style} />;
+    case 'edit':
+      return <PencilIcon className={style} />;
     default:
       return <></>;
   }
