@@ -1,10 +1,10 @@
 'use client';
 
-import DetallesCliente from '@/screens/clientes/DetallesCliente';
+import EditarClienteForm from '@/screens/clientes/EditarClienteForm';
 import { useParams } from 'next/navigation';
 
-export default function DetalleClientesPage() {
+export default function EditarClientesPage() {
   const { id } = useParams();
 
-  return <DetallesCliente customerId={id as string} />;
+  return <EditarClienteForm customerId={id as string} />;
 }

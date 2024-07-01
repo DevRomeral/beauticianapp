@@ -33,3 +33,11 @@ export async function getCustomerById(id: string): Promise<Customer | null> {
   if (response.length == 0) return null;
   return response[0];
 }
+
+export async function saveCustomer(customer: Customer): Promise<Customer | null> {
+  // TODO: implementar llamada al server
+
+  // Simulamos que se crea un nuevo id si es nuevo
+  if (customer.id === '') customer.id = 'nuevo';
+  return customer;
+}

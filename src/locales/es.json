@@ -36,6 +36,53 @@
           "title": "Enfermedades"
         }
       }
+    },
+    "CrearEditar": {
+      "title": {
+        "create": "Crear cliente",
+        "edit": "Editar cliente"
+      },
+      "not-found": {
+        "description": "No se ha encontrado a este cliente."
+      },
+      "form":{
+        "name": {
+          "label": "Nombre",
+          "placeholder": "Nombre del cliente"
+        },
+        "lastname1": {
+          "label": "1º Apellido",
+          "placeholder": "Primer Apellido"
+        },
+        "lastname2": {
+          "label": "2º Apellido",
+          "placeholder": "Segundo Apellido"
+        },
+        "age": "Tienes {age} año{plural}",
+        "diseases": {
+          "add": {
+            "title": "Añadir"
+          }
+        },
+        "watch":{
+          "label": "Observaciones",
+          "placeholder": "Es alérgico a..."
+        },
+        "cancel": {
+          "title":"Cancelar"
+        },
+        "save": {
+          "create":{
+            "title": "Crear Cliente"
+          },
+          "edit":{
+            "title": "Guardar Cambios"
+          }
+        },
+        "create-new": {
+          "title": "Crear nuevo cliente"
+        }
+      }
     }
   },
   "Navbar": {

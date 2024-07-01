@@ -2,6 +2,7 @@ import { getCustomerById } from '@/services/api/ApiCustomerService';
 import { Customer } from '@/types/customer.model';
 import { ShieldExclamationIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import DiseaseCard from '@/components/cards/DiseaseCard';
@@ -28,6 +29,7 @@ export interface DetallesClienteProps {
 
 const DetallesCliente: React.FC<DetallesClienteProps> = ({ customerId }) => {
   const t = useTranslations('Clientes.Detalles');
+  const router = useRouter();
   // undefined: no cargado
   // null: no existe
   const [customer, setCustomer] = useState<Customer | undefined | null>(undefined);
@@ -44,7 +46,7 @@ const DetallesCliente: React.FC<DetallesClienteProps> = ({ customerId }) => {
     id: 'btnEditarCliente',
     text: t('form.buttonEdit.title'),
     onClick: () => {
-      alert('TO BE DONE');
+      router.push(`/clientes/editar/${customerId}`);
     },
     icon: 'edit',
   };
@@ -52,6 +54,7 @@ const DetallesCliente: React.FC<DetallesClienteProps> = ({ customerId }) => {
   // const isLoading = true;
   const isLoading = customer === undefined;
 
+  // TODO: crear plantilla para cuando no se haya encontrado al cliente por su ID
   return (
     <div className={`container mx-auto flex flex-col gap-10`}>
       <div>

@@ -9,13 +9,20 @@ import { useState } from 'react';
 import DebugInfo from '@/components/DebugInfo';
 import TextField from '@/components/inputs/TextField';
 
+export interface IWelcomeFormConfig {
+  formId: string;
+  emailId: string;
+}
+
+export const WelcomeFormConfig: IWelcomeFormConfig = {
+  formId: 'welcome-form',
+  emailId: 'email',
+};
+
 export default function WelcomeForm() {
   const t = useTranslations('Welcome');
   const [showLoginForm, setShowLoginForm] = useState<boolean>(false);
   const [showRegisterForm, setShowRegisterForm] = useState<boolean>(false);
-
-  const formId = 'welcome-form';
-  const emailId = 'email';
 
   const onChangeEmailHandler = async (event: React.FocusEvent<HTMLInputElement>) => {
     try {
@@ -37,23 +44,23 @@ export default function WelcomeForm() {
       <h1 id="screen-title" className="text-2xl">
         {t('title')}
       </h1>
-      <form id={formId}>
+      <form id={WelcomeFormConfig.formId}>
         <DebugInfo>
           <p>
             Si el correo incluye la palabra <strong>error</strong>, te indicará que no estás registrado
           </p>
         </DebugInfo>
         <TextField
-          id={emailId}
-          name={emailId}
+          id={WelcomeFormConfig.emailId}
+          name={WelcomeFormConfig.emailId}
           label={t('form.email.label')}
           placeholder={t('form.email.placeholder')}
           required={true}
           type="email"
           onBlurHandler={onChangeEmailHandler}
         />
-        {showLoginForm && <LoginForm formId={formId} emailId={emailId} />}
-        {showRegisterForm && <RegisterForm formId={formId} emailId={emailId} />}
+        {showLoginForm && <LoginForm formId={WelcomeFormConfig.formId} emailId={WelcomeFormConfig.emailId} />}
+        {showRegisterForm && <RegisterForm formId={WelcomeFormConfig.formId} emailId={WelcomeFormConfig.emailId} />}
       </form>
     </div>
   );

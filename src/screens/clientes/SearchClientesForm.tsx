@@ -3,6 +3,7 @@
 import { FetchCustomers } from '@/services/api/ApiCustomerService';
 import { Customer } from '@/types/customer.model';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import CustomerCard from '@/components/cards/CustomerCard';
@@ -25,11 +26,12 @@ export const SearchClientsFormConfig: ISearchClientesFormConfig = {
 
 export default function SearchClientesForm() {
   const t = useTranslations('Clientes');
+  const router = useRouter();
   const [noResultsPanelVisible, setNoResultsPanelVisible] = useState(false);
   const [filteredCustomers, setFilteredCustomers] = useState<Customer[]>([]);
 
   const darAltaCliente = () => {
-    alert('TODO');
+    router.push('/clientes/crear');
   };
 
   const buttonProps: ButtonProps = {
@@ -74,17 +76,19 @@ export default function SearchClientesForm() {
           onChangeHandler={onChangeHandler}
         />
       </form>
-      {(noResultsPanelVisible && (
-        <div id={SearchClientsFormConfig.panelNotFoundId} data-testid={SearchClientsFormConfig.panelNotFoundId}>
-          {t('no-results')}
-        </div>
-      )) || (
-        <div className="flex flex-col gap-1">
-          {filteredCustomers.map((customer) => (
-            <CustomerCard key={customer.id} customer={customer} />
-          ))}
-        </div>
-      )}
+      <div className="mt-6">
+        {(noResultsPanelVisible && (
+          <div id={SearchClientsFormConfig.panelNotFoundId} data-testid={SearchClientsFormConfig.panelNotFoundId}>
+            {t('no-results')}
+          </div>
+        )) || (
+          <div className="flex flex-col gap-1">
+            {filteredCustomers.map((customer) => (
+              <CustomerCard key={customer.id} customer={customer} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

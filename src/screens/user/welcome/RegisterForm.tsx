@@ -11,6 +11,19 @@ import FormErrorCard from '@/components/cards/FormErrorCard';
 import DebugInfo from '@/components/DebugInfo';
 import Button from '@/components/inputs/Button';
 import TextField from '@/components/inputs/TextField';
+
+export interface IRegisterFormConfig {
+  idPassword1: string;
+  idPassword2: string;
+  idBtnRegister: string;
+}
+
+export const RegisterFormConfig: IRegisterFormConfig = {
+  idPassword1: 'password1',
+  idPassword2: 'password2',
+  idBtnRegister: 'btnRegister',
+};
+
 export interface RegisterFormProps {
   formId: string;
   emailId: string;
@@ -22,10 +35,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
   const t = useTranslations('Welcome.Register');
   const { updateToken } = useSession();
 
-  const idPassword1 = 'password1';
-  const idPassword2 = 'password2';
-  const idBtnRegister = 'btnRegister';
-
   async function handleSubmit() {
     setErrorMessages([]);
     const errors = [];
@@ -33,8 +42,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
     const form = document.getElementById(formId) as HTMLFormElement;
     const formData = new FormData(form);
     const email = formData.get(emailId)?.toString() || '';
-    const password1 = formData.get(idPassword1)?.toString() || '';
-    const password2 = formData.get(idPassword2)?.toString() || '';
+    const password1 = formData.get(RegisterFormConfig.idPassword1)?.toString() || '';
+    const password2 = formData.get(RegisterFormConfig.idPassword2)?.toString() || '';
 
     // TODO: comprobaciones lado cliente de los inputs
     if (password1.length == 0) {
@@ -72,16 +81,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
       </DebugInfo>
 
       <TextField
-        id={idPassword1}
-        name={idPassword1}
+        id={RegisterFormConfig.idPassword1}
+        name={RegisterFormConfig.idPassword1}
         label={t('form.password1.label')}
         placeholder={t('form.password1.placeholder')}
         required={true}
         type="password"
       />
       <TextField
-        id={idPassword2}
-        name={idPassword2}
+        id={RegisterFormConfig.idPassword2}
+        name={RegisterFormConfig.idPassword2}
         label={t('form.password2.label')}
         placeholder={t('form.password2.placeholder')}
         required={true}
@@ -90,7 +99,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formId, emailId }) => {
 
       <FormErrorCard errors={errorMessages} />
 
-      <Button id={idBtnRegister} style="primary" text={t('form.submit.title')} type="button" onClick={handleSubmit} />
+      <Button
+        id={RegisterFormConfig.idBtnRegister}
+        style="primary"
+        text={t('form.submit.title')}
+        type="button"
+        onClick={handleSubmit}
+      />
     </>
   );
 };

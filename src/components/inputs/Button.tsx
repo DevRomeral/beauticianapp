@@ -4,7 +4,7 @@ import ButtonIcon, { ButtonIconsId } from '../icons/ButtonIcon';
 
 export type ButtonType = 'button' | 'submit';
 
-export type ButtonStyle = '' | 'primary' | 'danger';
+export type ButtonStyle = '' | 'primary' | 'danger' | 'success';
 
 export interface ButtonProps {
   id?: string;
@@ -23,7 +23,9 @@ function buttonStyles(style: ButtonStyle): string {
     case 'primary':
       return 'bg-primary-300 text-black hover:bg-primary-200';
     case 'danger':
-      return 'bg-red-500 text-white';
+      return 'bg-red-500 hover:bg-red:200 text-white';
+    case 'success':
+      return 'bg-success-300 hover:bg-success-200 text-black';
     default:
       return '';
   }

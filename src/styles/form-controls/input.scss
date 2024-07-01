@@ -6,11 +6,17 @@ label {
 
 input[type='text'], 
 input[type='email'], 
-input[type='password'] {
-  @apply text-base rounded-none border w-full py-1 px-1 border-primary-400 text-black;
+input[type='password'],
+textarea {
+  @apply text-base rounded-sm border w-full py-1 px-1 border-primary-400 text-black;
   background-color: $inputBackgroundColor;
 }
 
-input::placeholder {
+input::placeholder, 
+textarea::placeholder {
   @apply text-secondary-300;
+}
+
+textarea {
+  @apply min-h-28;
 }

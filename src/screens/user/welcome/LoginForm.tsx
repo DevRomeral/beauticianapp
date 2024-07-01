@@ -12,6 +12,16 @@ import DebugInfo from '@/components/DebugInfo';
 import Button from '@/components/inputs/Button';
 import TextField from '@/components/inputs/TextField';
 
+export interface ILoginFormConfig {
+  idInputPassword: string;
+  idBtnLogin: string;
+}
+
+export const LoginFormConfig: ILoginFormConfig = {
+  idInputPassword: 'tfPassword',
+  idBtnLogin: 'btnLogin',
+};
+
 export interface LoginFormProps {
   formId: string;
   emailId: string;
@@ -21,8 +31,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
   const router = useRouter();
   const t = useTranslations('Welcome.Login');
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
-  const idInputPassword = 'password';
-  const idBtnLogin = 'btnLogin';
 
   const { updateToken } = useSession();
 
@@ -33,7 +41,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
     const form = document.getElementById(formId) as HTMLFormElement;
     const formData = new FormData(form);
     const email = formData.get(emailId)?.toString() || '';
-    const password = formData.get('password')?.toString() || '';
+    const password = formData.get(LoginFormConfig.idInputPassword)?.toString() || '';
 
     // TODO: Comprobaciones lado cliente de inputs
     if (password.length == 0) {
@@ -69,8 +77,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
         </p>
       </DebugInfo>
       <TextField
-        id={idInputPassword}
-        name={idInputPassword}
+        id={LoginFormConfig.idInputPassword}
+        name={LoginFormConfig.idInputPassword}
         label={t('form.password.label')}
         placeholder={t('form.password.placeholder')}
         required={true}
@@ -79,7 +87,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
 
       <FormErrorCard errors={errorMessages} />
 
-      <Button id={idBtnLogin} style="primary" text={t('form.submit.title')} type="button" onClick={handleSubmit} />
+      <Button
+        id={LoginFormConfig.idBtnLogin}
+        style="primary"
+        text={t('form.submit.title')}
+        type="button"
+        onClick={handleSubmit}
+      />
     </>
   );
 };

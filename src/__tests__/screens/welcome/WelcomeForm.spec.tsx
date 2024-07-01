@@ -2,12 +2,15 @@ import LanguageWrapper from '@/__mocks__/components/LanguageWrapper';
 import { mockBackendJWTConfig } from '@/__mocks__/configs/BackendJWTConfig';
 import { LanguageConfig } from '@/__mocks__/configs/LanguageConfig';
 import { mockParseCookies } from '@/__mocks__/JWT';
-import WelcomeForm from '@/screens/user/welcome/WelcomeForm';
-import * as ApiUserService from '@/services/api/ApiUserService';
+import { mockSignIn, mockSignUp, mockVerifyUser } from '@/__mocks__/services/api/ApiCustomerService';
+import { LoginFormConfig } from '@/screens/user/welcome/LoginForm';
+import { RegisterFormConfig } from '@/screens/user/welcome/RegisterForm';
+import WelcomeForm, { WelcomeFormConfig } from '@/screens/user/welcome/WelcomeForm';
 import { SignedInUser } from '@/types/api/user/signed-in-user.model';
 import { SignedUpUser } from '@/types/api/user/signed-up-user.model';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
+// Mock de servicios y configuraciones
 jest.mock('@/configs/BackendJWTConfig', () => ({
   backendJWTConfig: mockBackendJWTConfig,
 }));
@@ -16,7 +19,11 @@ jest.mock('nookies', () => ({
   parseCookies: mockParseCookies,
 }));
 
-jest.mock('@/services/api/ApiUserService');
+jest.mock('@/services/api/ApiUserService', () => ({
+  VerifyUser: mockVerifyUser,
+  SignIn: mockSignIn,
+  SignUp: mockSignUp,
+}));
 
 const mockRouterPush = jest.fn();
 
@@ -28,13 +35,6 @@ jest.mock('next/navigation', () => ({
 }));
 
 describe('WelcomeForm', () => {
-  const idEmailInput = 'email';
-  const idLoginPassword = 'password';
-  const idLoginButton = 'btnLogin';
-  const idRegisterPassword1 = 'password1';
-  const idRegisterPassword2 = 'password2';
-  const idRegisterButton = 'btnRegister';
-
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -47,10 +47,10 @@ describe('WelcomeForm', () => {
     );
 
     // está el input de email pero no el de los otros fragmentos
-    expect(screen.getByTestId(idEmailInput)).toBeInTheDocument();
-    expect(screen.queryByTestId(idLoginPassword)).not.toBeInTheDocument();
-    expect(screen.queryByTestId(idRegisterPassword1)).not.toBeInTheDocument();
-    expect(screen.queryByTestId(idRegisterPassword2)).not.toBeInTheDocument();
+    expect(screen.getByTestId(WelcomeFormConfig.emailId)).toBeInTheDocument();
+    expect(screen.queryByTestId(LoginFormConfig.idInputPassword)).not.toBeInTheDocument();
+    expect(screen.queryByTestId(RegisterFormConfig.idPassword1)).not.toBeInTheDocument();
+    expect(screen.queryByTestId(RegisterFormConfig.idPassword2)).not.toBeInTheDocument();
   });
 
   it('user verified; login ok', async () => {
@@ -60,39 +60,40 @@ describe('WelcomeForm', () => {
       </LanguageWrapper>,
     );
 
-    const emailInput = screen.getByTestId(idEmailInput);
+    const emailInput = screen.getByTestId(WelcomeFormConfig.emailId);
 
     // Verifica que el input de email esté presente y otros fragmentos no estén presentes
     expect(emailInput).toBeInTheDocument();
-    expect(screen.queryByTestId(idLoginPassword)).not.toBeInTheDocument();
+    expect(screen.queryByTestId(LoginFormConfig.idInputPassword)).not.toBeInTheDocument();
 
     const mockEmail = 'itsamemario@mail.com';
     const mockPassword = 'okidoki';
 
-    (ApiUserService.VerifyUser as jest.Mock).mockImplementationOnce(() => Promise.resolve(true));
+    mockVerifyUser.mockImplementationOnce(() => Promise.resolve(true));
 
     fireEvent.change(emailInput, { target: { value: mockEmail } });
     fireEvent.focusOut(emailInput);
 
     await waitFor(() => {
-      expect(ApiUserService.VerifyUser).toHaveBeenCalledTimes(1);
+      expect(mockVerifyUser).toHaveBeenCalledTimes(1);
     });
 
-    const passwordInput = screen.getByTestId(idLoginPassword);
-    const btnLogin = screen.getByTestId(idLoginButton);
+    const passwordInput = screen.getByTestId(LoginFormConfig.idInputPassword) as HTMLInputElement;
+    const btnLogin = screen.getByTestId(LoginFormConfig.idBtnLogin);
 
     expect(passwordInput).toBeInTheDocument();
     expect(btnLogin).toBeInTheDocument();
 
-    (ApiUserService.SignIn as jest.Mock).mockImplementationOnce(
+    mockSignIn.mockImplementationOnce(
       (): Promise<SignedInUser> => Promise.resolve({ access_token: 'token', ok: true }),
     );
 
+    // TODO: no se por qué no se está cambiando el valor aquí
     fireEvent.change(passwordInput, { target: { value: mockPassword } });
     fireEvent.click(btnLogin);
 
     await waitFor(() => {
-      expect(ApiUserService.SignIn).toHaveBeenCalledTimes(1);
+      expect(mockSignIn).toHaveBeenCalledTimes(1);
     });
 
     expect(mockRouterPush).toHaveBeenCalledWith('/profile');
@@ -105,26 +106,26 @@ describe('WelcomeForm', () => {
       </LanguageWrapper>,
     );
 
-    const emailInput = screen.getByTestId(idEmailInput);
+    const emailInput = screen.getByTestId(WelcomeFormConfig.emailId);
 
     // Verifica que el input de email esté presente y otros fragmentos no estén presentes
     expect(emailInput).toBeInTheDocument();
-    expect(screen.queryByTestId(idLoginPassword)).not.toBeInTheDocument();
+    expect(screen.queryByTestId(LoginFormConfig.idInputPassword)).not.toBeInTheDocument();
 
     const mockEmail = 'itsamemario@mail.com';
     const mockPassword = 'okidoki';
 
-    (ApiUserService.VerifyUser as jest.Mock).mockImplementationOnce(() => Promise.resolve(true));
+    mockVerifyUser.mockImplementationOnce(() => Promise.resolve(true));
 
     fireEvent.change(emailInput, { target: { value: mockEmail } });
     fireEvent.focusOut(emailInput);
 
     await waitFor(() => {
-      expect(ApiUserService.VerifyUser).toHaveBeenCalledTimes(1);
+      expect(mockVerifyUser).toHaveBeenCalledTimes(1);
     });
 
-    const passwordInput = screen.getByTestId(idLoginPassword);
-    const btnLogin = screen.getByTestId(idLoginButton);
+    const passwordInput = screen.getByTestId(LoginFormConfig.idInputPassword);
+    const btnLogin = screen.getByTestId(LoginFormConfig.idBtnLogin);
 
     expect(passwordInput).toBeInTheDocument();
     expect(btnLogin).toBeInTheDocument();
@@ -135,15 +136,13 @@ describe('WelcomeForm', () => {
 
     expect(screen.getByText(LanguageConfig.messages.Welcome.Login.errors['empty-password'])).toBeInTheDocument();
 
-    (ApiUserService.SignIn as jest.Mock).mockImplementationOnce(
-      (): Promise<SignedInUser> => Promise.resolve({ access_token: '', ok: false }),
-    );
+    mockSignIn.mockImplementationOnce((): Promise<SignedInUser> => Promise.resolve({ access_token: '', ok: false }));
 
     fireEvent.change(passwordInput, { target: { value: mockPassword } });
     fireEvent.click(btnLogin);
 
     await waitFor(() => {
-      expect(ApiUserService.SignIn).toHaveBeenCalledTimes(1);
+      expect(mockSignIn).toHaveBeenCalledTimes(1);
     });
 
     expect(screen.getByText(LanguageConfig.messages.Welcome.Login.errors.unknown)).toBeInTheDocument();
@@ -158,30 +157,30 @@ describe('WelcomeForm', () => {
     const mockEmail = 'itsamemario@mail.com';
     const mockPassword = 'okidoki';
 
-    const emailInput = screen.getByTestId(idEmailInput);
+    const emailInput = screen.getByTestId(WelcomeFormConfig.emailId);
 
     // Verifica que el input de email esté presente y otros fragmentos no estén presentes
     expect(emailInput).toBeInTheDocument();
-    expect(screen.queryByTestId(idLoginPassword)).not.toBeInTheDocument();
+    expect(screen.queryByTestId(LoginFormConfig.idInputPassword)).not.toBeInTheDocument();
 
-    (ApiUserService.VerifyUser as jest.Mock).mockImplementationOnce(() => Promise.resolve(false));
+    mockVerifyUser.mockImplementationOnce(() => Promise.resolve(false));
 
     fireEvent.change(emailInput, { target: { value: mockEmail } });
     fireEvent.focusOut(emailInput);
 
     await waitFor(() => {
-      expect(ApiUserService.VerifyUser).toHaveBeenCalledTimes(1);
+      expect(mockVerifyUser).toHaveBeenCalledTimes(1);
     });
 
-    const password1Input = screen.getByTestId(idRegisterPassword1);
-    const password2Input = screen.getByTestId(idRegisterPassword2);
-    const btnRegister = screen.getByTestId(idRegisterButton);
+    const password1Input = screen.getByTestId(RegisterFormConfig.idPassword1);
+    const password2Input = screen.getByTestId(RegisterFormConfig.idPassword2);
+    const btnRegister = screen.getByTestId(RegisterFormConfig.idBtnRegister);
 
     expect(password1Input).toBeInTheDocument();
     expect(password2Input).toBeInTheDocument();
     expect(btnRegister).toBeInTheDocument();
 
-    (ApiUserService.SignUp as jest.Mock).mockImplementationOnce(
+    mockSignUp.mockImplementationOnce(
       (): Promise<SignedUpUser> => Promise.resolve({ access_token: 'token', ok: true }),
     );
 
@@ -190,7 +189,7 @@ describe('WelcomeForm', () => {
     fireEvent.click(btnRegister);
 
     await waitFor(() => {
-      expect(ApiUserService.SignUp).toHaveBeenCalledTimes(1);
+      expect(mockSignUp).toHaveBeenCalledTimes(1);
     });
 
     expect(mockRouterPush).toHaveBeenCalledWith('/profile');
@@ -205,30 +204,30 @@ describe('WelcomeForm', () => {
     const mockEmail = 'itsamemario@mail.com';
     const mockPassword = 'okidoki';
 
-    const emailInput = screen.getByTestId(idEmailInput);
+    const emailInput = screen.getByTestId(WelcomeFormConfig.emailId);
 
     // Verifica que el input de email esté presente y otros fragmentos no estén presentes
     expect(emailInput).toBeInTheDocument();
-    expect(screen.queryByTestId(idLoginPassword)).not.toBeInTheDocument();
+    expect(screen.queryByTestId(LoginFormConfig.idInputPassword)).not.toBeInTheDocument();
 
-    (ApiUserService.VerifyUser as jest.Mock).mockImplementationOnce(() => Promise.resolve(false));
+    mockVerifyUser.mockImplementationOnce(() => Promise.resolve(false));
 
     fireEvent.change(emailInput, { target: { value: mockEmail } });
     fireEvent.focusOut(emailInput);
 
     await waitFor(() => {
-      expect(ApiUserService.VerifyUser).toHaveBeenCalledTimes(1);
+      expect(mockVerifyUser).toHaveBeenCalledTimes(1);
     });
 
-    const password1Input = screen.getByTestId(idRegisterPassword1);
-    const password2Input = screen.getByTestId(idRegisterPassword2);
-    const btnRegister = screen.getByTestId(idRegisterButton);
+    const password1Input = screen.getByTestId(RegisterFormConfig.idPassword1);
+    const password2Input = screen.getByTestId(RegisterFormConfig.idPassword2);
+    const btnRegister = screen.getByTestId(RegisterFormConfig.idBtnRegister);
 
     expect(password1Input).toBeInTheDocument();
     expect(password2Input).toBeInTheDocument();
     expect(btnRegister).toBeInTheDocument();
 
-    (ApiUserService.SignUp as jest.Mock).mockImplementationOnce(
+    mockSignUp.mockImplementationOnce(
       (): Promise<SignedUpUser> => Promise.resolve({ access_token: 'token', ok: false }),
     );
 
@@ -237,7 +236,7 @@ describe('WelcomeForm', () => {
     fireEvent.click(btnRegister);
 
     await waitFor(() => {
-      expect(ApiUserService.SignUp).toHaveBeenCalledTimes(1);
+      expect(mockSignUp).toHaveBeenCalledTimes(1);
     });
 
     expect(screen.getByText(LanguageConfig.messages.Welcome.Register.errors.unknown)).toBeInTheDocument();
