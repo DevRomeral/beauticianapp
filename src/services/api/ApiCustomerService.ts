@@ -19,7 +19,7 @@ const dummyResults: ICustomer[] = [
     age: 28,
     birthday: new Date(1996, 0, 12),
     lastAppointment: new Date(2024, 5, 27, 12, 34),
-    diseases: ['hipocondría', 'pereza'],
+    diseases: ['1', '2'],
   },
 ];
 

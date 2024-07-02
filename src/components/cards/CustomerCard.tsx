@@ -37,7 +37,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({ customer }) => {
       {customer.diseases.length > 0 && (
         <div className="flex gap-2">
           {customer.diseases.map((disease) => (
-            <DiseaseCard disease={disease} key={disease} customerId={customer.id} />
+            <DiseaseCard diseaseId={disease} key={disease} customerId={customer.id} />
           ))}
         </div>
       )}

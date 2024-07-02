@@ -66,8 +66,13 @@
           "label": "2º Apellido",
           "placeholder": "Segundo Apellido"
         },
+        "birthday": {
+          "label": "Fecha de Nacimiento",
+          "placeholder": "Fecha de Nacimiento"
+        },
         "age": "Tienes {age} año{plural}",
         "diseases": {
+          "label": "Enfermedades",
           "add": {
             "title": "Añadir"
           }

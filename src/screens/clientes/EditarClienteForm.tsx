@@ -1,6 +1,9 @@
 import { useAlert } from '@/contexts/AlertContext';
 import { getCustomerById, saveCustomer } from '@/services/api/ApiCustomerService';
+import { FetchDiseases } from '@/services/api/ApiDiseaseService';
 import { Customer, ICustomer } from '@/types/customer.model';
+import { IDisease } from '@/types/disease.model';
+import { filterDiseaseById, getEveryDiseaseIdExcept } from '@/utils/filters/DiseaseFilters';
 import { getDateValueFromString } from '@/utils/format/DateFormat';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
@@ -13,6 +16,7 @@ import LoadingPlaceholder from '@/components/display/LoadingPlaceholder';
 import PageTitle from '@/components/display/PageTitle';
 import Button from '@/components/inputs/Button';
 import DateField from '@/components/inputs/DateField';
+import Select from '@/components/inputs/Select';
 import TextArea from '@/components/inputs/TextArea';
 import TextField from '@/components/inputs/TextField';
 
@@ -26,6 +30,7 @@ export const FormConfig = {
   tfLastname2Id: 'tfCustomerLastname2',
   iBirthdayDateId: 'iBirthdayDate',
   spAgeTextId: 'spanAgeText',
+  selectDiseasesId: 'selectDiseasesId',
   btnAddDiseaseId: 'btnAddDisease',
   tfWatchId: 'watchCustomer',
   btnCancelId: 'btnEditCancel',
@@ -44,12 +49,14 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
   const [_customerId, _setCustomerId] = useState(customerId);
   const [customerNotFound, setCustomerNotFound] = useState(false);
   const isNewCustomer = useMemo(() => _customerId == '', [_customerId]);
+  const [listDiseases, setListDiseases] = useState<IDisease[]>([]);
   const createEditTextPrefix = useMemo(() => (isNewCustomer ? 'create' : 'edit'), [isNewCustomer]);
   const [customer, setCustomer] = useState<Customer>(Customer.empty());
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   useEffect(() => {
     async function fetchData() {
+      setListDiseases(await FetchDiseases());
       const response = await getCustomerById(customerId);
 
       if (response == null) {
@@ -72,6 +79,25 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
   const onBirthdayChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCustomer = customer.clone();
     newCustomer.setBirthday(getDateValueFromString(event.target.value));
+    setCustomer(newCustomer);
+  };
+
+  const onClickDisease = async (event: React.MouseEvent<HTMLElement>) => {
+    const diseaseIdToRemove = (event.target as HTMLElement).dataset.diseaseid || '';
+    // const diseaseId = event.target.dataset
+    const newCustomer = customer.clone();
+    newCustomer.diseases = getEveryDiseaseIdExcept(newCustomer.diseases, diseaseIdToRemove);
+    setCustomer(newCustomer);
+  };
+
+  const onAddDisease = async () => {
+    const select = document.getElementById(FormConfig.selectDiseasesId) as HTMLSelectElement;
+    const diseaseToAdd = filterDiseaseById(listDiseases, select.value);
+    if (diseaseToAdd == null || customer.diseases.filter((disease) => disease == diseaseToAdd.id).length > 0) {
+      return;
+    }
+    const newCustomer = customer.clone();
+    newCustomer.diseases = [...newCustomer.diseases, diseaseToAdd.id];
     setCustomer(newCustomer);
   };
 
@@ -169,8 +195,8 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
               <DateField
                 id={FormConfig.iBirthdayDateId}
                 value={customer.birthday}
-                label="Date"
-                placeholder="Date placeholder"
+                label={t('form.birthday.label')}
+                placeholder={t('form.birthday.placeholder')}
                 isLoading={isLoading}
                 onChangeHandler={onBirthdayChange}
                 maxDate={new Date(Date.now())}
@@ -189,19 +215,29 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
           </div>
           <div className="flex items-end justify-between gap-2">
             <div className="flex flex-1">
-              <DebugInfo>TODO Aquí irá selector con opciones fijas</DebugInfo>
+              <Select
+                id={FormConfig.selectDiseasesId}
+                options={listDiseases}
+                label={t('form.diseases.label')}
+                isLoading={isLoading}
+              />
             </div>
             <Button
               text={t('form.diseases.add.title')}
               icon="add"
               id={FormConfig.btnAddDiseaseId}
-              onClick={() => alert('TO BE DONE')}
+              onClick={onAddDisease}
             />
           </div>
           <div className="flex gap-2">
             {customer &&
-              customer.diseases.map((disease) => (
-                <DiseaseCard key={disease} customerId={customer.id} disease={disease} />
+              customer.diseases.map((diseaseId) => (
+                <DiseaseCard
+                  key={diseaseId}
+                  customerId={customer.id}
+                  diseaseId={diseaseId}
+                  onClickHandler={onClickDisease}
+                />
               ))}
           </div>
           <TextArea
