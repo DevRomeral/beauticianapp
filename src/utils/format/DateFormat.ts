@@ -22,3 +22,18 @@ export function getDateDay(date: Date | null | undefined): string {
   const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long' };
   return new Intl.DateTimeFormat('es-ES', options).format(date).replace(' de ', ' ');
 }
+
+export function getDateValueAsString(date: Date | null | undefined): string {
+  if (date == undefined || date == null) return '';
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+export function getDateValueFromString(value: string): Date {
+  if (value == undefined || value == null || value == '') return new Date();
+
+  return new Date(value);
+}

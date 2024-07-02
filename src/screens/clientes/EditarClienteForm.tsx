@@ -1,6 +1,7 @@
 import { useAlert } from '@/contexts/AlertContext';
 import { getCustomerById, saveCustomer } from '@/services/api/ApiCustomerService';
-import { Customer } from '@/types/customer.model';
+import { Customer, ICustomer } from '@/types/customer.model';
+import { getDateValueFromString } from '@/utils/format/DateFormat';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
@@ -11,31 +12,19 @@ import DebugInfo from '@/components/DebugInfo';
 import LoadingPlaceholder from '@/components/display/LoadingPlaceholder';
 import PageTitle from '@/components/display/PageTitle';
 import Button from '@/components/inputs/Button';
+import DateField from '@/components/inputs/DateField';
 import TextArea from '@/components/inputs/TextArea';
 import TextField from '@/components/inputs/TextField';
 
 import ClienteNotFound from './ClienteNotFound';
 
-export interface IEditarClienteFormConfig {
-  formId: string;
-  hCustomerId: string;
-  tfNameId: string;
-  tfLastname1Id: string;
-  tfLastname2Id: string;
-  spAgeTextId: string;
-  btnAddDiseaseId: string;
-  tfWatchId: string;
-  btnCancelId: string;
-  btnSaveId: string;
-  btnGoToNewCustomerId: string;
-}
-
-export const FormConfig: IEditarClienteFormConfig = {
+export const FormConfig = {
   formId: 'editCustomerForm',
   hCustomerId: 'hiddenCustomerId',
   tfNameId: 'tfCustomerName',
   tfLastname1Id: 'tfCustomerLastname1',
   tfLastname2Id: 'tfCustomerLastname2',
+  iBirthdayDateId: 'iBirthdayDate',
   spAgeTextId: 'spanAgeText',
   btnAddDiseaseId: 'btnAddDisease',
   tfWatchId: 'watchCustomer',
@@ -56,8 +45,7 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
   const [customerNotFound, setCustomerNotFound] = useState(false);
   const isNewCustomer = useMemo(() => _customerId == '', [_customerId]);
   const createEditTextPrefix = useMemo(() => (isNewCustomer ? 'create' : 'edit'), [isNewCustomer]);
-  // undefined: no cargado
-  const [customer, setCustomer] = useState<Customer>({ id: '', age: 0, name: '', lastAppointment: null, diseases: [] });
+  const [customer, setCustomer] = useState<Customer>(Customer.empty());
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   useEffect(() => {
@@ -69,21 +57,23 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
         return;
       }
 
-      setCustomer(response);
+      setCustomer(
+        new Customer(response.id, response.name, response.birthday, response.lastAppointment, response.diseases),
+      );
     }
 
     if (isNewCustomer) {
-      setCustomer({
-        age: 0,
-        id: '',
-        diseases: [],
-        name: '',
-        lastAppointment: null,
-      });
+      setCustomer(Customer.empty());
     } else {
       fetchData();
     }
   }, [isNewCustomer, customerId]);
+
+  const onBirthdayChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newCustomer = customer.clone();
+    newCustomer.setBirthday(getDateValueFromString(event.target.value));
+    setCustomer(newCustomer);
+  };
 
   const onCancel = async () => {
     showConfirm({
@@ -114,12 +104,13 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
     }
 
     // TODO: leer desde el formulario
-    const savedCustomer: Customer = {
+    const savedCustomer: ICustomer = {
       id: customer?.id || '',
-      age: customer?.age || 0,
-      diseases: customer?.diseases || [],
       name,
-      lastAppointment: null,
+      age: customer?.age,
+      birthday: customer?.birthday,
+      lastAppointment: customer?.lastAppointment,
+      diseases: customer?.diseases || [],
     };
 
     const response = await saveCustomer(savedCustomer);
@@ -134,7 +125,7 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
   if (customerNotFound) return <ClienteNotFound />;
 
   // const isLoading = true;
-  const isLoading = customer?.id == '';
+  const isLoading = !isNewCustomer && customer?.id == '';
 
   // TODO: crear plantilla para cuando no se haya encontrado al cliente por su ID
   return (
@@ -175,7 +166,15 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
           </div>
           <div className="flex items-end justify-between gap-2">
             <div className="flex-1">
-              <DebugInfo>TODO: crear input de tipo fecha</DebugInfo>
+              <DateField
+                id={FormConfig.iBirthdayDateId}
+                value={customer.birthday}
+                label="Date"
+                placeholder="Date placeholder"
+                isLoading={isLoading}
+                onChangeHandler={onBirthdayChange}
+                maxDate={new Date(Date.now())}
+              />
             </div>
             <div className="flex-1 gap-2">
               <LoadingPlaceholder isLoading={isLoading} height="h-4">

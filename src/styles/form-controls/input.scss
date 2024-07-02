@@ -1,18 +1,18 @@
-
 label {
   @apply mb-1 font-semibold;
   font-size: $h6TextSize;
 }
 
-input[type='text'], 
-input[type='email'], 
+input[type='text'],
+input[type='email'],
 input[type='password'],
+input[type='date'],
 textarea {
   @apply text-base rounded-sm border w-full py-1 px-1 border-primary-400 text-black;
   background-color: $inputBackgroundColor;
 }
 
-input::placeholder, 
+input::placeholder,
 textarea::placeholder {
   @apply text-secondary-300;
 }

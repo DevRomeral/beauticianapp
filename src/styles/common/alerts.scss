@@ -3,7 +3,7 @@
   .background-alert {
     @apply bg-black;
     opacity: 0.7;
-    animation: anim-background-alert 1s ease-in-out;
+    animation: anim-background-alert 0.3s ease-in-out;
     animation-fill-mode: forwards;
   }
 

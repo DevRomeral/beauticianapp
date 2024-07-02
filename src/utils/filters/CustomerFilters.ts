@@ -1,4 +1,4 @@
-import { Customer } from '@/types/customer.model';
+import { ICustomer } from '@/types/customer.model';
 
 /**
  * Filtra una lista de clientes por varios criterios
@@ -6,7 +6,7 @@ import { Customer } from '@/types/customer.model';
  * @param searchTerm Texto de búsqueda
  * @returns Lista de clientes filtrados
  */
-export function filterCustomers(customers: Customer[], searchTerm: string): Customer[] {
+export function filterCustomers(customers: ICustomer[], searchTerm: string): ICustomer[] {
   const main = searchTerm.toLocaleLowerCase();
 
   return customers.filter((customer) => {
