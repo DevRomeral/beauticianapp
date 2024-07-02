@@ -22,6 +22,17 @@
       }
     },
     "no-results": "No se ha encontrado a ningún usuario",
+    "NotFound": {
+      "description": "No se ha encontrado a este cliente.",
+      "form": {
+        "go-back": {
+          "title": "Atrás"
+        },
+        "create-new": {
+          "title": "Crear nuevo cliente"
+        }
+      }
+    },
     "Detalles":{
       "form": {
         "buttonEdit": {
@@ -41,9 +52,6 @@
       "title": {
         "create": "Crear cliente",
         "edit": "Editar cliente"
-      },
-      "not-found": {
-        "description": "No se ha encontrado a este cliente."
       },
       "form":{
         "name": {
@@ -78,9 +86,6 @@
           "edit":{
             "title": "Guardar Cambios"
           }
-        },
-        "create-new": {
-          "title": "Crear nuevo cliente"
         }
       }
     }

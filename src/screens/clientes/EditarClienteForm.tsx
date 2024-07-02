@@ -10,7 +10,10 @@ import DebugInfo from '@/components/DebugInfo';
 import LoadingPlaceholder from '@/components/display/LoadingPlaceholder';
 import PageTitle from '@/components/display/PageTitle';
 import Button from '@/components/inputs/Button';
+import TextArea from '@/components/inputs/TextArea';
 import TextField from '@/components/inputs/TextField';
+
+import ClienteNotFound from './ClienteNotFound';
 
 export interface IEditarClienteFormConfig {
   formId: string;
@@ -119,28 +122,7 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
     alert('Guardado (guiño, guiño) por el server: ' + JSON.stringify(response));
   };
 
-  console.log('Customer NF: ', customerNotFound);
-  console.log('Customer: ', customer);
-
-  if (customerNotFound)
-    return (
-      <div className={`container mx-auto my-2 flex flex-col gap-3`}>
-        <div className="flex flex-col gap-3">
-          <p>{t('not-found.description')}</p>
-          <div>
-            <Button
-              id={FormConfig.btnGoToNewCustomerId}
-              text={t('form.create-new.title')}
-              icon="user-plus"
-              style="primary"
-              onClick={() => {
-                router.replace('/clientes/crear');
-              }}
-            />
-          </div>
-        </div>
-      </div>
-    );
+  if (customerNotFound) return <ClienteNotFound />;
 
   // const isLoading = true;
   const isLoading = customer === undefined;
@@ -214,11 +196,10 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
                 <DiseaseCard key={disease} customerId={customer.id} disease={disease} />
               ))}
           </div>
-          <TextField
+          <TextArea
             id={FormConfig.tfWatchId}
             label={t('form.watch.label')}
             placeholder={t('form.watch.placeholder')}
-            type="textarea"
             isLoading={isLoading}
             required={true}
           />

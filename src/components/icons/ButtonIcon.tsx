@@ -1,6 +1,6 @@
-import { PencilIcon, PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
+import { ArrowUturnLeftIcon, PencilIcon, PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 
-export type ButtonIconsId = '' | 'user-plus' | 'edit' | 'add';
+export type ButtonIconsId = '' | 'user-plus' | 'edit' | 'add' | 'back';
 
 export interface ButtonIconProps {
   id: ButtonIconsId;
@@ -17,6 +17,8 @@ const ButtonIcon: React.FC<ButtonIconProps> = ({ id }) => {
       return <PencilIcon className={style} />;
     case 'add':
       return <PlusIcon className={style} />;
+    case 'back':
+      return <ArrowUturnLeftIcon className={style} />;
     default:
       return <></>;
   }

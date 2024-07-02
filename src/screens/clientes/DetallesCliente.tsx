@@ -11,6 +11,8 @@ import LoadingPlaceholder from '@/components/display/LoadingPlaceholder';
 import PageTitle from '@/components/display/PageTitle';
 import { ButtonProps } from '@/components/inputs/Button';
 
+import ClienteNotFound from './ClienteNotFound';
+
 // export interface ISearchClientesFormConfig {
 //   formId: string;
 //   queryTextId: string;
@@ -30,13 +32,21 @@ export interface DetallesClienteProps {
 const DetallesCliente: React.FC<DetallesClienteProps> = ({ customerId }) => {
   const t = useTranslations('Clientes.Detalles');
   const router = useRouter();
+  const [customerNotFound, setCustomerNotFound] = useState(false);
   // undefined: no cargado
   // null: no existe
   const [customer, setCustomer] = useState<Customer | undefined | null>(undefined);
 
   useEffect(() => {
     async function fetchData() {
-      setCustomer(await getCustomerById(customerId));
+      const response = await getCustomerById(customerId);
+
+      if (response == null) {
+        setCustomerNotFound(true);
+        return;
+      }
+
+      setCustomer(response);
     }
 
     fetchData();
@@ -50,6 +60,8 @@ const DetallesCliente: React.FC<DetallesClienteProps> = ({ customerId }) => {
     },
     icon: 'edit',
   };
+
+  if (customerNotFound) return <ClienteNotFound />;
 
   // const isLoading = true;
   const isLoading = customer === undefined;

@@ -60,7 +60,7 @@ describe('WelcomeForm', () => {
       </LanguageWrapper>,
     );
 
-    const emailInput = screen.getByTestId(WelcomeFormConfig.emailId);
+    const emailInput = screen.getByTestId(WelcomeFormConfig.emailId) as HTMLInputElement;
 
     // Verifica que el input de email esté presente y otros fragmentos no estén presentes
     expect(emailInput).toBeInTheDocument();
@@ -72,6 +72,7 @@ describe('WelcomeForm', () => {
     mockVerifyUser.mockImplementationOnce(() => Promise.resolve(true));
 
     fireEvent.change(emailInput, { target: { value: mockEmail } });
+    expect(emailInput.value).toBe(mockEmail);
     fireEvent.focusOut(emailInput);
 
     await waitFor(() => {
@@ -90,6 +91,11 @@ describe('WelcomeForm', () => {
 
     // TODO: no se por qué no se está cambiando el valor aquí
     fireEvent.change(passwordInput, { target: { value: mockPassword } });
+
+    await waitFor(() => {
+      expect(passwordInput.value).toBe(mockPassword);
+    });
+
     fireEvent.click(btnLogin);
 
     await waitFor(() => {
