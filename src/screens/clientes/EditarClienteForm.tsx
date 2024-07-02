@@ -1,3 +1,4 @@
+import { useAlert } from '@/contexts/AlertContext';
 import { getCustomerById, saveCustomer } from '@/services/api/ApiCustomerService';
 import { Customer } from '@/types/customer.model';
 import { useTranslations } from 'next-intl';
@@ -50,12 +51,13 @@ export interface EditarClienteFormProps {
 const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => {
   const t = useTranslations('Clientes.CrearEditar');
   const router = useRouter();
+  const { showConfirm } = useAlert();
   const [_customerId, _setCustomerId] = useState(customerId);
   const [customerNotFound, setCustomerNotFound] = useState(false);
   const isNewCustomer = useMemo(() => _customerId == '', [_customerId]);
   const createEditTextPrefix = useMemo(() => (isNewCustomer ? 'create' : 'edit'), [isNewCustomer]);
   // undefined: no cargado
-  const [customer, setCustomer] = useState<Customer | undefined>(undefined);
+  const [customer, setCustomer] = useState<Customer>({ id: '', age: 0, name: '', lastAppointment: null, diseases: [] });
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   useEffect(() => {
@@ -84,8 +86,15 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
   }, [isNewCustomer, customerId]);
 
   const onCancel = async () => {
-    // TODO: incluir mensaje de advertencia debido a la pérdida de datos
-    router.back();
+    showConfirm({
+      title: '',
+      message: t('form.cancel.alert.description'),
+      onConfirm: () => {
+        router.back();
+      },
+      confirmText: t('form.cancel.alert.ok'),
+      cancelText: t('form.cancel.alert.cancel'),
+    });
   };
 
   const onSave = async () => {
@@ -125,7 +134,7 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
   if (customerNotFound) return <ClienteNotFound />;
 
   // const isLoading = true;
-  const isLoading = customer === undefined;
+  const isLoading = customer?.id == '';
 
   // TODO: crear plantilla para cuando no se haya encontrado al cliente por su ID
   return (
@@ -206,8 +215,9 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
         </div>
         <FormErrorCard errors={errorMessages} />
         <div className="flex justify-between">
-          <Button text={t('form.cancel.title')} id={FormConfig.btnCancelId} onClick={onCancel} />
+          <Button text={t('form.cancel.title')} icon="back" id={FormConfig.btnCancelId} onClick={onCancel} />
           <Button
+            isLoading={isLoading}
             text={t(`form.save.${createEditTextPrefix}.title`)}
             id={FormConfig.btnSaveId}
             style="success"

@@ -1,5 +1,7 @@
-export interface LoadingPlaceholderProps {
-  isLoading: boolean;
+export interface ILoadingProps {
+  isLoading?: boolean;
+}
+export interface LoadingPlaceholderProps extends ILoadingProps {
   children: React.ReactNode;
   width?: string;
   height?: string;
@@ -7,7 +9,7 @@ export interface LoadingPlaceholderProps {
 }
 
 const LoadingPlaceholder: React.FC<LoadingPlaceholderProps> = ({
-  isLoading,
+  isLoading = false,
   width = 'w-full',
   height = 'h-full',
   children,

@@ -2,19 +2,18 @@
 
 import { useEffect, useState } from 'react';
 
-import LoadingPlaceholder from '../display/LoadingPlaceholder';
+import LoadingPlaceholder, { ILoadingProps } from '../display/LoadingPlaceholder';
 import Label from './Label';
 
 export type TextFieldType = 'text' | 'email' | 'password';
 
-export interface ITextInputProps<T> {
+export interface ITextInputProps<T> extends ILoadingProps {
   id: string;
   name?: string;
   value?: string;
   label: string;
   placeholder?: string;
   required?: boolean;
-  isLoading?: boolean;
   onBlurHandler?: (event: React.FocusEvent<T>) => void | Promise<void>;
   onChangeHandler?: (event: React.ChangeEvent<T>) => void | Promise<void>;
 }

@@ -1,12 +1,13 @@
 'use client';
 
+import LoadingPlaceholder, { ILoadingProps } from '../display/LoadingPlaceholder';
 import ButtonIcon, { ButtonIconsId } from '../icons/ButtonIcon';
 
 export type ButtonType = 'button' | 'submit';
 
 export type ButtonStyle = '' | 'primary' | 'danger' | 'success';
 
-export interface ButtonProps {
+export interface ButtonProps extends ILoadingProps {
   id?: string;
   icon?: ButtonIconsId;
   type?: ButtonType;
@@ -38,20 +39,23 @@ const Button: React.FC<ButtonProps> = ({
   style = '',
   text = '',
   disabled = false,
+  isLoading = false,
   onClick,
 }) => {
   return (
-    <button
-      type={type}
-      className={`flex flex-row items-center gap-1 rounded-sm px-2 py-1 text-base font-semibold uppercase duration-300 disabled:bg-gray-200 disabled:text-gray-600 ${buttonStyles(style)}`}
-      onClick={onClick}
-      id={id}
-      data-testid={id}
-      disabled={disabled}
-    >
-      {icon && <ButtonIcon id={icon} />}
-      {text}
-    </button>
+    <LoadingPlaceholder isLoading={isLoading} width="w-40" height="h-8">
+      <button
+        type={type}
+        className={`flex flex-row items-center gap-1 rounded-sm px-2 py-1 text-base font-semibold uppercase duration-300 disabled:bg-gray-200 disabled:text-gray-600 ${buttonStyles(style)}`}
+        onClick={onClick}
+        id={id}
+        data-testid={id}
+        disabled={disabled}
+      >
+        {icon && <ButtonIcon id={icon} />}
+        {text}
+      </button>
+    </LoadingPlaceholder>
   );
 };
 

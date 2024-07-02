@@ -77,7 +77,12 @@
           "placeholder": "Es alérgico a..."
         },
         "cancel": {
-          "title":"Cancelar"
+          "title":"Cancelar",
+          "alert": {
+            "description": "Los cambios no guardados se perderán, ¿está seguro?",
+            "cancel": "Cancelar",
+            "ok": "Sí, salir"
+          }
         },
         "save": {
           "create":{
@@ -157,6 +162,12 @@
         "missmatch-password": "Las contraseñas no coinciden",
         "unknown": "Error al registrar al usuario"
       }
+    }
+  },
+  "Alert": {
+    "Defaults": {
+      "ok": "Confirmar",
+      "cancel": "Cancelar"
     }
   }
 }

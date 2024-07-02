@@ -1,0 +1,46 @@
+.custom-alert-wrapper {
+
+  .background-alert {
+    @apply bg-black;
+    opacity: 0.7;
+    animation: anim-background-alert 1s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  .custom-alert {
+    @apply flex flex-col gap-1 p-3 bg-secondary-900 text-white w-1/2;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+
+
+    .title {
+      @apply text-lg uppercase;
+    }
+
+    .button-row {
+      @apply mt-3 flex justify-between;
+
+      button {
+        @apply uppercase;
+      }
+
+      button.cancel {
+        @apply text-red-300;
+      }
+    }
+
+  }
+}
+
+@keyframes anim-background-alert {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.7;
+  }
+}
