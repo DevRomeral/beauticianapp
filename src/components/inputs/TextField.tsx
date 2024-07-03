@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import LoadingPlaceholder, { ILoadingProps } from '../display/LoadingPlaceholder';
 import Label from './Label';
@@ -36,14 +36,10 @@ const TextField: React.FC<TextFieldProps> = ({
 }) => {
   const [_value, _setValue] = useState(value);
 
-  useEffect(() => {
-    _setValue(value);
-  }, [value]);
-
   const _onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.stopPropagation();
+    // event.stopPropagation();
     const newValue = event.target.value;
-    console.log('New Value: ' + newValue);
+    // console.log('New Value: ' + newValue);
     _setValue(newValue);
 
     if (onChangeHandler) onChangeHandler(event);
@@ -54,9 +50,6 @@ const TextField: React.FC<TextFieldProps> = ({
 
     if (onBlurHandler) onBlurHandler(event);
   };
-
-  // TODO: en el futuro ponerlo como un hook con "_value", pero no sé por qué en los tests está fallando
-  // no se está lanzando el evento onchange de algunos inputs
 
   return (
     <div className="w-full">

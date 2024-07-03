@@ -82,6 +82,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ formId, emailId }) => {
         label={t('form.password.label')}
         placeholder={t('form.password.placeholder')}
         required={true}
+        value="--"
         type="password"
       />
 

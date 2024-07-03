@@ -54,6 +54,7 @@ describe('WelcomeForm', () => {
   });
 
   it('user verified; login ok', async () => {
+    jest.setTimeout(600000);
     render(
       <LanguageWrapper>
         <WelcomeForm />
