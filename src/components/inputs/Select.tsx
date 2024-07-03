@@ -1,10 +1,14 @@
 'use client';
 
-import { IDisease } from '@/types/disease.model';
 import { useEffect, useState } from 'react';
 
 import LoadingPlaceholder, { ILoadingProps } from '../display/LoadingPlaceholder';
 import Label from './Label';
+
+export interface ISelectOption {
+  value: string;
+  content: string;
+}
 
 export interface SelectProps extends ILoadingProps {
   id: string;
@@ -12,7 +16,7 @@ export interface SelectProps extends ILoadingProps {
   value?: string;
   label: string;
   required?: boolean;
-  options: IDisease[];
+  options: ISelectOption[];
   onBlurHandler?: (event: React.FocusEvent<HTMLSelectElement>) => void | Promise<void>;
   onChangeHandler?: (event: React.ChangeEvent<HTMLSelectElement>) => void | Promise<void>;
 }
@@ -66,9 +70,9 @@ const Select: React.FC<SelectProps> = ({
           onBlur={_onBlurHandler}
           onChange={_onChangeHandler}
         >
-          {options.map((disease) => (
-            <option key={disease.id} value={disease.id}>
-              {disease.name}
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.content}
             </option>
           ))}
         </select>

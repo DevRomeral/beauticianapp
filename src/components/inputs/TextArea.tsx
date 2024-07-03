@@ -28,7 +28,6 @@ const TextArea: React.FC<TextAreaProps> = ({
   const _onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     event.stopPropagation();
     const newValue = event.target.value;
-    console.log('New Value: ' + newValue);
     _setValue(newValue);
 
     if (onChangeHandler) onChangeHandler(event);

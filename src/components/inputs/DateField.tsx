@@ -6,8 +6,6 @@ import { useEffect, useState } from 'react';
 import LoadingPlaceholder, { ILoadingProps } from '../display/LoadingPlaceholder';
 import Label from './Label';
 
-export type TextFieldType = 'text' | 'email' | 'password';
-
 export interface DateFieldProps extends ILoadingProps {
   id: string;
   name?: string;
@@ -43,7 +41,7 @@ const DateField: React.FC<DateFieldProps> = ({
   }, [value]);
 
   const _onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.stopPropagation();
+    // event.stopPropagation();
     const newValue = event.target.value;
     // console.log('New Value: ' + newValue);
     _setValue(new Date(newValue));

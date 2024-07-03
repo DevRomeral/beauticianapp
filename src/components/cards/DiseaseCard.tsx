@@ -5,6 +5,10 @@ import { IDisease } from '@/types/disease.model';
 import { filterDiseaseById } from '@/utils/filters/DiseaseFilters';
 import { useEffect, useState } from 'react';
 
+export const CardConfig = {
+  getCardId: (customerId: string | undefined, diseaseId: string): string => `${customerId ?? ''}_${diseaseId}`,
+};
+
 export interface CustomerCardProps {
   diseaseId: string;
   customerId?: string;
@@ -31,7 +35,8 @@ const DiseaseCard: React.FC<CustomerCardProps> = ({ diseaseId, customerId, onCli
       className="rounded-sm bg-secondary-100 px-2 py-0 text-sm text-secondary-500"
       onClick={onClickHandler}
       data-diseaseid={diseaseId}
-      id={`${customerId}_${diseaseId}`}
+      id={CardConfig.getCardId(customerId, diseaseId)}
+      data-testid={CardConfig.getCardId(customerId, diseaseId)}
     >
       {disease?.name}
     </span>

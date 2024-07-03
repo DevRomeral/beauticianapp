@@ -1,22 +1,24 @@
-import { Customer } from '@/types/customer.model';
+import { ICustomer } from '@/types/customer.model';
 import { filterCustomers } from '@/utils/filters/CustomerFilters';
 
-const dummyCustomer1: Customer = {
+const dummyCustomer1: ICustomer = {
   id: '1',
   name: 'Gustavo',
   age: 22,
+  birthday: new Date(2024, 0, 1, 12, 34),
   lastAppointment: new Date(2024, 0, 1, 12, 34),
   diseases: [],
 };
-const dummyCustomer2: Customer = {
+const dummyCustomer2: ICustomer = {
   id: '2',
   name: 'Miguel',
   age: 28,
+  birthday: new Date(2024, 5, 27, 12, 34),
   lastAppointment: new Date(2024, 5, 27, 12, 34),
   diseases: ['hipocondría', 'pereza'],
 };
 
-const dummyCustomers: Customer[] = [dummyCustomer1, dummyCustomer2];
+const dummyCustomers: ICustomer[] = [dummyCustomer1, dummyCustomer2];
 
 describe('CustomerFilters', () => {
   it('should filter the customers by its name', async () => {
