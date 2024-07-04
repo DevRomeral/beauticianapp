@@ -32,7 +32,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={font.className}>
+      <body className={`bg-background-100 ${font.className}`}>
         <NextIntlClientProvider messages={messages}>
           <AlertProvider>
             <SessionProvider>

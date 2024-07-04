@@ -1,14 +1,14 @@
 .custom-alert-wrapper {
 
   .background-alert {
-    @apply bg-black;
+    @apply bg-background-100;
     opacity: 0.7;
     animation: anim-background-alert 0.3s ease-in-out;
     animation-fill-mode: forwards;
   }
 
   .custom-alert {
-    @apply flex flex-col gap-1 p-3 bg-secondary-900 text-white w-1/2;
+    @apply flex flex-col gap-1 p-3 bg-secondary-900 text-white w-1/2 rounded-card;
     position: fixed;
     top: 50%;
     left: 50%;

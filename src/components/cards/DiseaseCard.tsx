@@ -32,7 +32,7 @@ const DiseaseCard: React.FC<CustomerCardProps> = ({ diseaseId, customerId, onCli
 
   return (
     <span
-      className={`rounded-sm bg-secondary-100 px-2 py-0 text-sm text-secondary-500 ${onClickHandler != null ? 'cursor-pointer' : ''}`}
+      className={`rounded-sm bg-secondary-200 px-2 py-0 text-sm text-secondary-900 ${onClickHandler != null ? 'cursor-pointer' : ''}`}
       onClick={onClickHandler}
       data-diseaseid={diseaseId}
       id={CardConfig.getCardId(customerId, diseaseId)}

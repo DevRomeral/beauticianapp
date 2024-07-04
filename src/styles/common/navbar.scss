@@ -1,19 +1,40 @@
-nav{
-  @apply bg-secondary-900 flex flex-wrap content-center p-2 text-white fixed w-full;
+@layer utilities {
+  .navbar-text {
+    @apply text-secondary-900;
+  }
+
+  .navbar-background-color {
+    @apply bg-background-100;
+  }
+}
+
+
+nav::before {
+  @apply bg-gradient-to-b from-background-100 from-40% to-transparent fixed w-full;
+  content: '';
+  top: 0px;
+  left: 0px;
   height: $navbarHeight;
+  z-index: -1;
+}
+
+nav {
+  @apply bg-transparent flex flex-wrap content-center p-2 navbar-text fixed w-full;
+  height: $navbarHeight;
+  // backdrop-filter: blur(10px);
 }
 
 .drawer-menu {
-  @apply bg-secondary-900 fixed md:relative inset-0 z-40 flex h-full w-full flex-col content-center overflow-hidden bg-opacity-95 transition-all  ease-in-out md:flex md:h-min md:w-min flex-1 md:items-start md:bg-transparent -left-full md:left-0 duration-300;
+  @apply bg-background-100 fixed md:relative inset-0 z-40 flex h-full w-full flex-col content-center overflow-hidden bg-opacity-95 transition-all ease-in-out md:flex md:h-min md:w-min flex-1 md:items-start md:bg-transparent -left-full md:left-0 duration-300;
 }
 
 .drawer-menu .welcome {
-  @apply block md:hidden border-white h-60 border-b m-2;
+  @apply block md:hidden border-white h-44 border-b m-2;
   margin-top: $navbarHeight;
 }
 
 .drawer-menu .links {
-  @apply flex flex-col h-full items-center justify-center gap-5 text-2xl md:text-lg text-white  md:flex-row font-extralight;
+  @apply flex flex-col h-full items-center justify-center gap-5 text-2xl md:text-lg md:flex-row font-extralight;
 }
 
 .drawer-menu.open {
@@ -22,5 +43,5 @@ nav{
 
 
 .logo-container img {
-  filter: brightness(0) invert(1);
+  filter: brightness(1) invert(0);
 }

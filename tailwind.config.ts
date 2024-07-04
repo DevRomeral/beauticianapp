@@ -35,6 +35,19 @@ const config: Config = {
         // TODO: Reemplazar con paleta de colores finales
         black: '#141414',
         white: '#ffffff',
+        background: {
+          '50': '#fffcff',
+          '100': '#fff0ff',
+          '200': '#fed5ff',
+          '300': '#fdb4fe',
+          '400': '#fc84fc',
+          '500': '#f755f5',
+          '600': '#ea33e5',
+          '700': '#ce22c8',
+          '800': '#a821a1',
+          '900': '#871c80',
+          '950': '#64075e',
+        },
         primary: {
           '50': '#fef1f7',
           '100': '#fee5f0',

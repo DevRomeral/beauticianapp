@@ -22,7 +22,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({ customer }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 p-2 shadow-md" id={customer.id} data-testid={customer.id}>
+    <div className="bg-background-50 rounded-card flex flex-col gap-2 p-2" id={customer.id} data-testid={customer.id}>
       <div className="flex justify-between">
         <span className="text-xl font-bold uppercase">{customer.name}</span>
         <span className="text-lg font-semibold">{customer.age?.toString()}</span>

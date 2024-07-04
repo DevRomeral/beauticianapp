@@ -59,7 +59,7 @@ export default function HomePage() {
         <div>
           <h1>Customer Cards</h1>
           <CustomerCard
-            customer={new Customer('1', 'Gustavo', new Date(2021, 0, 1), new Date(2024, 0, 1, 12, 34), ['1', '2'])}
+            customer={new Customer('1', 'Gustavo', new Date(2001, 0, 1), new Date(2024, 0, 1, 12, 34), ['1', '2'])}
           />
         </div>
       </div>

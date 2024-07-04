@@ -20,7 +20,7 @@ export interface ButtonProps extends ILoadingProps {
 function buttonStyles(style: ButtonStyle): string {
   switch (style) {
     case '':
-      return 'text-primary-400 hover:bg-primary-50';
+      return 'text-primary-700 hover:bg-primary-200';
     case 'primary':
       return 'bg-primary-300 text-black hover:bg-primary-200';
     case 'danger':

@@ -8,7 +8,7 @@ export interface Appointment {
 
 const AppointmentCard: React.FC<Appointment> = ({ date, customer, service }) => {
   return (
-    <div className="flex flex-col gap-1 rounded-sm px-2 py-2 shadow-md">
+    <div className="bg-background-50 rounded-card flex flex-col gap-1 px-2 py-2">
       <div className="flex flex-row gap-4">
         <span className="text-secondary-500">{getDateTime(date)}</span>
         <span className="font-semibold">{customer}</span>

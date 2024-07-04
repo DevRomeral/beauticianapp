@@ -11,12 +11,15 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import Button from '../inputs/Button';
+
 export const NavBarConfig = {
   navbarLogoContainer: 'navbarLogoContainer',
   drawerMenuId: 'drawerMenu',
   btnDrawerMenuId: 'btnDrawerMenu',
   btnLogInId: 'btnLogIn',
   btnLogOutId: 'btnLogOut',
+  btnLoginLogoutUserId: 'btnLoginLogoutUser',
   linkSettingsId: 'linkSettings',
 };
 
@@ -26,6 +29,7 @@ export default function NavBar() {
   const { user, updateToken } = useSession();
   const router = useRouter();
   const path = usePathname();
+  const isUserLoged = user?.id != null && user?.id != undefined && user.id != '';
 
   const setActiveLink = (route: string) => {
     return route === path ? 'font-extrabold' : 'font-light';
@@ -36,6 +40,11 @@ export default function NavBar() {
   };
 
   const closeDrawer = () => {
+    setIsDrawerOpen(false);
+  };
+
+  const signIn = () => {
+    router.push('/welcome');
     setIsDrawerOpen(false);
   };
 
@@ -101,20 +110,12 @@ export default function NavBar() {
         </Link>
       </div>
       <div className="flex flex-1 flex-wrap justify-end gap-3">
-        {(user?.id && (
-          <span data-testid={NavBarConfig.btnLogOutId} className="cursor-pointer" onClick={signOut}>
-            {t('linkSignOut')}
-          </span>
-        )) || (
-          <Link
-            data-testid={NavBarConfig.btnLogInId}
-            href="/welcome"
-            onClick={closeDrawer}
-            className={setActiveLink('/welcome')}
-          >
-            {t('linkSignIn')}
-          </Link>
-        )}
+        <Button
+          text={t(isUserLoged ? 'linkSignOut' : 'linkSignIn')}
+          id={NavBarConfig.btnLoginLogoutUserId}
+          onClick={isUserLoged ? signOut : signIn}
+          disabled={path === '/welcome'}
+        />
       </div>
     </nav>
   );
