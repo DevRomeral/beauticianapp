@@ -54,7 +54,7 @@ export default function SearchClientesForm() {
       // TODO: en este momento no tiene sentido filtrar, porque el back ya te lo debe dar filtrado, no? De ser así, quitar el filtro de clientes
       const customers = await FetchCustomers(queryText);
 
-      setFilteredCustomers(customers);
+      setFilteredCustomers(customers.map((data): Customer => Customer.createFromInterface(data)));
       setNoResultsPanelVisible(customers.length == 0);
     } catch (err) {
       console.error(err);

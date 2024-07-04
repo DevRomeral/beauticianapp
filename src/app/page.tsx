@@ -21,14 +21,6 @@ export default function HomePage() {
     }
   }
 
-  const customerDemo: Customer = {
-    id: '1',
-    name: 'Gustavo',
-    age: 22,
-    lastAppointment: new Date(2024, 0, 1, 12, 34),
-    diseases: ['disease1', 'disease2'],
-  };
-
   return (
     <div className="flex min-h-screen flex-col items-center gap-2">
       <Button onClick={tmp} style="primary" text="Dashboard" type="button" />
@@ -66,7 +58,9 @@ export default function HomePage() {
         </div>
         <div>
           <h1>Customer Cards</h1>
-          <CustomerCard customer={customerDemo} />
+          <CustomerCard
+            customer={new Customer('1', 'Gustavo', new Date(2021, 0, 1), new Date(2024, 0, 1, 12, 34), ['1', '2'])}
+          />
         </div>
       </div>
     </div>

@@ -11,6 +11,15 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+export const NavBarConfig = {
+  navbarLogoContainer: 'navbarLogoContainer',
+  drawerMenuId: 'drawerMenu',
+  btnDrawerMenuId: 'btnDrawerMenu',
+  btnLogInId: 'btnLogIn',
+  btnLogOutId: 'btnLogOut',
+  linkSettingsId: 'linkSettings',
+};
+
 export default function NavBar() {
   const t = useTranslations('Navbar');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -38,11 +47,11 @@ export default function NavBar() {
 
   return (
     <nav>
-      <div className={`drawer-menu ${isDrawerOpen ? 'open' : 'close'}`}>
+      <div data-testid={NavBarConfig.drawerMenuId} className={`drawer-menu ${isDrawerOpen ? 'open' : 'close'}`}>
         <div className="welcome">
           <h2>
-            {t(user?.username ? 'drawer-menu.welcome-user' : 'drawer-menu.welcome', {
-              name: user?.username,
+            {t(user?.name ? 'drawer-menu.welcome-user' : 'drawer-menu.welcome', {
+              name: user?.name,
             })}
           </h2>
         </div>
@@ -58,14 +67,24 @@ export default function NavBar() {
             </Link>
           </li>
           <li>
-            <Link href="/settings" prefetch={false} onClick={closeDrawer} className={setActiveLink('/settings')}>
+            <Link
+              data-testid={NavBarConfig.linkSettingsId}
+              href="/settings"
+              prefetch={false}
+              onClick={closeDrawer}
+              className={setActiveLink('/settings')}
+            >
               {t('links.settings')}
             </Link>
           </li>
         </ul>
       </div>
       <div className="flex-no-wrap flex flex-1 gap-3 md:flex-none">
-        <div className="visible z-50 h-full w-auto cursor-pointer transition-all md:hidden" onClick={toggleDrawer}>
+        <div
+          className="visible z-50 h-full w-auto cursor-pointer transition-all md:hidden"
+          data-testid={NavBarConfig.btnDrawerMenuId}
+          onClick={toggleDrawer}
+        >
           {isDrawerOpen ? (
             <ArrowLeftIcon className="h-full w-auto"></ArrowLeftIcon>
           ) : (
@@ -73,18 +92,26 @@ export default function NavBar() {
           )}
         </div>
       </div>
-      <div data-testid="navbarLogoContainer" className="logo-container flex h-full max-w-10 flex-auto justify-center">
+      <div
+        data-testid={NavBarConfig.navbarLogoContainer}
+        className="logo-container flex h-full max-w-10 flex-auto justify-center"
+      >
         <Link href="/">
           <Image src={logo} className="h-full w-auto" alt="Logo"></Image>
         </Link>
       </div>
       <div className="flex flex-1 flex-wrap justify-end gap-3">
         {(user?.id && (
-          <span className="cursor-pointer" onClick={signOut}>
+          <span data-testid={NavBarConfig.btnLogOutId} className="cursor-pointer" onClick={signOut}>
             {t('linkSignOut')}
           </span>
         )) || (
-          <Link href="/welcome" onClick={closeDrawer} className={setActiveLink('/welcome')}>
+          <Link
+            data-testid={NavBarConfig.btnLogInId}
+            href="/welcome"
+            onClick={closeDrawer}
+            className={setActiveLink('/welcome')}
+          >
             {t('linkSignIn')}
           </Link>
         )}

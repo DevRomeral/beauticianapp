@@ -25,10 +25,10 @@
     "NotFound": {
       "description": "No se ha encontrado a este cliente.",
       "form": {
-        "go-back": {
+        "goBack": {
           "title": "Atrás"
         },
-        "create-new": {
+        "createNew": {
           "title": "Crear nuevo cliente"
         }
       }

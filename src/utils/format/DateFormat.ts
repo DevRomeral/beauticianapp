@@ -33,7 +33,20 @@ export function getDateValueAsString(date: Date | null | undefined): string {
 }
 
 export function getDateValueFromString(value: string): Date {
-  if (value == undefined || value == null || value == '') return new Date();
+  if (!value) return new Date();
 
-  return new Date(value);
+  const localDate = new Date(value);
+  const utcDate = new Date(Date.UTC(localDate.getUTCFullYear(), localDate.getUTCMonth(), localDate.getUTCDate()));
+
+  return utcDate;
+}
+
+export function getAge(date: Date) {
+  const today = new Date();
+  let age = today.getFullYear() - date.getFullYear();
+  const monthDifference = today.getMonth() - date.getMonth();
+  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < date.getDate())) {
+    age--;
+  }
+  return age;
 }

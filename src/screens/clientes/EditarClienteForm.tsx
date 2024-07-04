@@ -4,7 +4,7 @@ import { FetchDiseases } from '@/services/api/ApiDiseaseService';
 import { Customer, ICustomer } from '@/types/customer.model';
 import { IDisease } from '@/types/disease.model';
 import { filterDiseaseById, getEveryDiseaseIdExcept } from '@/utils/filters/DiseaseFilters';
-import { getDateValueFromString } from '@/utils/format/DateFormat';
+import { getAge, getDateValueFromString } from '@/utils/format/DateFormat';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
@@ -16,7 +16,7 @@ import LoadingPlaceholder from '@/components/display/LoadingPlaceholder';
 import PageTitle from '@/components/display/PageTitle';
 import Button from '@/components/inputs/Button';
 import DateField from '@/components/inputs/DateField';
-import Select from '@/components/inputs/Select';
+import Select, { ISelectOption } from '@/components/inputs/Select';
 import TextArea from '@/components/inputs/TextArea';
 import TextField from '@/components/inputs/TextField';
 
@@ -48,15 +48,24 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
   const { showConfirm } = useAlert();
   const [_customerId, _setCustomerId] = useState(customerId);
   const [customerNotFound, setCustomerNotFound] = useState(false);
-  const isNewCustomer = useMemo(() => _customerId == '', [_customerId]);
+  const isNewCustomer = _customerId == '';
   const [listDiseases, setListDiseases] = useState<IDisease[]>([]);
+  const listDiseasesOptions = (listDiseases ?? []).map<ISelectOption>((disease) => {
+    return {
+      value: disease.id,
+      content: disease.name,
+    };
+  });
   const createEditTextPrefix = useMemo(() => (isNewCustomer ? 'create' : 'edit'), [isNewCustomer]);
   const [customer, setCustomer] = useState<Customer>(Customer.empty());
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   useEffect(() => {
+    async function fetchDiseases() {
+      const tmp = await FetchDiseases();
+      setListDiseases(tmp);
+    }
     async function fetchData() {
-      setListDiseases(await FetchDiseases());
       const response = await getCustomerById(customerId);
 
       if (response == null) {
@@ -69,6 +78,7 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
       );
     }
 
+    fetchDiseases();
     if (isNewCustomer) {
       setCustomer(Customer.empty());
     } else {
@@ -91,14 +101,16 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
   };
 
   const onAddDisease = async () => {
-    const select = document.getElementById(FormConfig.selectDiseasesId) as HTMLSelectElement;
-    const diseaseToAdd = filterDiseaseById(listDiseases, select.value);
-    if (diseaseToAdd == null || customer.diseases.filter((disease) => disease == diseaseToAdd.id).length > 0) {
-      return;
+    if (listDiseases.length > 0) {
+      const select = document.getElementById(FormConfig.selectDiseasesId) as HTMLSelectElement;
+      const diseaseToAdd = filterDiseaseById(listDiseases, select.value);
+      if (diseaseToAdd == null || customer.diseases.filter((disease) => disease == diseaseToAdd.id).length > 0) {
+        return;
+      }
+      const newCustomer = customer.clone();
+      newCustomer.diseases = [...newCustomer.diseases, diseaseToAdd.id];
+      setCustomer(newCustomer);
     }
-    const newCustomer = customer.clone();
-    newCustomer.diseases = [...newCustomer.diseases, diseaseToAdd.id];
-    setCustomer(newCustomer);
   };
 
   const onCancel = async () => {
@@ -124,6 +136,8 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
       errors.push('El nombre del cliente no puede estar vacío');
     }
 
+    const newBirthday = getDateValueFromString(formData.get(FormConfig.iBirthdayDateId)?.toString() || '');
+
     if (errors.length > 0) {
       setErrorMessages(errors);
       return;
@@ -133,8 +147,8 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
     const savedCustomer: ICustomer = {
       id: customer?.id || '',
       name,
-      age: customer?.age,
-      birthday: customer?.birthday,
+      age: getAge(newBirthday),
+      birthday: newBirthday,
       lastAppointment: customer?.lastAppointment,
       diseases: customer?.diseases || [],
     };
@@ -145,7 +159,7 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
       _setCustomerId(response!.id || '');
     }
 
-    alert('Guardado (guiño, guiño) por el server: ' + JSON.stringify(response));
+    // alert('Guardado (guiño, guiño) por el server: ' + JSON.stringify(response));
   };
 
   if (customerNotFound) return <ClienteNotFound />;
@@ -202,7 +216,7 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
                 maxDate={new Date(Date.now())}
               />
             </div>
-            <div className="flex-1 gap-2">
+            <div className="mb-2 flex-1 gap-2">
               <LoadingPlaceholder isLoading={isLoading} height="h-4">
                 <span id={FormConfig.spAgeTextId} className="font-semibold">
                   {t('form.age', {
@@ -217,7 +231,7 @@ const EditarClienteForm: React.FC<EditarClienteFormProps> = ({ customerId }) => 
             <div className="flex flex-1">
               <Select
                 id={FormConfig.selectDiseasesId}
-                options={listDiseases}
+                options={listDiseasesOptions}
                 label={t('form.diseases.label')}
                 isLoading={isLoading}
               />

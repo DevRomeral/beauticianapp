@@ -29,14 +29,14 @@ const ClienteNotFound: React.FC<ClienteNotFoundProps> = ({}) => {
         <div className="flex gap-3">
           <Button
             id={ClienteNotFoundConfig.btnGoBackId}
-            text={t('form.go-back.title')}
+            text={t('form.goBack.title')}
             icon="back"
             style=""
             onClick={onCancel}
           />
           <Button
             id={ClienteNotFoundConfig.btnGoToNewCustomerId}
-            text={t('form.create-new.title')}
+            text={t('form.createNew.title')}
             icon="user-plus"
             style="primary"
             onClick={onGoToCreateNew}

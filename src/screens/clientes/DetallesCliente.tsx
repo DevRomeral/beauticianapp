@@ -46,7 +46,9 @@ const DetallesCliente: React.FC<DetallesClienteProps> = ({ customerId }) => {
         return;
       }
 
-      setCustomer(response);
+      setCustomer(
+        new Customer(response.id, response.name, response.birthday, response.lastAppointment, response.diseases),
+      );
     }
 
     fetchData();
@@ -90,7 +92,7 @@ const DetallesCliente: React.FC<DetallesClienteProps> = ({ customerId }) => {
               </div>
               <div className="flex flex-wrap gap-2">
                 {customer?.diseases.map((disease) => (
-                  <DiseaseCard disease={disease} key={disease} customerId={customer.id} />
+                  <DiseaseCard diseaseId={disease} key={disease} customerId={customer.id} />
                 ))}
               </div>
             </div>

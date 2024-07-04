@@ -1,3 +1,5 @@
+import { getAge } from '@/utils/format/DateFormat';
+
 export interface ICustomer {
   id: string;
   name: string;
@@ -22,18 +24,16 @@ export class Customer implements ICustomer {
     this.diseases = diseases;
   }
 
+  static createFromInterface(data: ICustomer) {
+    return new Customer(data.id, data.name, data.birthday, data.lastAppointment, data.diseases);
+  }
+
   setBirthday(newBirthday: Date) {
     this.birthday = newBirthday;
   }
 
   get age(): number {
-    const today = new Date();
-    let age = today.getFullYear() - this.birthday.getFullYear();
-    const monthDifference = today.getMonth() - this.birthday.getMonth();
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < this.birthday.getDate())) {
-      age--;
-    }
-    return age;
+    return getAge(this.birthday);
   }
 
   clone(): Customer {

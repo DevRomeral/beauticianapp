@@ -4,7 +4,7 @@ import SearchClientesForm, {
   SearchClientsFormConfig as SearchClientesFormConfig,
 } from '@/screens/clientes/SearchClientesForm';
 import * as ApiCustomerService from '@/services/api/ApiCustomerService';
-import { Customer } from '@/types/customer.model';
+import { Customer, ICustomer } from '@/types/customer.model';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 jest.mock('@/services/api/ApiCustomerService');
@@ -48,8 +48,15 @@ describe('SearchClientesForm', () => {
     const queryInput = screen.getByTestId(SearchClientesFormConfig.queryTextId);
     expect(queryInput).toBeInTheDocument();
 
-    const fetchedCustomers: Customer[] = [
-      { id: '1', name: 'Customer Name', age: 11, lastAppointment: new Date(2024, 0, 1, 12, 34), diseases: [] },
+    const fetchedCustomers: ICustomer[] = [
+      {
+        id: '1',
+        name: 'Customer Name',
+        age: 11,
+        birthday: new Date(2023, 0, 1),
+        lastAppointment: new Date(2024, 0, 1, 12, 34),
+        diseases: [],
+      },
     ];
 
     (ApiCustomerService.FetchCustomers as jest.Mock).mockImplementationOnce(() => Promise.resolve(fetchedCustomers));

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import LoadingPlaceholder, { ILoadingProps } from '../display/LoadingPlaceholder';
 import Label from './Label';
@@ -28,13 +28,17 @@ const TextField: React.FC<TextFieldProps> = ({
   placeholder = '',
   id,
   name = id,
-  value = '',
+  value = null,
   required = false,
   isLoading = false,
   onBlurHandler,
   onChangeHandler,
 }) => {
   const [_value, _setValue] = useState(value);
+
+  useEffect(() => {
+    if (value != null) _setValue(value);
+  }, [value]);
 
   const _onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     // event.stopPropagation();
@@ -51,6 +55,8 @@ const TextField: React.FC<TextFieldProps> = ({
     if (onBlurHandler) onBlurHandler(event);
   };
 
+  // if (id == 'tfCustomerName ')
+  // console.log(`${id} => ${_value}`);
   return (
     <div className="w-full">
       <Label htmlFor={id}>{label}</Label>
@@ -61,7 +67,7 @@ const TextField: React.FC<TextFieldProps> = ({
           data-testid={id}
           name={name}
           placeholder={placeholder}
-          value={_value}
+          value={_value ?? ''}
           required={required}
           onBlur={_onBlurHandler}
           onChange={_onChangeHandler}

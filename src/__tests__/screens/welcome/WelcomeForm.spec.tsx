@@ -2,7 +2,7 @@ import LanguageWrapper from '@/__mocks__/components/LanguageWrapper';
 import { mockBackendJWTConfig } from '@/__mocks__/configs/BackendJWTConfig';
 import { LanguageConfig } from '@/__mocks__/configs/LanguageConfig';
 import { mockParseCookies } from '@/__mocks__/JWT';
-import { mockSignIn, mockSignUp, mockVerifyUser } from '@/__mocks__/services/api/ApiCustomerService';
+import { mockSignIn, mockSignUp, mockVerifyUser } from '@/__mocks__/services/api/ApiUserService';
 import { LoginFormConfig } from '@/screens/user/welcome/LoginForm';
 import { RegisterFormConfig } from '@/screens/user/welcome/RegisterForm';
 import WelcomeForm, { WelcomeFormConfig } from '@/screens/user/welcome/WelcomeForm';

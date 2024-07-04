@@ -1,3 +1,3 @@
-export const mockVerifyUser = jest.fn();
-export const mockSignIn = jest.fn();
-export const mockSignUp = jest.fn();
+export const mockFetchCustomers = jest.fn();
+export const mockGetCustomerById = jest.fn();
+export const mockSaveCustomer = jest.fn();
