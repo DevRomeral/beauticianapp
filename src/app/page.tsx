@@ -50,6 +50,7 @@ export default function HomePage() {
           <h3>Radio Input</h3>
           <RadioInput
             isLoading={false}
+            defaultValue=""
             name="tmpRadio"
             onChange={(value: string) => {
               console.log(value);
@@ -59,6 +60,7 @@ export default function HomePage() {
               { id: 'id2', value: 'value2', label: 'children2' },
             ]}
           />
+
           <h3>Text Fields</h3>
           <div className="flex flex-row gap-2">
             <TextField id="tfPrueba" label="Mi Input" placeholder="Placeholder" />

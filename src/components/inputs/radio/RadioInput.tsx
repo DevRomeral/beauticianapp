@@ -1,21 +1,37 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { ILoadingProps } from '../../display/LoadingPlaceholder';
 import RadioInputOption, { IRadioOption } from './RadioInputOption';
 
 export interface RadioInputProps extends ILoadingProps {
   name: string;
-  // defaultValue?: string;
+  defaultValue?: string;
   allDisabled?: boolean;
   options: IRadioOption[];
   onChange: (latestValue: string) => void;
 }
 
-const RadioInput: React.FC<RadioInputProps> = ({ name, options, onChange, allDisabled = false, isLoading = false }) => {
-  // const [currentValue, setCurrentValue] = useState<string>()
+// TODO: hacer tests de este input
+const RadioInput: React.FC<RadioInputProps> = ({
+  name,
+  options,
+  onChange,
+  allDisabled = false,
+  isLoading = false,
+  defaultValue = null,
+}) => {
+  const [currentValue, setCurrentValue] = useState(defaultValue);
+
+  useEffect(() => {
+    if (defaultValue != null) setCurrentValue(defaultValue);
+  }, [defaultValue]);
 
   const onChangeRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.value);
+    const newValue = event.target.value;
+    setCurrentValue(newValue);
+    onChange(newValue);
   };
 
   return (
@@ -26,6 +42,7 @@ const RadioInput: React.FC<RadioInputProps> = ({ name, options, onChange, allDis
           id={option.id}
           value={option.value}
           label={option.label}
+          currentValue={currentValue}
           name={name}
           disabled={allDisabled || option.disabled}
           onChange={onChangeRadio}
