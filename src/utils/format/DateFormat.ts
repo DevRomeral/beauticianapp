@@ -50,3 +50,16 @@ export function getAge(date: Date) {
   }
   return age;
 }
+
+export function printTime(minutes: number): string {
+  if (minutes <= 0) return '';
+
+  const hours = minutes / 60;
+  const remainingMins = minutes % 60;
+
+  const stringMins = `${remainingMins}min`;
+
+  if (hours >= 1) return `${hours.toFixed(0)}h ${stringMins}`;
+
+  return stringMins;
+}

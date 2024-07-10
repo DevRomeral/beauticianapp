@@ -1,5 +1,7 @@
 import { getDateTime } from '@/utils/format/DateFormat';
 
+import Card from '../cards/Card';
+
 export interface Appointment {
   date: Date;
   customer: string;
@@ -7,8 +9,9 @@ export interface Appointment {
 }
 
 const AppointmentCard: React.FC<Appointment> = ({ date, customer, service }) => {
+  // TODO: crear un id para esta carta
   return (
-    <div className="bg-background-50 rounded-card flex flex-col gap-1 px-2 py-2">
+    <Card id={'todo'}>
       <div className="flex flex-row gap-4">
         <span className="text-secondary-500">{getDateTime(date)}</span>
         <span className="font-semibold">{customer}</span>
@@ -16,7 +19,7 @@ const AppointmentCard: React.FC<Appointment> = ({ date, customer, service }) => 
       <div className="pl-5">
         <span className="text-2xl">{service}</span>
       </div>
-    </div>
+    </Card>
   );
 };
 

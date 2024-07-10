@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 
 import Button from '../inputs/Button';
+import Card from './Card';
 import DiseaseCard from './DiseaseCard';
 
 export interface CustomerCardProps {
@@ -22,7 +23,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({ customer }) => {
   };
 
   return (
-    <div className="bg-background-50 rounded-card flex flex-col gap-2 p-2" id={customer.id} data-testid={customer.id}>
+    <Card id={customer.id}>
       <div className="flex justify-between">
         <span className="text-xl font-bold uppercase">{customer.name}</span>
         <span className="text-lg font-semibold">{customer.age?.toString()}</span>
@@ -44,7 +45,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({ customer }) => {
       <div className="flex flex-row-reverse">
         <Button text="Detalles" onClick={viewDetails} />
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -59,8 +59,9 @@ export default function NavBar() {
       <div data-testid={NavBarConfig.drawerMenuId} className={`drawer-menu ${isDrawerOpen ? 'open' : 'close'}`}>
         <div className="welcome">
           <h2>
-            {t(user?.name ? 'drawer-menu.welcome-user' : 'drawer-menu.welcome', {
-              name: user?.name,
+            {/* TODO: incluir el nombre del usuario, no el username */}
+            {t(user?.username ? 'drawer-menu.welcome-user' : 'drawer-menu.welcome', {
+              name: user?.username,
             })}
           </h2>
         </div>
@@ -68,6 +69,11 @@ export default function NavBar() {
           <li>
             <Link href="/profile" prefetch={false} onClick={closeDrawer} className={setActiveLink('/profile')}>
               {t('links.profile')}
+            </Link>
+          </li>
+          <li>
+            <Link href="/products" prefetch={false} onClick={closeDrawer} className={setActiveLink('/products')}>
+              {t('links.products')}
             </Link>
           </li>
           <li>

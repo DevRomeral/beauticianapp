@@ -36,7 +36,7 @@ const config: Config = {
         black: '#141414',
         white: '#ffffff',
         background: {
-          '50': '#fffcff',
+          '50': '#fff6ff',
           '100': '#fff0ff',
           '200': '#fed5ff',
           '300': '#fdb4fe',

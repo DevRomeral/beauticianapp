@@ -1,5 +1,6 @@
 import { getCustomerById } from '@/services/api/ApiCustomerService';
 import { Customer } from '@/types/customer.model';
+import { getDateDay } from '@/utils/format/DateFormat';
 import { ShieldExclamationIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
@@ -81,7 +82,7 @@ const DetallesCliente: React.FC<DetallesClienteProps> = ({ customerId }) => {
               </h5>
             </LoadingPlaceholder>
             <LoadingPlaceholder isLoading={isLoading} height="h-4" width="w-1/5">
-              <span className="text-sm">--/--/----</span>
+              <span className="text-sm">{getDateDay(customer?.birthday)}</span>
             </LoadingPlaceholder>
           </div>
           {customer && customer?.diseases.length > 0 && (
