@@ -1,3 +1,7 @@
+export const LoadingPlaceholderConfig = {
+  color: 'bg-gray-400',
+};
+
 export interface ILoadingProps {
   isLoading?: boolean;
 }
@@ -17,7 +21,7 @@ const LoadingPlaceholder: React.FC<LoadingPlaceholderProps> = ({
 }) => {
   return isLoading ? (
     <div className={`${height} ${width} z-0 animate-pulse`}>
-      <div className={`${tailwindClasses} h-full w-full rounded-sm bg-gray-400`}></div>
+      <div className={`${tailwindClasses} h-full w-full rounded-sm ${LoadingPlaceholderConfig.color}`}></div>
     </div>
   ) : (
     children

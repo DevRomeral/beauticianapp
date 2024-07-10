@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import AppointmentCard from '@/components/appointment/AppointmentCard';
 import CustomerCard from '@/components/cards/CustomerCard';
 import Button from '@/components/inputs/Button';
+import RadioInput from '@/components/inputs/radio/RadioInput';
 import TextField from '@/components/inputs/TextField';
 
 export default function HomePage() {
@@ -39,25 +40,35 @@ export default function HomePage() {
           </p>
         </div>
         <div>
-          <h1>Buttons</h1>
+          <h1>Controls</h1>
+          <h3>Buttons</h3>
           <div className="flex flex-row gap-2">
             <Button text="Normal" />
             <Button style="primary" text="Primary" />
             <Button style="danger" text="Danger" />
           </div>
-        </div>
-        <div>
-          <h1>Text Fields</h1>
+          <h3>Radio Input</h3>
+          <RadioInput
+            isLoading={false}
+            name="tmpRadio"
+            onChange={(value: string) => {
+              console.log(value);
+            }}
+            options={[
+              { id: 'id1', value: 'value1', label: 'children1' },
+              { id: 'id2', value: 'value2', label: 'children2' },
+            ]}
+          />
+          <h3>Text Fields</h3>
           <div className="flex flex-row gap-2">
             <TextField id="tfPrueba" label="Mi Input" placeholder="Placeholder" />
           </div>
         </div>
         <div>
-          <h1>Appointment Cards</h1>
+          <h1>Cards</h1>
+          <h3>Appointment Cards</h3>
           <AppointmentCard date={new Date(Date.now())} customer="Adolfi" service="Pedicura"></AppointmentCard>
-        </div>
-        <div>
-          <h1>Customer Cards</h1>
+          <h3>Customer Cards</h3>
           <CustomerCard
             customer={new Customer('1', 'Gustavo', new Date(2001, 0, 1), new Date(2024, 0, 1, 12, 34), ['1', '2'])}
           />

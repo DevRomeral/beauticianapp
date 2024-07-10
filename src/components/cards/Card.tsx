@@ -7,7 +7,7 @@ export interface CardProps {
 
 const Card: React.FC<CardProps> = ({ id, children }) => {
   return (
-    <div className="rounded-card flex flex-col gap-2 bg-background-50 p-2" id={id} data-testid={id}>
+    <div className="rounded-card flex flex-col gap-2 bg-background-50 p-2 shadow-md" id={id} data-testid={id}>
       {children}
     </div>
   );
