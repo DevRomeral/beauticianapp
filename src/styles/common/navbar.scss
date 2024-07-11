@@ -19,7 +19,7 @@ nav::before {
 }
 
 nav {
-  @apply bg-transparent flex flex-wrap content-center p-2 navbar-text fixed w-full;
+  @apply bg-transparent flex flex-wrap content-center p-2 navbar-text fixed w-full z-10;
   height: $navbarHeight;
   // backdrop-filter: blur(10px);
 }
@@ -29,7 +29,7 @@ nav {
 }
 
 .drawer-menu .welcome {
-  @apply block md:hidden border-white h-44 border-b m-2;
+  @apply block md:hidden border-b-2 border-primary-700 h-44 m-2;
   margin-top: $navbarHeight;
 }
 

@@ -45,7 +45,9 @@ const RadioInputOption: React.FC<RadioInputOptionProps> = ({
           disabled={disabled}
           onChange={onChange}
           checked={isSelected}
+          className="input-radio-hidden"
         />
+        <label htmlFor={id} className="custom-radio" />
         <label htmlFor={id} className={`${isSelected ? RadioOptionConfig.classSelected : ''}`}>
           {label}
         </label>

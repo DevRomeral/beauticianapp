@@ -1,0 +1,36 @@
+.input-radio-hidden {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-radio {
+  @apply border-primary-300 h-4 w-4 border-2 bg-background-50 transition-all duration-300 rounded-full cursor-pointer;
+  display: inline-block;
+  position: relative;
+}
+
+.custom-radio+label {
+  @apply cursor-pointer;
+}
+
+.custom-radio::after {
+  @apply w-1 h-1 rounded-full block absolute transition-all duration-300;
+  content: '';
+  background-color: transparent;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.input-radio-hidden:checked+.custom-radio {
+  @apply border-primary-700 bg-primary-400;
+}
+
+.input-radio-hidden:checked+.custom-radio::after {
+  @apply border-green-500;
+}
+
+.input-radio-hidden:focus+.custom-radio {
+  @apply shadow-sm shadow-primary-950;
+}
