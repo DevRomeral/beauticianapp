@@ -17,21 +17,6 @@ export interface ButtonProps extends ILoadingProps {
   onClick?: () => void | Promise<void>;
 }
 
-function buttonStyles(style: ButtonStyle): string {
-  switch (style) {
-    case '':
-      return 'text-primary-700 hover:bg-primary-200';
-    case 'primary':
-      return 'bg-primary-300 text-black hover:bg-primary-200';
-    case 'danger':
-      return 'bg-red-500 hover:bg-red:200 text-white';
-    case 'success':
-      return 'bg-success-300 hover:bg-success-200 text-black';
-    default:
-      return '';
-  }
-}
-
 const Button: React.FC<ButtonProps> = ({
   id,
   icon = '',
@@ -44,14 +29,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <LoadingPlaceholder isLoading={isLoading} width="w-40" height="h-8">
-      <button
-        type={type}
-        className={`flex flex-row items-center gap-1 rounded-sm px-2 py-1 text-base font-semibold uppercase duration-300 disabled:bg-gray-200 disabled:text-gray-600 ${buttonStyles(style)}`}
-        onClick={onClick}
-        id={id}
-        data-testid={id}
-        disabled={disabled}
-      >
+      <button type={type} className={style} onClick={onClick} id={id} data-testid={id} disabled={disabled}>
         {icon && <ButtonIcon id={icon} />}
         {text}
       </button>

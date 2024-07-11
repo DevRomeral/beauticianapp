@@ -1,0 +1,62 @@
+/* Main Button */
+$btnBackgroundColor: theme('backgroundColor.transparent');
+$btnHoverBackgroundColor: theme('backgroundColor.primary.200');
+$btnTextColor: theme('textColor.primary.700');
+
+/* Primary Button */
+$btnPrimaryBackgroundColor: theme('backgroundColor.primary.300');
+$btnPrimaryHoverBackgroundColor: theme('backgroundColor.primary.200');
+$btnPrimaryTextColor: theme('textColor.black');
+
+/* Danger Button */
+$btnDangerBackgroundColor: theme('backgroundColor.red.500');
+$btnDangerHoverBackgroundColor: theme('backgroundColor.primary.200');
+$btnDangerTextColor: theme('textColor.white');
+
+/* Danger Button */
+$btnSuccessBackgroundColor: theme('backgroundColor.success.300');
+$btnSuccessHoverBackgroundColor: theme('backgroundColor.success.200');
+$btnSuccessTextColor: theme('textColor.black');
+
+/******************************************************************************/
+
+/* Main Button */
+button {
+  @apply flex flex-row items-center gap-1 rounded-sm px-2 py-1 text-base font-semibold uppercase duration-300 disabled:bg-gray-200 disabled:text-gray-600;
+  background-color: $btnBackgroundColor;
+  color: $btnTextColor;
+}
+
+button:hover {
+  background-color: $btnHoverBackgroundColor;
+}
+
+/* Primary Button */
+button.primary {
+  background-color: $btnPrimaryBackgroundColor;
+  color: $btnPrimaryTextColor;
+}
+
+button.primary:hover {
+  background-color: $btnPrimaryHoverBackgroundColor;
+}
+
+/* Danger Button */
+button.danger {
+  background-color: $btnDangerBackgroundColor;
+  color: $btnDangerTextColor;
+}
+
+button.danger:hover {
+  background-color: $btnDangerHoverBackgroundColor;
+}
+
+/* Success Button */
+button.success {
+  background-color: $btnSuccessBackgroundColor;
+  color: $btnSuccessTextColor;
+}
+
+button.success:hover {
+  background-color: $btnSuccessHoverBackgroundColor;
+}

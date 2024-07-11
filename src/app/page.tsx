@@ -46,6 +46,7 @@ export default function HomePage() {
             <Button text="Normal" />
             <Button style="primary" text="Primary" />
             <Button style="danger" text="Danger" />
+            <Button style="success" text="Success" />
           </div>
           <h3>Radio Input</h3>
           <RadioInput
