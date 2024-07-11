@@ -1,34 +1,64 @@
+$radioInputTransitionDuration: theme('transitionDuration.300');
+
+/* Background Color */
+$radioInputBackgroundColor: theme('backgroundColor.background.50');
+$radioInputCheckedBackgroundColor: theme('backgroundColor.primary.400');
+
+/* Border Color */
+$radioInputBorderColor: theme('borderColor.primary.300');
+$radioInputCheckedBorderColor: theme('borderColor.primary.700');
+
+/* Border Size */
+$radioInputBorderSize: theme('borderWidth.2');
+
+/* Size */
+$radioInputSize: theme('size.4');
+
+/******************************************************************************/
+
+/* main input hidden */
 .input-radio-hidden {
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
 
+/* style of the visible radio input */
 .custom-radio {
-  @apply border-primary-300 h-4 w-4 border-2 bg-background-50 transition-all duration-300 rounded-full cursor-pointer;
+  @apply transition-all rounded-full cursor-pointer;
+  height: $radioInputSize;
+  width: $radioInputSize;
   display: inline-block;
   position: relative;
+  border: $radioInputBorderSize solid $radioInputBorderColor;
+  background-color: $radioInputBackgroundColor;
+  transition-duration: $radioInputTransitionDuration;
 }
 
+
+// .custom-radio::after {
+//   @apply w-1 h-1 rounded-full block absolute transition-all;
+//   content: '';
+//   background-color: transparent;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   transition-duration: $radioInputTransitionDuration;
+// }
+
+.input-radio-hidden:checked+.custom-radio {
+  background-color: $radioInputCheckedBackgroundColor;
+  border-color: $radioInputCheckedBorderColor;
+}
+
+/* label */
 .custom-radio+label {
   @apply cursor-pointer;
 }
 
-.custom-radio::after {
-  @apply w-1 h-1 rounded-full block absolute transition-all duration-300;
-  content: '';
-  background-color: transparent;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.input-radio-hidden:checked+.custom-radio {
-  @apply border-primary-700 bg-primary-400;
-}
-
-.input-radio-hidden:checked+.custom-radio::after {
-  @apply border-green-500;
+/* label for checked radio */
+.input-radio-hidden:checked+.custom-radio+label {
+  @apply font-bold;
 }
 
 .input-radio-hidden:focus+.custom-radio {

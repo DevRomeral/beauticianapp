@@ -4,10 +4,6 @@ import React from 'react';
 
 import LoadingPlaceholder, { ILoadingProps, LoadingPlaceholderConfig } from '../../display/LoadingPlaceholder';
 
-export const RadioOptionConfig = {
-  classSelected: 'font-bold underline',
-};
-
 export interface IRadioOption {
   id: string;
   value: string;
@@ -48,9 +44,7 @@ const RadioInputOption: React.FC<RadioInputOptionProps> = ({
           className="input-radio-hidden"
         />
         <label htmlFor={id} className="custom-radio" />
-        <label htmlFor={id} className={`${isSelected ? RadioOptionConfig.classSelected : ''}`}>
-          {label}
-        </label>
+        <label htmlFor={id}>{label}</label>
       </LoadingPlaceholder>
     </div>
   );

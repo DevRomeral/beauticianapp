@@ -51,7 +51,7 @@ export default function HomePage() {
           <h3>Radio Input</h3>
           <RadioInput
             isLoading={false}
-            defaultValue=""
+            defaultValue="value2"
             name="tmpRadio"
             onChange={(value: string) => {
               console.log(value);
