@@ -1,0 +1,70 @@
+$checkInputTransitionDuration: theme('transitionDuration.300');
+
+/* Background Color */
+$checkInputBackgroundColor: theme('backgroundColor.background.50');
+$checkInputCheckedBackgroundColor: theme('backgroundColor.primary.400');
+
+/* Border Color */
+$checkInputBorderColor: theme('borderColor.primary.300');
+$checkInputCheckedBorderColor: theme('borderColor.primary.700');
+
+/* Border Size */
+$checkInputBorderSize: theme('borderWidth.2');
+
+/* Border Radius */
+$checkInputBorderRadius: theme('borderRadius.sm');
+
+/* Size */
+$checkInputSize: theme('size.4');
+
+/******************************************************************************/
+
+/* main input hidden */
+.input-check-hidden {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* style of the visible check input */
+.custom-check {
+  @apply transition-all cursor-pointer;
+  height: $checkInputSize;
+  width: $checkInputSize;
+  display: inline-block;
+  position: relative;
+  border-radius: $checkInputBorderRadius;
+  border: $checkInputBorderSize solid $checkInputBorderColor;
+  background-color: $checkInputBackgroundColor;
+  transition-duration: $checkInputTransitionDuration;
+}
+
+
+// .custom-check::after {
+//   @apply w-1 h-1 rounded-full block absolute transition-all;
+//   content: '';
+//   background-color: transparent;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   transition-duration: $checkInputTransitionDuration;
+// }
+
+.input-check-hidden:checked+.custom-check {
+  background-color: $checkInputCheckedBackgroundColor;
+  border-color: $checkInputCheckedBorderColor;
+}
+
+/* label */
+.custom-check+label {
+  @apply cursor-pointer;
+}
+
+/* label for checked check */
+.input-check-hidden:checked+.custom-check+label {
+  @apply font-bold;
+}
+
+.input-check-hidden:focus+.custom-check {
+  @apply shadow-sm shadow-primary-950;
+}

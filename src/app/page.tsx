@@ -3,11 +3,16 @@
 import { Dashboard } from '@/services/api/ApiUserService';
 import { Customer } from '@/types/customer.model';
 import { useTranslations } from 'next-intl';
+import { ChangeEvent } from 'react';
 
 import AppointmentCard from '@/components/appointment/AppointmentCard';
 import CustomerCard from '@/components/cards/CustomerCard';
 import Button from '@/components/inputs/Button';
+import CheckBox from '@/components/inputs/CheckBox';
+import DateField from '@/components/inputs/DateField';
 import RadioInput from '@/components/inputs/radio/RadioInput';
+import Select from '@/components/inputs/Select';
+import TextArea from '@/components/inputs/TextArea';
 import TextField from '@/components/inputs/TextField';
 
 export default function HomePage() {
@@ -61,11 +66,31 @@ export default function HomePage() {
               { id: 'id2', value: 'value2', label: 'children2' },
             ]}
           />
-
+          <h3>Check Box</h3>
+          <CheckBox
+            id={'cbDemo'}
+            value={'cbDemo'}
+            label={'CheckBox'}
+            name={'cbDemo'}
+            // currentValue={true}
+            onChange={function (e: ChangeEvent<HTMLInputElement>): void {
+              console.log('Checked: ' + e.target.checked);
+            }}
+          />
           <h3>Text Fields</h3>
           <div className="flex flex-row gap-2">
             <TextField id="tfPrueba" label="Mi Input" placeholder="Placeholder" />
+            <TextArea id="tfPruebaArea" label="Mi Textarea" placeholder="Placeholder" />
           </div>
+          <DateField id={'dfDemo'} label={'Fecha'} />
+          <Select
+            id={'dfDemo'}
+            label={'Select'}
+            options={[
+              { value: '1', content: 'Primero' },
+              { value: '2', content: 'Second' },
+            ]}
+          />
         </div>
         <div>
           <h1>Cards</h1>

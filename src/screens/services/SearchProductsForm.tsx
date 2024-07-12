@@ -3,7 +3,6 @@
 import { fetchProducts } from '@/services/api/ApiProductService';
 import { Product } from '@/types/product.model';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import ProductCard from '@/components/cards/ProductCard';
@@ -20,7 +19,7 @@ export const FormConfig = {
 
 export default function SearchProductsForm() {
   const t = useTranslations('Products');
-  const router = useRouter();
+  // const router = useRouter();
   const [noResultsPanelVisible, setNoResultsPanelVisible] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 

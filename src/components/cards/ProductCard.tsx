@@ -4,7 +4,6 @@ import { Product } from '@/types/product.model';
 import { printTime } from '@/utils/format/DateFormat';
 import { printPrice } from '@/utils/format/PriceFormat';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 
 import Card from './Card';
 
@@ -14,12 +13,12 @@ export interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const t = useTranslations('Components.ProductCard');
-  const router = useRouter();
+  // const router = useRouter();
 
-  const viewDetails = () => {
-    alert('TO BE DONE');
-    // router.push(`/clientes/${product.id}`);
-  };
+  // const viewDetails = () => {
+  //   alert('TO BE DONE');
+  //   // router.push(`/clientes/${product.id}`);
+  // };
 
   const priceElement = product.price > 0 ? `${printPrice(product.price)} ${t('price')}` : t('freePrice');
   const timeElement = product.estimatedtime > 0 ? printTime(product.estimatedtime) : '';
