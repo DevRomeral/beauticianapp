@@ -1,14 +1,131 @@
 {
-  "Index": {
-    "title": "Hello world!"
+  "Home": {
+    "title": "Hello, World!"
+  },
+  "404": {
+    "title": "Page Not Found"
+  },
+  "Components":{
+    "CustomerCard": {
+      "last-appointment": "Last Appointment"
+    },
+    "ProductCard": {
+      "price": "euros",
+      "freePrice": "free!"
+    }
+  },
+  "Products": {
+    "title": "Products",
+    "noResults": "No products were found",
+    "form": {
+      "buttonNew": {
+        "title": "Create Product"
+      },
+      "main": {
+        "label": "Search Products",
+        "placeholder": "Name | Category"
+      }
+    }
+  },
+  "Clientes": {
+    "title": "Customers",
+    "form": {
+      "buttonNew": {
+        "title": "Register Customer"
+      },
+      "main": {
+        "label": "Search Customer",
+        "placeholder": "Name | Lastname | Age | P.C."
+      }
+    },
+    "no-results": "No user has been found",
+    "NotFound": {
+      "description": "No customers were found",
+      "form": {
+        "goBack": {
+          "title": "Back"
+        },
+        "createNew": {
+          "title": "Create new customer"
+        }
+      }
+    },
+    "Detalles":{
+      "form": {
+        "buttonEdit": {
+          "title": "Edit"
+        }
+      },
+      "sections": {
+        "age": {
+          "title": "yo"
+        },
+        "diseases":{
+          "title": "Diseases"
+        }
+      }
+    },
+    "CrearEditar": {
+      "title": {
+        "create": "Create customer",
+        "edit": "Edit customer"
+      },
+      "form":{
+        "name": {
+          "label": "Lastname",
+          "placeholder": "Customer's lastname"
+        },
+        "lastname1": {
+          "label": "First name",
+          "placeholder": "First name"
+        },
+        "lastname2": {
+          "label": "Second name",
+          "placeholder": "Seocnd name"
+        },
+        "birthday": {
+          "label": "Birthday date",
+          "placeholder": "Birthday date"
+        },
+        "age": "You're {age} year{plural} old",
+        "diseases": {
+          "label": "Diseases",
+          "add": {
+            "title": "Add"
+          }
+        },
+        "watch":{
+          "label": "Observations",
+          "placeholder": "Alergic to..."
+        },
+        "cancel": {
+          "title":"Cancel",
+          "alert": {
+            "description": "Changes won't be saved. Are you sure?",
+            "cancel": "Cancel",
+            "ok": "Yes, discard"
+          }
+        },
+        "save": {
+          "create":{
+            "title": "Create Customer"
+          },
+          "edit":{
+            "title": "Save Changes"
+          }
+        }
+      }
+    }
   },
   "Navbar": {
-    "linkSignIn": "Sign In",
-    "linkSignOut": "Sign Out",
+    "linkSignIn": "Sign in",
+    "linkSignOut": "Sign out",
     "links":{
       "settings": "Settings",
+      "products": "Products",
       "profile": "Profile",
-      "home": "Home"
+      "home": "Home",
+      "clientes": "Customers"
     },
     "drawer-menu":{
       "welcome": "Hi!",
@@ -17,9 +134,63 @@
   },
   "Settings":{
     "title": "Settings",
-    "languages":{
-      "es": "Spanish",
-      "en": "English"
+    "language":{
+      "title": "Language",
+      "description": "Change the app's language",
+      "options": {
+        "es": "Spanish",
+        "en": "English"
+      }
+    }
+  },
+  "Welcome": {
+    "title": "Welcome",
+    "form":{
+      "email":{
+        "label": "Username",
+        "placeholder": "myemail@mail.com"
+      }
+    },
+    "Login": {
+      "form": {
+        "password": {
+          "label": "Password",
+          "placeholder": "***************"
+        },
+        "submit": {
+          "title": "Sign In"
+        }
+      },
+      "errors": {
+        "empty-password": "You must provide a password",
+        "unknown": "Incorrect user or password"
+      }
+    },
+    "Register": {
+      "form":{
+        "password1": {
+          "label": "Password",
+          "placeholder": "***************"
+        },
+        "password2": {
+          "label": "Confirm Password",
+          "placeholder": "***************"
+        },
+        "submit": {
+          "title": "Sign up"
+        }
+      },
+      "errors": {
+        "not-valid-password": "You must provide a valid password",
+        "missmatch-password": "Passwords doesn't match",
+        "unknown": "Error when signing up user"
+      }
+    }
+  },
+  "Alert": {
+    "Defaults": {
+      "ok": "Confirm",
+      "cancel": "Cancel"
     }
   }
 }

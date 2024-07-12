@@ -15,7 +15,7 @@ import DebugInfo from '@/components/DebugInfo';
 import LoadingPlaceholder from '@/components/display/LoadingPlaceholder';
 import PageTitle from '@/components/display/PageTitle';
 import Button from '@/components/inputs/Button';
-import DateField from '@/components/inputs/DateField';
+import DateField from '@/components/inputs/dates/DateField';
 import Select, { ISelectOption } from '@/components/inputs/Select';
 import TextArea from '@/components/inputs/TextArea';
 import TextField from '@/components/inputs/TextField';

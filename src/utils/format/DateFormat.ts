@@ -32,12 +32,42 @@ export function getDateValueAsString(date: Date | null | undefined): string {
   return `${year}-${month}-${day}`;
 }
 
-export function getDateValueFromString(value: string): Date {
-  if (!value) return new Date();
+export function getDateTimeValueAsString(date: Date | null | undefined): string {
+  if (date == undefined || date == null) return '';
 
-  const localDate = new Date(value);
+  const day = getDateValueAsString(date);
+
+  const hour = String(date.getHours()).padStart(2, '0');
+  const mins = String(date.getMinutes()).padStart(2, '0');
+  return `${day}T${hour}:${mins}`;
+}
+
+export function getDateValueFromString(localDateString: string): Date {
+  if (!localDateString) return new Date();
+
+  const localDate = new Date(localDateString);
   const utcDate = new Date(Date.UTC(localDate.getUTCFullYear(), localDate.getUTCMonth(), localDate.getUTCDate()));
 
+  return utcDate;
+}
+
+export function getDateTimeValueFromString(localDateString: string): Date {
+  if (!localDateString) return new Date();
+
+  const localDate = new Date(localDateString);
+  const utcDate = new Date(
+    Date.UTC(
+      localDate.getUTCFullYear(),
+      localDate.getUTCMonth(),
+      localDate.getUTCDate(),
+      localDate.getUTCHours(),
+      localDate.getUTCMinutes(),
+    ),
+  );
+
+  // console.log(
+  //   `${utcDate.getUTCDate()}/${utcDate.getMonth() + 1}/${utcDate.getUTCFullYear()}, ${utcDate.getUTCHours()}:${utcDate.getUTCMinutes()}`,
+  // );
   return utcDate;
 }
 

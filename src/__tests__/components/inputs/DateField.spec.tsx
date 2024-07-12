@@ -1,7 +1,7 @@
 import { getDateValueAsString } from '@/utils/format/DateFormat';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import DateField from '@/components/inputs/DateField';
+import DateField from '@/components/inputs/dates/DateField';
 
 describe('DateField', () => {
   const id = 'dateFeildId';

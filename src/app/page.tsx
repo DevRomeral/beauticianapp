@@ -9,7 +9,8 @@ import AppointmentCard from '@/components/appointment/AppointmentCard';
 import CustomerCard from '@/components/cards/CustomerCard';
 import Button from '@/components/inputs/Button';
 import CheckBox from '@/components/inputs/CheckBox';
-import DateField from '@/components/inputs/DateField';
+import DateField from '@/components/inputs/dates/DateField';
+import DateTimeField from '@/components/inputs/dates/DateTimeField';
 import RadioInput from '@/components/inputs/radio/RadioInput';
 import Select from '@/components/inputs/Select';
 import TextArea from '@/components/inputs/TextArea';
@@ -83,6 +84,7 @@ export default function HomePage() {
             <TextArea id="tfPruebaArea" label="Mi Textarea" placeholder="Placeholder" />
           </div>
           <DateField id={'dfDemo'} label={'Fecha'} />
+          <DateTimeField id={'dfDemoTime'} label={'Fecha y Hora'} minDate={new Date(2024, 6, 9, 12, 0)} />
           <Select
             id={'dfDemo'}
             label={'Select'}

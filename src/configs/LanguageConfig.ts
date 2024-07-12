@@ -6,9 +6,9 @@ export const LanguageConfig = {
       code: 'es',
       text: 'language.options.es',
     },
-    // {
-    //   code: 'en',
-    //   text: 'language.options.en',
-    // },
+    {
+      code: 'en',
+      text: 'language.options.en',
+    },
   ],
 };
